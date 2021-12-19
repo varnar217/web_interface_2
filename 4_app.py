@@ -2819,10 +2819,11 @@ def delete_eb(number):
 @app.route('/eps/scenar/<int:number>', methods=[ 'POST','GET'])
 def eps_scenar(number):
     """  customization of an individual scenario """
-    global lang_switch , conect , number_idd , regim_rabota_mode , indef_froma
+    global lang_switch , conect , number_idd , regim_rabota_mode , indef_froma , stopped_msg_mac ,  stopped_bufer
     number_idd=number
     indef_froma=6
-
+    if stopped_bufer ==True:
+        return redirect(url_for('gra'))
     punkt_menu=[]
 
     punkt_menu_nach=[[bufer_menu_ALL_form_eng[4][0],bufer_menu_ALL_form_eng[4][1] ,bufer_menu_ALL_form_eng[4][2],bufer_menu_ALL_form_eng[4][3],bufer_menu_ALL_form_eng[4][4]
@@ -2942,7 +2943,7 @@ def eps_scenar(number):
         return render_template('epsbiar_scene.html',punkt_menu=punkt_menu,conect=conect,
         lang_switch=lang_bool, scen_number=number,
         set=zip(values,labels),berr=buferr ,size=size,string_pcap=string_pcap,pcap_id=out_pcap_id,
-        time_otvet=time_otvet,start_flag1=start_flag,string=string , error_flag_add_scenar=error_flag_add_scenar,iter_nacha=iter_nacha,error_flag_add_scenar1=error_flag_add_scenar1,global_velocity=global_velocity)
+        time_otvet=time_otvet,start_flag1=start_flag,string=string , error_flag_add_scenar=error_flag_add_scenar,iter_nacha=iter_nacha,error_flag_add_scenar1=error_flag_add_scenar1,global_velocity=global_velocity,stopped_msg_mac=stopped_msg_mac,stopped_bufer=stopped_bufer)
 
 
 @app.route('/network/add', methods=[ 'POST'])
@@ -3100,7 +3101,7 @@ def network_change():
     #pass
 @app.route('/eps/network/<int:number>', methods=[ 'POST','GET'])
 def eps_network(number):
-    global lang_switch , conect , number_idd ,regim_rabota_mode  , eps_network_buferss
+    global lang_switch , conect , number_idd ,regim_rabota_mode  , eps_network_buferss , stopped_bufer ,stopped_bufer
     number_idd=number
 
     punkt_menu=[]
@@ -3145,6 +3146,8 @@ def eps_network(number):
         number_idd=number
         #znach=network_list[number-1]
         bufer_network=0
+        if stopped_bufer ==True:
+            return redirect(url_for('gra'))
         #print('network_list=',network_list)
         for it in network_list:
             if it[3] == number:
@@ -3179,7 +3182,7 @@ def eps_network(number):
 
         return render_template('epsbiar_network.html',
         punkt_menu=punkt_menu,lang_bool=lang_bool,conect=conect,
-        network_number=network_number,zagolovok=zagolovok,time_otvet=time_otvet,start_flag1=start_flag,string=string)
+        network_number=network_number,zagolovok=zagolovok,time_otvet=time_otvet,start_flag1=start_flag,string=string , stopped_bufer=stopped_bufer , stopped_msg_mac=stopped_msg_mac )
 
 
 
@@ -3415,6 +3418,7 @@ def LIST_EPS():
 
             # for it in eps_br: network
             # it[2]['id']
+            print('\n stopped_bufer=',stopped_bufer)
 
 
             return  render_template('epb_table.html',iter_nacha=iter_nacha,lang_bool=lang_bool,conect=conect,punkt_menu=punkt_menu,summer_velocity=summer_velocity,
@@ -3496,6 +3500,7 @@ def start():
 
             sesion_1=req.put(f'http://{udras}/state/run',json=json_out)
             #time.sleep(10)
+            stopped_bufer=False
 
             stop=int(time()*1000-start)
             time_otvet =stop*1
@@ -3519,13 +3524,31 @@ def start():
                     #print('\n !!!!rab2')
 
                 #error_flag=False
-                #stopped_bufer=False
+
             else:
-                start_flagss=0
-                start_flag1=0
-                error_flag=True
+                stopped_bufer=False
+
+
+
                 allert_msg= js['response']['msg']
                 print('allert_msg=',allert_msg)
+
+                if str("Request PUT(/state/run) Generator is already ") in str(allert_msg):
+                    #start_flag1=1
+                    error_flag=False
+                else:
+                    start_flagss=0
+                    start_flag1=0
+                    error_flag=True
+
+                #if str("Request PUT(/state/run) Generator is already running") in str(allert_msg):
+                    #start_flag1=start_flag1+1
+                if js['state']['run'] == False :
+                    start_flag1=0
+                    error_flag=False
+                if js['state']['run'] == True :
+                    start_flag1=1
+                    error_flag=False
 
 
 
@@ -3534,6 +3557,9 @@ def start():
                 start_flag=True
             else:
                 start_flag=False
+
+            print('\n start start_flag=',start_flag)
+            print('\n start start_flag1=',start_flag1)
 
 
             return  redirect(url_for("gra")) #render_template('2_gra.html')
@@ -3566,9 +3592,14 @@ def stopped2():
         global stopped_bufer ,  stopped_msg_mac
         print('\n stopped_bufer',stopped_bufer)
         print('\n stopped_msg_mac',stopped_msg_mac)
+        ######### Убрать
+        #stopped_bufer=True
+        #stopped_msg_mac='Request PUT(/state/run) Generator is already running'
 
-        if stopped_bufer and len(stopped_msg_mac)!=0:
-            data2=[("Not"),0]
+        ######### Убрать
+
+        if stopped_bufer :
+            data2=["God",2]
 
         #json_data=data
             json_data = json.dumps(data2)
@@ -3579,9 +3610,10 @@ def stopped2():
 
             response = make_response(json_data)
             print('\n resp=',json_data)
-            return response
+            return response , 400
+
         else:
-            data2=[("God"),0]
+            data2=["Not",2]
 
         #json_data=data
             json_data = json.dumps(data2)
@@ -3774,6 +3806,8 @@ def Menu():
         start_flag=False
     print('spisk=',spisk)
     print('MAC_SRC_SORCE=',MAC_SRC_SORCE)
+    print('\n stopped_bufer=',stopped_bufer)
+
     print('\n stopped_bufer=',stopped_bufer)
     return render_template('form.html',punkt_menu=punkt_menu,conect=conect,
     lang_switch=lang_bool, menu=menu,  set=zip(values, labels), rabota_status=rabota_status, param = param,
@@ -4234,6 +4268,9 @@ def scenar_spis():
         if conect ==False:
             return redirect(url_for('gra'))
 
+        if stopped_bufer ==True:
+            return redirect(url_for('gra'))
+
         try:
             global spisok_scenariev , time_otvet ,custom
 
@@ -4327,6 +4364,8 @@ def scenar_spis():
                 else:
                     start_flag=False
                 iter_nacha=[1]
+                print('\n  \n stopd=',stopped_msg_mac)
+                print('\n \n stopped_bufer=',stopped_bufer)
 
                 return  render_template('table_scenari.html',punkt_menu=punkt_menu,conect=conect,lang_switch=lang_bool,
                 iter_nacha=iter_nacha,spisok_outt=spisok_outt,time_otvet=time_otvet,start_flag1=start_flag,string=string ,stopped_msg_mac= stopped_msg_mac, stopped_bufer=stopped_bufer) #redirect(f"/eps/{global_number_eps}")
@@ -4404,6 +4443,9 @@ def network_spis():
     if request.method == 'POST' or request.method == 'GET':
         #if conect ==False:
             #return redirect(url_for('gra'))
+        if stopped_bufer ==True:
+            return redirect(url_for('gra'))
+
         global start_flag1
         spisok_outt=[]
         eps_spis=[]
@@ -4662,7 +4704,7 @@ def gra():
             #print('error_flag=',error_flag)
             #print('\n \n \n !!!! stopped_msg_mac=',stopped_msg_mac)
             #print('\n \n \n !!!! stopped_bufer=',stopped_bufer)
-            if len(stopped_msg_mac)>1 :
+            if stopped_bufer  and len(stopped_msg_mac)>1 :
                 error_flag=False
                 start_flag1=0
                 start_flag=True
@@ -4688,7 +4730,13 @@ def gra():
 
             #start_flag1=0
             #error_flag=True
-
+            start_flag=True
+            if start_flag1%2 == 0:
+                start_flag=True
+            else:
+                start_flag=False
+            print('\n \n start_flag=', start_flag)
+            print('\n \n start_flag1=', start_flag1)
         #stopped_msg_mac= stopped_msg_mac
         #stopped_bufer=True
             return render_template('2_gra.html',bufer_network2=bufer_network2,

@@ -207,7 +207,16 @@ float:left;
 
    <input class= "myButton"  style="  float: right;  padding: 16px; background-color: red; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" value="{{punkt_menu[18]}}" />
 {% endif %}
+<script type="text/javascript" src="{{ url_for('static', filename='libs/jquery.min.js') }}"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>-->
+    <!--suppress JSUnresolvedLibraryURL -->
+    <script type="text/javascript" src="{{ url_for('static', filename='libs/bootstrap.min.js') }}"></script>
 
+    <!--suppress JSUnresolvedLibraryURL -->
+    <!--<script type="text/javascript" src="{{ url_for('static', filename='js/Chart.mi.js') }}"></script>-->
+    <script  src="{{ url_for('static', filename='libs/chart.min.js') }}"></script>
+    <script  src="{{ url_for('static', filename='libs/chart.js') }}"></script>
+      <script  src="{{ url_for('static', filename='libs/Chart.js') }}"></script>
 
         {% if stopped_bufer %}
 
@@ -230,7 +239,35 @@ float:left;
       };
     </script>
     {% else %}
+    <script language="JavaScript">
 
+
+       var joined = '/stopped2'
+       var getData = function(){
+         $.ajax({
+             type: "POST",
+             url: joined,
+             data: $('form').serialize(),
+             type: 'POST',
+             success: function(response) {
+
+             },
+             error: function(error) {
+                   location.reload();
+             }
+         });
+
+
+
+       }
+       // get new data every 3 seconds
+       setInterval(getData, 3000);
+
+
+
+
+
+    </script>
         {% endif %}
 
         {% if error_flag_add_eps %}

@@ -358,7 +358,7 @@ padding: 3px;
 
         <div class="test1" >
 
-  <form   method="POST" action='/grafik' class="form-container">
+  <form  style=" display:block;"  method="POST" action='/grafik' class="form-container">
 
                   {%for  i  in data_grafik1%}
 
@@ -391,7 +391,7 @@ padding: 3px;
                   </select>
                   {%endfor%}
 
-                <p><input  type = "submit" value = "{{punkt_menu[12]}}"  /></p>
+                <p><input id="selectedd" type = "submit" value = "{{punkt_menu[12]}}"  /></p>
                 </form>
 
 
@@ -406,15 +406,20 @@ padding: 3px;
 
 
         </form>
-        <button id="start46" class= "myButton22"  style=" margin: 0 auto; background-color: Yellow; color:aliceblue; display:none; "  >{{punkt_menu[7]}}</button>
-
+          <form   style=" display:none;" >
+         <button id="start46" class= "myButton22"  style=" margin: 0 auto; background-color: rgba(255, 255, 128, .5); color:aliceblue; "  >{{punkt_menu[7]}}</button>
+       </form>
      {% else %}
      <form    style="  display:block;" action="/start" method = "POST">
-       <button id="start45" class= "myButton22"  style=" margin: 0 auto; background-color: red; color:aliceblue; " type = "submit"   onclick="trigger()">{{punkt_menu[1]}}</button>
+           <button id="start45" class= "myButton22"  style=" margin: 0 auto; background-color: red; color:aliceblue; " type = "submit"   onclick="trigger()">{{punkt_menu[1]}}</button>
 
         <!--<input class= "myButton22"  style=" margin: 0 auto; background-color: red; color:aliceblue; " type = "submit" onclick="trigger()" (click)="changeButton(button)" value = "{{punkt_menu[1]}}" />-->
      </form>
-     <button id="start46" class= "myButton22"  style=" margin: 0 auto; background-color: Yellow; color:aliceblue; display:none;"   >{{punkt_menu[7]}}</button>
+
+     <form   style=" display:none;" >
+    <button id="start46" class= "myButton22"  style=" margin: 0 auto; background-color: rgba(255, 255, 128, .5); color:aliceblue;  "  >{{punkt_menu[1]}}</button>
+  </form>
+     <!--<button id="start46" class= "myButton22"  style=" margin: 0 auto; background-color: Yellow; color:aliceblue; display:none;"   >{{punkt_menu[7]}}</button>-->
 
 
      {% endif %}
@@ -424,7 +429,7 @@ padding: 3px;
      <br>
 
 
-     <script>
+     <script language="JavaScript">
        // Initiate a global variable a
 
        /*var btns = document.querySelector('form input[type=submit], form button[type=submit]');
@@ -432,48 +437,72 @@ padding: 3px;
        	this.disabled = true;
       });*/
 
-       var a = 0;
+
        function trigger() {
+          var a = 0;
          a++;
-         if (a===1){
+         //if (a==1) 
+         {
+
+        // {
          let x = document.getElementById('LIST_EPS');
-             if (x.style.display == "none"){
+         x.style.display ="none" ;
+        // if (x.style.display == "none"){
+      // x.style.display = "block";
+      // } else {
+    //  x.style.display = "none"} ;
+      let x7 = document.getElementById('selectedd');
+      x7.style.display = "none"
+      //if (x7.style.display == "none"){
+    //x7.style.display = "block";
+  //  } else {
+  // x7.style.display = "none"} ;
+
+        //else {
+    //  x.style.display = "none"} ;
+
+            /* if (x.style.display == "none"){
            x.style.display = "block";
            } else {
-          x.style.display = "none"} ;
+          x.style.display = "none"} ;*/
 
            let x2 = document.getElementById('scenar');
-               if (x2.style.display == "none"){
-             x2.style.display = "block";
-             } else {
-            x2.style.display = "none"} ;
+           x2.style.display = "none" ;
+               //if (x2.style.display == "none"){
+            // x2.style.display = "block";
+            // } else {
+          //  x2.style.display = "none"} ;
             let x3 = document.getElementById('scenar_network');
-                if (x3.style.display == "none"){
-              x3.style.display = "block";
-              } else {
-             x3.style.display = "none"} ;
+             x3.style.display = "none" ;
+                //if (x3.style.display == "none"){
+            //  x3.style.display = "block";
+            //  } else {
+            // x3.style.display = "none"} ;
 
              let x4 = document.getElementById('MENU_EPS');
-                 if (x4.style.display == "none"){
-               x4.style.display = "block";
-               } else {
-              x4.style.display = "none"} ;
+               x4.style.display = "none" ;
+                 //if (x4.style.display == "none"){
+              // x4.style.display = "block";
+              // } else {
+            //  x4.style.display = "none"} ;
 
          let x5 = document.getElementById('start45');
-             if (x5.style.display == "none"){
-           x5.style.display = "block";
-           } else {
-          x5.style.display = "none"} ;
+         x5.style.display = "none";
+             //if (x5.style.display == "none"){
+           //x5.style.display = "block";
+          // } else {
+        //  x5.style.display = "none"} ;
 
-           };
+           //};
 
            let x6 = document.getElementById('start46');
-               if (x6.style.display == "none"){
-             x6.style.display = "block";
-             } else {
-            x6.style.display = "none"} ;
+            x6.style.display = "none";
+               //if (x6.style.display == "none"){
+            // x6.style.display = "block";
+            // } else {
+          //  x6.style.display = "none"} ;
 
-             };
+             //};
 
            //let x = document.getElementById('back_23');
           // if (x.style.type == "submit"){
@@ -491,6 +520,7 @@ padding: 3px;
        	 //x.style.display = "none"} ;
 
          //console.log(a);
+             }
        }
      </script>
 

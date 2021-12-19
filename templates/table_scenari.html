@@ -192,7 +192,16 @@ body {background-color: LightCyan;}
      <input class= "myButton2"  style=" padding: 16px; background-color: red; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" value="{{punkt_menu[11]}}" />
   {% endif %}
 
+  <script type="text/javascript" src="{{ url_for('static', filename='libs/jquery.min.js') }}"></script>
+      <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>-->
+      <!--suppress JSUnresolvedLibraryURL -->
+      <script type="text/javascript" src="{{ url_for('static', filename='libs/bootstrap.min.js') }}"></script>
 
+      <!--suppress JSUnresolvedLibraryURL -->
+      <!--<script type="text/javascript" src="{{ url_for('static', filename='js/Chart.mi.js') }}"></script>-->
+      <script  src="{{ url_for('static', filename='libs/chart.min.js') }}"></script>
+      <script  src="{{ url_for('static', filename='libs/chart.js') }}"></script>
+        <script  src="{{ url_for('static', filename='libs/Chart.js') }}"></script>
 
 
           {% if stopped_bufer %}
@@ -216,43 +225,35 @@ body {background-color: LightCyan;}
         };
       </script>
       {% else %}
-      <body onload="requestData_alive()">
-       <div id="welcome"></div>
-      </body>
+    <script language="JavaScript">
 
-      <script language="JavaScript">
-         let  intervalID ;
-       function requestData_alive()
-       {
+
          var joined = '/stopped2'
+         var getData = function(){
+           $.ajax({
+               type: "POST",
+               url: joined,
+               data: $('form').serialize(),
+               type: 'POST',
+               success: function(response) {
 
-         var requests = $.get(joined);
-
-
-           // Ajax call to get the Data from Flask
-           document.getElementById('welcome')
-           var tm = requests.done(function (result)
-           {
-             var data1 = [];
-
-             data1.push(result[0]);
-             if (data1[0]== "Not" ){
-                clearTimeout(intervalID) ;
-               location.reload();
-
-              }else{
-                intervalID=setTimeout(requestData_alive, 3000);
-
-              }
-           })
+               },
+               error: function(error) {
+                     location.reload();
+               }
+           });
 
 
 
+         }
+         // get new data every 3 seconds
+         setInterval(getData, 3000);
 
-       }
 
 
-      </script>
+
+
+        </script>
           {% endif %}
 
 <center>
