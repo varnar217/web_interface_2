@@ -3561,32 +3561,38 @@ def stopped2():
     #data2=[("Not"),0]
     #stopped_msg_mac
     #stopped_bufer
-    if stopped_bufer and len(stopped_msg_mac)!=0:
-        data2=[("Not"),0]
+    if request.method == 'POST' or request.method == 'GET' :
+        print('\n rabbb')
+        global stopped_bufer ,  stopped_msg_mac
+        print('\n stopped_bufer',stopped_bufer)
+        print('\n stopped_msg_mac',stopped_msg_mac)
 
-    #json_data=data
-        json_data = json.dumps(data2)
-        response = make_response(json_data)
-    #data=["God",2]
+        if stopped_bufer and len(stopped_msg_mac)!=0:
+            data2=[("Not"),0]
 
-    #json_data = json.dumps(global_data)
+        #json_data=data
+            json_data = json.dumps(data2)
+            response = make_response(json_data)
+        #data=["God",2]
 
-        response = make_response(json_data)
-        print('\n resp=',json_data)
-        return response
-    else:
-        data2=[("God"),0]
+        #json_data = json.dumps(global_data)
 
-    #json_data=data
-        json_data = json.dumps(data2)
-        response = make_response(json_data)
-    #data=["God",2]
+            response = make_response(json_data)
+            print('\n resp=',json_data)
+            return response
+        else:
+            data2=[("God"),0]
 
-    #json_data = json.dumps(global_data)
+        #json_data=data
+            json_data = json.dumps(data2)
+            response = make_response(json_data)
+        #data=["God",2]
 
-        response = make_response(json_data)
-        print('\n resp=',json_data)
-        return response
+        #json_data = json.dumps(global_data)
+
+            response = make_response(json_data)
+            print('\n resp=',json_data)
+            return response
 
     #pass
 
@@ -3768,6 +3774,7 @@ def Menu():
         start_flag=False
     print('spisk=',spisk)
     print('MAC_SRC_SORCE=',MAC_SRC_SORCE)
+    print('\n stopped_bufer=',stopped_bufer)
     return render_template('form.html',punkt_menu=punkt_menu,conect=conect,
     lang_switch=lang_bool, menu=menu,  set=zip(values, labels), rabota_status=rabota_status, param = param,
     zagolovok=zagolovok, start_flag1=start_flag, regim_rabota_mode=regim_rabota_mode, time_otvet=time_otvet
