@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html  lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+
+    <title>form glavn string for generate </title>
+
+    <!-- Bootstraps Java Scipts Links -->
+
+    <!-- Bootstraps Java Scipts Links -->
+		<link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+		<link href="{{ url_for('static', filename='css/opove.css') }}" rel="stylesheet">
+
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+   <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
+
+	<script type="text/javascript" src="{{ url_for('static', filename='libs/jquery.slim.min.js') }}"></script>
+
+
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/Chart.mi.js') }}"></script>
+
+<style>
+body {background-color: LightCyan;}
+.c-button {
+    -webkit-writing-mode: horizontal-tb !important;
+    -webkit-appearance: button;
+    border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+    border-style: solid;
+  /*  border-width: 1px;*/
+      /* padding: 1px 7px 2px;*/
+    text-rendering: auto;
+    color: initial;
+    display: inline-block;
+    text-align: start;
+    margin: 0em;
+  /*  font: 400 11px system-ui;*/
+}
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 180px;
+}
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 2px solid #f1f1f1;
+}
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+   tbody tr:hover {
+    background: #0000FF; /* Цвет фона при наведении */
+    color: #000000; /* Цвет текста при наведении */
+   }
+
+   .myButton {
+
+       padding: 20px;
+       display:block;
+       float:left;
+       text-align:center;
+     opacity: 1;
+     background:darkturquoise ;
+     font-size: 12px;
+     padding: 20px;
+     border: solid 1px burlywood;
+     width: 100%;
+     margin: 2px 0 20px;
+     border-radius: 5px;
+     display: block;
+   }
+
+   .myButton3 {
+
+
+       display:block;
+
+     opacity: 1;
+     background:darkturquoise ;
+
+
+     display: block;
+   }
+
+   .myButton2 {
+
+
+       display:block;
+   float:left;
+       text-align:center;
+     opacity: 1;
+     background:darkturquoise ;
+     font-size: 12px;
+     padding: 20px;
+     border: solid 1px burlywood;
+     width: 100%;
+     margin: 2px 0 20px;
+     border-radius: 5px;
+     display: block;
+   }
+
+
+   .mytext {
+       width: 50px;
+       float:left;
+   }
+
+</style>
+<menu >  <center> {{string}}  </center>      </menu>
+{% if error_flag_add_scenar %}
+
+
+<body onload="alert4()">
+<div id="allert3"></div>
+</body>
+<script language="JavaScript">
+function alert4()
+{
+{
+document.getElementById('allert3');
+alert(
+
+'{{punkt_menu[8]}}'
+
+);
+}
+};
+</script>
+{% else %}
+
+{% endif %}
+
+
+
+{% if error_flag_add_scenar1 %}
+
+
+<body onload="alert5()">
+<div id="allert4"></div>
+</body>
+<script language="JavaScript">
+function alert5()
+{
+{
+document.getElementById('allert4');
+alert(
+
+'{{punkt_menu[24]}} {{global_velocity}}'
+
+);
+}
+};
+</script>
+{% else %}
+
+{% endif %}
+<!--<input class="mytext" type="text"  disabled="disabled" value ={{time_otvet}} >-->
+
+{% if lang_bool %}
+   <form action="/lengrth_form_glubnastroika" method = "POST" style="float: right;">
+
+   <input  class= "myButton2"  style= "  padding: 16px; background-color: darkblue; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" (click)="changeButton(button)" value = "English" />
+   </form>
+{% else %}
+<form action="/lengrth_form_glubnastroika" method = "POST" style="float: right;">
+
+   <input class= "myButton2"  style=" padding: 16px; background-color: darkblue; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" (click)="changeButton(button)" value = "Русский" />
+</form>
+{% endif %}
+
+{% if conect %}
+
+   <input  class= "myButton2"  style= " float: right; padding: 16px; background-color: green; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" value="{{punkt_menu[22]}}"   />
+{% else %}
+
+   <input class= "myButton2"  style="float: right;  padding: 16px; background-color: red; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" value="{{punkt_menu[23]}}" />
+{% endif %}
+    <!--<script src="http://code.highcharts.com/highcharts-more.js"></script>-->
+   <!-- <script src="http://code.highcharts.com/modules/exporting.js"></script>-->
+
+
+
+   <form  method="POST" action='/back_4' style="float:left">
+ <p><button class= "myButton2">{{punkt_menu[0]}}</button></p>
+ </form>
+
+
+
+
+   <form name="out" method="POST" action='/izmen2'>
+     {%if start_flag%}
+     <button style="background:darkturquoise ;  padding: 20px;  " >{{punkt_menu[1]}}</button>
+
+     {% else %}
+ {% endif %}
+
+ <br>
+ <br>
+<br>
+<br>
+<div>
+  <label for="velocity">{{punkt_menu[2]}}</label>
+   <input   disabled="disabled"   value="{{number}}">
+   <input type="hidden" name="eps_number"   value="{{number}}">
+
+
+<label for="velocity">{{punkt_menu[3]}} </label>
+  <input disabled="disabled"   value="{{int_scenar}}">
+   <input type="hidden" name="eps_scen"   value="{{int_scenar}}">
+
+  <label for="velocity">{{punkt_menu[4]}}  </label>
+   <input   disabled="disabled" value="{{int_netw}}">
+   <input type="hidden" name="eps_netw"   value="{{int_netw}}">
+
+ </div>
+
+<center >
+
+  <h1>  {{punkt_menu[5]}}  </h1>
+
+
+   <input disabled="disabled" id ="chenge"   value="{{size_min}}" >
+   <input type="hidden" id ="chenge2" name="znachenie" value="{{size_min}}" >
+ <!--<h1>  {{punkt_menu[6]}}  </h1>
+
+   <label  type="hidden"for="name2">
+       {{punkt_menu[10]}}
+   </label>-->
+<!--<input  type="hidden"  id="ch_id" name="znachenie"   value="{{size_min}}">-->
+
+
+
+</center>
+<!-- <form method="POST" action='/eb/nastroit/{{number}}'>
+
+ <p><input type = "submit" value = "Add" /></p>
+
+ </form>-->
+ <center>
+         <h1>{{punkt_menu[21]}}   </h1>
+    		  <label for="adres">{{punkt_menu[11]}} </label>
+    		  <input type="number" id="timeup_jitter" name="jitter_timeup" min="0" max="100000000" value="{{zagolovok[0]}}">
+          <label for="adres">{{punkt_menu[12]}} </label>
+          <input type="number" id="timedown_jitter" name="jitter_timedown" min="0" max="100000000" value="{{zagolovok[1]}}">
+         <label for="adres">{{punkt_menu[13]}}  </label>
+       <input type="number" id="value_jitter" name="jitter_value" min="0" max="100000" value="{{zagolovok[2]}}">
+
+
+     		 <h1>{{punkt_menu[20]}}  </h1>
+         <label for="adres">{{punkt_menu[11]}}  </label>
+          <input type="number" id="timeup_burst" name="burst_timeup" min="0" max="100000000" value="{{zagolovok[3]}}">
+
+         <label for="adres">{{punkt_menu[12]}} </label>
+          <input type="number" id="timedown_burst" name="burst_timedown" min="0" max="100000000" value="{{zagolovok[4]}}">
+
+
+
+
+  </center>
+<br>
+<br>
+<div>
+<table style=  "float:left" name= "scenar_t"  >
+
+  {%for  j  in pcap_id%}
+       <tr>
+           <td><select onchange="colr_change()" name="scenar" style="width: 750px;" required="required" >
+                 {%for  i  in string_pcap%}
+
+                 {% if i.key  == j.znach  %}
+                 <option  name="td1"  value='{{i.key}}' SELECTED>{{i.string}}</option>
+
+
+                 {% else %}
+                      <option name="td1"  value="{{ i.key }}" >{{ i.string}}</option>
+
+                  {% endif %}
+
+               {%endfor%}
+            </select></td>
+
+
+     </tr>
+
+         {%endfor%}
+
+
+
+      </table>
+    </form>
+    <script >
+
+
+
+
+    //document.getElementById("scenar").onchange = colr_change;
+    // document.getElementById("network").onchange = colr_change;
+
+    function colr_change(){
+
+      var summ =0 ;
+         var idArr = [];
+         var trs = document.getElementsByTagName("select");
+     //var trs = document.getElementsByTagName("h3");
+     for(var i=0;i<trs.length;i++)
+     {
+
+       //idArr.push(Number(trs[i].innerHTML));
+        idArr.push(Number(trs[i].value));
+     }
+     var sum = 0;
+     var sum2 = 0;
+
+     for(var j = 0; j < idArr.length; j++){
+         sum = idArr[j];
+           {%for  i  in string_pcap%}
+                if({{i.key}} == sum){
+                  sum2+=Number({{i.br_v}})
+
+                }
+                  {%endfor%}
+         }
+
+
+
+         document.getElementById("chenge").value=sum2;
+      document.getElementById("chenge2").value=sum2;
+
+
+    }
+</script>
+   <!--</form>-->
+      <table   style=  "float:left">
+        {%for  j  in pcap_id%}
+
+           <tr>
+
+                <form method="POST" action='/eps_epb/delete/{{j.znach}}' >
+                  <input type="hidden" name="scenar_number" value="{{eps_number}}">
+
+                     <td ><input style="height: 40px " class= "myButton3" type = "submit" value = "{{punkt_menu[7]}}" name="{{j.znach}}" /></td>
+                         </form>
+
+           </tr>
+
+
+               {%endfor%}
+
+
+            </table>
+
+          {%for  j  in pcap_id%}
+            <br>
+            <br>
+
+
+            {%endfor%}
+
+
+
+
+</table>
+
+
+
+
+</div>
+
+
+<button class="open-button" onclick="openForm()">{{punkt_menu[14]}}</button>
+</center>
+
+<div class="form-popup" id="myForm">
+  <form   method="POST" action='/eps_nastroika/eps_add_ALL' class="form-container">
+    <h1>{{punkt_menu[15]}}</h1>
+    <input  type="hidden" name="scenar_number2" value="{{eps_number}}">
+
+
+    <label for="email"><b>{{punkt_menu[16]}}</b></label>
+    <input color=" blue" min=1 max=100 type="number" name="colich" value=1 required  >
+    <label for="name_sce"><b>{{punkt_menu[17]}}</b></label>
+
+        {%for  i  in iter_nacha%}
+           <select name="scenar2" >
+              {%for  j  in string_pcap%}
+              {% if i == j.key %}
+              <option name="td1"  value='{{j.key}}' selected='selected'>{{j.string}}</option>
+              {% else %}
+                   <option name="td2"  value="{{ j.key }}" >{{ j.string }}</option>
+               {% endif %}
+            {%endfor%}
+         </select>
+
+
+    {%endfor%}
+    <br>
+    <input  class="c-button"  type = "submit" value = "{{punkt_menu[18]}}" name="{{punkt_menu[18]}}" />
+    <button class="c-button" type="button"  onclick="closeForm()">{{punkt_menu[19]}}</button>
+  </form>
+</div>
+
+
+
+
+<script language="JavaScript">
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+
+
+
+//$('.send-them').click(function(){
+//var adres_put = '/change_eps';
+//var ip_global=  document.getElementById("ip_global").value ;
+  //  var test=  document.getElementById("test").value ;
+   //var test2=  document.getElementById("test2").value ;
+//let xhr = new XMLHttpRequest();
+  //  xhr.open('POST', adres_put, false);
+  //  xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+  //  let json = JSON.stringify({
+    //  ip_global: ip_global.toString(),
+    // scenar_number: test.toString() ,
+    //  network_number: test2.toString()
+     //});
+//xhr.send(json);
+//});
+
+ //function requestData(){
+
+
+  // var adres_put = '/change_eps';
+  // var ip_global=  document.getElementById("ip_global").value ;
+   //var test=  document.getElementById("test").value ;
+   //var test2=  document.getElementById("test2").value ;
+   //var myString = x1 .toString();
+   //var joined = '/data/'+myString
+   //let xhr = new XMLHttpRequest();
+   //xhr.open('POST', adres_put, false);
+  // xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+   //let json = JSON.stringify({
+            //  ip_global: ip_global.toString(),
+            //  scenar_number: test.toString() ,
+            //  network_number: test2.toString()
+          //    });
+   //xhr.send(json);
+
+  // var requests = $.post(joined);
+
+
+ //}
+
+
+</script>
+
+
+  <form method="POST" action='/eps_epb/add' style= "margin: 0 auto; width:250px;">
+ <!--<p><input  class= "myButton2" type = "submit" value = "+" name="zhach" /></p>-->
+ <input type="hidden" name="scenar_number" value="{{eps_number}}">
+
+ </form>
+
+
+</head>
+</html>

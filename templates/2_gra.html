@@ -1,0 +1,1819 @@
+<!DOCTYPE html>
+<html  lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+
+    <title>Flask App </title>
+
+    <!-- Bootstraps Java Scipts Links -->
+    <script type="text/javascript" src="{{ url_for('static', filename='libs/popper.min.js') }}"></script>
+
+		<link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    		<link href="{{ url_for('static', filename='css/Chart.min.css') }}" rel="stylesheet">
+	<script type="text/javascript" src="{{ url_for('static', filename='libs/jquery.slim.min.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='libs/bootstrap.min.js') }}"></script>
+
+    <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+		<link href="{{ url_for('static', filename='css/opove.css') }}" rel="stylesheet">
+    <!-- JQuery links  -->
+    <script type="text/javascript" src="{{ url_for('static', filename='libs/jquery.slim.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='libs/jquery.min.js') }}"></script>
+
+
+
+
+    <!--High CHART LIVE  -->
+      <!--<script type="text/javascript" src="{{ url_for('static', filename='js/highcharts.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/highcharts-more.js') }}"></script>-->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/offline-exporting.js') }}"></script>
+
+    <!--Gauge  -->
+
+        <!--<script type="text/javascript" src="{{ url_for('static', filename='js/neon.js') }}"></script>-->
+
+</head>
+
+<body>
+
+
+
+<style>
+.myButton {
+
+    padding: 20px;
+    display:block;
+    float:left;
+    text-align:center;
+  opacity: 1;
+  background:darkturquoise ;
+
+}
+.myButton22 {
+
+    padding: 20px;
+
+    display:block;
+
+  opacity: 1;
+  background:darkturquoise ;
+
+}
+.container.space-around {
+  justify-content: space-around;
+}
+.test{
+
+     float: left;
+}
+
+.test1{
+ text-align: center;
+
+}
+
+.test2{
+   width: 850px;
+  margin: auto;
+
+}
+ ul.my_boks {
+  display: inline-block;	/* Располагаем элементы по горизонтали */
+  list-style: none;	/* Убираем маркеры списка */
+  padding: 5px;		/* Поля вокруг текста */
+        border: solid 1px #000000;
+        background-color: #fffff0;
+        width: 150px;
+        height: 40px;
+
+}
+ul.h {
+ padding-left: 0;
+ list-style: none;
+ font-size:0;
+ height:50px;
+
+
+}
+
+li.h {
+   display: inline-block;
+   outline:1px solid black;
+   margin-right:5px;
+   height:100%;
+   width:50px;
+}
+.wrap {
+  float: left; /*Задаем обтекание*/
+  line-height: 120px;/*Высота строки +  верт. центрирования текста*/
+  font-size: 40px;
+  width: 320px; /*Фиксируем ширину блока*/
+  margin-right: 10px;
+  text-align: center; /*Центрируем текст по горизонтали*/
+        }
+
+.block {
+   width: 100px;
+   height: 100px;
+   margin: 5px;
+}
+changeButton(button) {
+   button.innerText = "Post";
+ }
+       .jumbotron{
+           widows: 150px;
+           height: 220px;
+           justify-content: center;
+       }
+
+       .row{
+           justify-content: center;
+       }
+
+
+body {background-color: LightCyan;}
+
+ul.spisok_ver1{
+margin: 3px;
+padding: 3px;
+}
+.outer {
+ text-align: center;
+ border: 1px solid blue;
+}
+.Center {
+    width:200px;
+    height:200px;
+    position: fixed;
+    background-color: blue;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -100px;
+}
+.buttonHolder{
+    text-align: center;
+}
+
+.mytext {
+    width: 100px;
+}
+
+    </style>
+
+    <menu >  <center>  {{string}} </center>      </menu>
+
+    <!--<input   type="text" class="mytext" style=" float:left;" value ={{time_otvet}} disabled="disabled"  >-->
+
+    {% if lang_bool %}
+       <form  style=" float:left;"  action="/lengrth_2_gra" method = "POST">
+
+       <input  class= "myButton"  style= " float: lefth; padding: 16px; background-color: darkblue; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" (click)="changeButton(button)" value = "English" />
+       </form>
+    {% else %}
+    <form  style=" float:left;" action="/lengrth_2_gra" method = "POST">
+
+       <input class= "myButton"  style="float: lefth; padding: 16px; background-color: darkblue; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" (click)="changeButton(button)" value = "Русский" />
+    </form>
+    {% endif %}
+
+    {% if conect %}
+
+       <input  class= "myButton"  style= "  padding: 16px; background-color: green; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" value="{{punkt_menu[14]}}"   />
+    {% else %}
+
+
+       <input class= "myButton"  style=" padding: 16px; background-color: red; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" value="{{punkt_menu[15]}}" />
+    {% endif %}
+
+
+
+    {% if allert_flag %}
+
+
+  <body onload="alert2()">
+   <div id="allert"></div>
+  </body>
+  <script language="JavaScript">
+  function alert2()
+  {
+  {
+    document.getElementById('allert');
+    alert(
+
+    '{{allert_msg}}'
+
+    );
+  }
+  };
+</script>
+{% else %}
+
+    {% endif %}
+
+
+        {% if stopped_bufer %}
+
+
+      <body onload="alert3()">
+       <div id="allert2"></div>
+      </body>
+      <script language="JavaScript">
+      function alert3()
+      {
+      {
+        document.getElementById('allert2');
+        alert(
+
+        '{{stopped_msg_mac}}'
+
+        );
+      }
+      };
+    </script>
+    {% else %}
+
+        {% endif %}
+
+
+    {% if conect %}
+
+    {% else %}
+
+        <div class="buttonHolder" >
+        <h1>{{punkt_menu[6]}}</h1>
+        <form     method="POST" action='/registr'>
+
+         <input     type = "submit" value = "{{punkt_menu[7]}}" />
+      </form>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+
+    {% endif %}
+
+    <div class="container-fluid">
+
+        <div class="row">
+
+              <!--  <h5 class="sensor1">  </h5>-->
+            <br>
+
+        </div>
+    </div>
+    <div class="container-fluid">
+
+        <div class="row">
+
+                <h5 class="sensor2">   </h5>
+            <br>
+
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="container-fluid" id="data-temperature">
+
+            </div>
+        </div>
+    </div>
+<center>
+  <div class="container" >
+      <div class="row">
+          <div class="col-12">
+              <div class="card">
+                  <div class="card-body" >
+                      <canvas id="canvas"></canvas>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</center>
+<script type="text/javascript" src="{{ url_for('static', filename='libs/jquery.min.js') }}"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>-->
+    <!--suppress JSUnresolvedLibraryURL -->
+    <script type="text/javascript" src="{{ url_for('static', filename='libs/bootstrap.min.js') }}"></script>
+
+    <!--suppress JSUnresolvedLibraryURL -->
+    <!--<script type="text/javascript" src="{{ url_for('static', filename='js/Chart.mi.js') }}"></script>-->
+    <script  src="{{ url_for('static', filename='libs/chart.min.js') }}"></script>
+    <script  src="{{ url_for('static', filename='libs/chart.js') }}"></script>
+      <script  src="{{ url_for('static', filename='libs/Chart.js') }}"></script>
+  <!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>-->
+
+    {% if conect %}
+    <body onload="requestData_alive()">
+     <div id="welcome"></div>
+    </body>
+           {% if start_flag %}
+    <script language="JavaScript">
+       let  intervalID ;
+     function requestData_alive()
+     {
+       var joined = '/alive'
+
+       var requests = $.get(joined);
+
+
+         // Ajax call to get the Data from Flask
+         document.getElementById('welcome')
+         var tm = requests.done(function (result)
+         {
+           var data1 = [];
+
+           data1.push(result[0]);
+           if (data1[0]== "Not" ){
+              clearTimeout(intervalID) ;
+             location.reload();
+
+            }else{
+              intervalID=setTimeout(requestData_alive, 3000);
+
+            }
+         })
+
+
+
+
+     }
+
+
+    </script>
+  {% else %}
+
+   {% endif %}
+
+    {%else %}
+
+
+    {% endif %}
+
+
+
+
+
+        <div class="test1" >
+
+  <form   method="POST" action='/grafik' class="form-container">
+
+                  {%for  i  in data_grafik1%}
+
+                  <select id = "epb" name="comp_select" >
+                    {% for o in data %}
+                    {% if i == o.name%}
+                    <option name="comp_select" value="{{ o.name }}" selected='selected' >{{ o.name2 }}</option>
+                    {%else %}
+                    <option name="comp_select" value="{{ o.name }}"  >{{ o.name2 }}</option>
+                    {% endif %}
+
+                    {% endfor %}
+                  </select>
+                  {%endfor%}
+
+                  {%for  i  in data_grafik2%}
+
+                  <select name="data2"  id="dd">
+
+                    {%for  j  in bufer_network2%}
+                    {% if j.der == i %}
+                     <option name="data2"  value='{{j.der}}' selected='selected'>{{j.name}}</option>
+
+                         {% else %}
+                     <option  name="data2"  value='{{j.der}}' >{{j.name}}</option>
+
+                      {% endif %}
+
+                  {%endfor%}
+                  </select>
+                  {%endfor%}
+
+                <p><input  type = "submit" value = "{{punkt_menu[12]}}"  /></p>
+                </form>
+
+
+
+
+
+     {% if start_flag %}
+        <form   style=" display:block;"  action="/start" method = "POST">
+
+        <!--<input  class= "myButton22"  style= " margin: 0 auto; background-color: green; color:aliceblue; " type = "submit" onclick="trigger()" (click)="changeButton(button)" value = "{{punkt_menu[0]}}" />-->
+        <button id="start45" class= "myButton22"  style=" margin: 0 auto; background-color: green; color:aliceblue; " type = "submit"   onclick="trigger()">{{punkt_menu[0]}}</button>
+
+
+        </form>
+        <button id="start46" class= "myButton22"  style=" margin: 0 auto; background-color: Yellow; color:aliceblue; display:none; "  >{{punkt_menu[7]}}</button>
+
+     {% else %}
+     <form    style="  display:block;" action="/start" method = "POST">
+       <button id="start45" class= "myButton22"  style=" margin: 0 auto; background-color: red; color:aliceblue; " type = "submit"   onclick="trigger()">{{punkt_menu[1]}}</button>
+
+        <!--<input class= "myButton22"  style=" margin: 0 auto; background-color: red; color:aliceblue; " type = "submit" onclick="trigger()" (click)="changeButton(button)" value = "{{punkt_menu[1]}}" />-->
+     </form>
+     <button id="start46" class= "myButton22"  style=" margin: 0 auto; background-color: Yellow; color:aliceblue; display:none;"   >{{punkt_menu[7]}}</button>
+
+
+     {% endif %}
+
+   </div>
+
+     <br>
+
+
+     <script>
+       // Initiate a global variable a
+
+       /*var btns = document.querySelector('form input[type=submit], form button[type=submit]');
+       btns.addEventListener('click', function(){
+       	this.disabled = true;
+      });*/
+
+       var a = 0;
+       function trigger() {
+         a++;
+         if (a===1){
+         let x = document.getElementById('LIST_EPS');
+             if (x.style.display == "none"){
+           x.style.display = "block";
+           } else {
+          x.style.display = "none"} ;
+
+           let x2 = document.getElementById('scenar');
+               if (x2.style.display == "none"){
+             x2.style.display = "block";
+             } else {
+            x2.style.display = "none"} ;
+            let x3 = document.getElementById('scenar_network');
+                if (x3.style.display == "none"){
+              x3.style.display = "block";
+              } else {
+             x3.style.display = "none"} ;
+
+             let x4 = document.getElementById('MENU_EPS');
+                 if (x4.style.display == "none"){
+               x4.style.display = "block";
+               } else {
+              x4.style.display = "none"} ;
+
+         let x5 = document.getElementById('start45');
+             if (x5.style.display == "none"){
+           x5.style.display = "block";
+           } else {
+          x5.style.display = "none"} ;
+
+           };
+
+           let x6 = document.getElementById('start46');
+               if (x6.style.display == "none"){
+             x6.style.display = "block";
+             } else {
+            x6.style.display = "none"} ;
+
+             };
+
+           //let x = document.getElementById('back_23');
+          // if (x.style.type == "submit"){
+      //   x.style.type = "block";
+        // } else {
+        //x.style.type = "submit"} ;
+      //   document.getElementById('start45').onclick = function() {
+              //this.disabled = true;
+              // …
+          //}
+      ///   let x = document.getElementById('back_23');
+            // if (x.style.display == "none"){
+       	 // x.style.display = "block";
+       	  //} else {
+       	 //x.style.display = "none"} ;
+
+         //console.log(a);
+       }
+     </script>
+
+
+  <div class="test2"   >
+     {% if conect %}
+     <form  style=   " display:block; "  method="POST" action='/Menu'>
+
+
+    <input id="MENU_EPS" class= "myButton22" style= "  float:left;"  type = "submit" value = "{{punkt_menu[2]}}" />
+
+     </form>
+     <form style=  "float:left; display:block; " method="POST" action='/LIST_EPS'>
+
+      <p><input id="LIST_EPS" class= "myButton22" style=" margin: 0 auto;" type = "submit" value = "{{punkt_menu[4]}}" />  </p>
+
+     </form>
+     <form   style=" float:left; display:block;"  method="POST" action='/scenar'>
+
+      <p><input id="scenar" class= "myButton22"  type = "submit" value = "{{punkt_menu[3]}}" />  </p>
+
+     </form>
+
+     <form  style=  "float:left; display:block; " method="POST" action='/scenar_network'>
+
+      <p> <input id="scenar_network" class= "myButton22" style=" margin: 0 auto;" type = "submit" value = "{{punkt_menu[5]}}" /></p>
+
+     </form>
+     {% else %}
+
+     <form    >
+
+
+    <input style= "  float:left; padding: 16px; background-color: Grey;" type = "submit" value = "{{punkt_menu[2]}}" />
+
+     </form>
+     <form  style=" float:left;"  >
+
+      <p><input style= "  padding: 16px; background-color: Grey;" type = "submit" value = "{{punkt_menu[4]}}" />  </p>
+
+     </form>
+     <form  style=" float:left;"  >
+
+      <p><input style= "  padding: 16px; background-color: Grey;" type = "submit" value = "{{punkt_menu[3]}}" />  </p>
+
+     </form>
+
+     <form  style=" float:left;"  >
+
+      <p> <input style= " padding: 16px; background-color: Grey;" type = "submit" value = "{{punkt_menu[5]}}" /></p>
+
+     </form>
+
+{% endif%}
+    </center>
+     {% if start_flag %}
+
+     {% else %}
+
+   {% if i_regim == (0) %}
+    {% if lang_bool %}
+
+    {% if perv %}
+
+
+
+    <script type="text/javascript">
+ var timert=0;
+  var requests=0;
+    function getRandomIntInclusive(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      //const lineChart = new Chart(context, config);
+      var x1 =  {{data_grafik1[0]}} ;
+     var myString = x1 .toString();
+      var joined = '/data/'+myString
+        // Ajax call to get the Data from Flask
+      //requests = $.get(joined);
+     //timert=requests[0]
+     var req = getXmlHttp()
+     req.open('GET', joined)
+     req.send(null)
+     var tert=req.responseText
+    // if (req.status == 200) {
+       //alert()
+    // }
+
+
+      return   tert[1] ;
+    }
+
+    // create initial empty chart
+    var ctx_live = document.getElementById("canvas");
+    var myChart = new Chart(ctx_live, {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [{
+          data: [],
+          borderWidth: 1,
+          borderColor:'#00c0ef',
+          label: 'Bitrate(bit/sec)',
+        }]
+      },
+      options: {
+        responsive: true,
+        title: {
+          display: true,
+          text: "Bitrate",
+        },
+        legend: {
+          display: false
+        },
+        scales: {
+          yAxes: [{
+            display: true,
+            scaleLabel: {
+                display: true,
+                labelString: 'bit/sec',
+            },
+
+            ticks: {
+              beginAtZero: true,
+            }
+
+          }]
+        }
+      }
+    });
+
+
+
+    var x1 =  {{data_grafik1[0]}};//document.getElementById("epb").value;
+    var myString = x1 .toString();
+    var joined = '/data/'+myString
+
+
+var getData = function(){
+
+  $.ajax({
+      type: "POST",
+      url: joined,
+      data: $('form').serialize(),
+      type: 'POST',
+      success: function(response) {
+        if (response[0]=== "Not" ){
+           //clearTimeout(intervalID) ;
+           //console.log(response);
+           $("#content").html(response);
+
+
+          //location.reload();
+
+
+        };
+
+
+
+        $(".sensor2").text("");
+        $(".sensor2").text(   "Bitrate(bit/sec): " +  (response[1]) );
+
+          myChart.data.labels.push(response[0]);
+          myChart.data.datasets[0].data.push(response[1]);
+
+          myChart.update();
+      },
+      error: function(error) {
+        location.reload();
+          //console.log(error);
+      }
+  });
+
+
+
+}
+    // get new data every 3 seconds
+    setInterval(getData, 3000);
+
+
+
+    </script>
+
+
+
+   {% else %}
+   <script>
+
+
+
+    {
+
+     // var joined = '/data/'+myString
+
+     {
+
+
+       // create initial empty chart
+       var ctx_live = document.getElementById("canvas");
+       var myChart = new Chart(ctx_live, {
+         type: 'line',
+         data: {
+           labels: [],
+           datasets: [{
+             data: [],
+             borderWidth: 1,
+             borderColor:'#00c0ef',
+             label: 'Video-ratio(%)',
+           }]
+         },
+         options: {
+           responsive: true,
+           title: {
+             display: true,
+             text: "Video-ratio",
+           },
+           legend: {
+             display: false
+           },
+           scales: {
+             yAxes: [{
+               display: true,
+               scaleLabel: {
+                   display: true,
+                   labelString: '%',
+               },
+
+               ticks: {
+                 beginAtZero: true,
+               }
+
+             }]
+           }
+         }
+       });
+
+       // this post id drives the example data
+       //var postId = 1;
+
+       // logic to get new data
+     /*  var getData = function() {
+         $.ajax({
+         //  url: 'https://jsonplaceholder.typicode.com/posts/' + postId + '/comments',
+           success: function(data) {
+             // process your data to pull out what you plan to use to update the chart
+             // e.g. new label and a new data point
+
+             // add new label and data point to chart's underlying data structures
+             myChart.data.labels.push("Post " + postId++);
+             myChart.data.datasets[0].data.push(getRandomIntInclusive(1, 25));
+
+             // re-render the chart
+             myChart.update();
+           }
+         });
+       }; */
+
+       var x1 =  {{data_grafik1[0]}};//document.getElementById("epb").value;
+       var myString = x1 .toString();
+       var joined = '/data/'+myString
+   var getData = function(){
+     $.ajax({
+         type: "POST",
+         url: joined,
+         data: $('form').serialize(),
+         type: 'POST',
+         success: function(response) {
+
+           $(".sensor2").text("");
+           $(".sensor2").text(   "Video-ratio(%): " +  (response[2]) );
+
+             myChart.data.labels.push(response[0]);
+             myChart.data.datasets[0].data.push(response[2]);
+
+             myChart.update();
+         },
+         error: function(error) {
+              location.reload();
+         }
+     });
+
+
+
+   }
+       // get new data every 3 seconds
+       setInterval(getData, 3000);
+
+
+
+ }
+
+}
+
+    </script>
+    {% endif %}
+
+   {% else %}
+   {% if perv %}
+   <script>
+   var chartTemperatue;
+    var chartHumidity;
+    var chart_labels = ['znach1', 'znach2'];
+     var requests ;
+
+    {
+
+
+{
+
+
+  // create initial empty chart
+  var ctx_live = document.getElementById("canvas");
+  var myChart = new Chart(ctx_live, {
+    type: 'line',
+    data: {
+      labels: [],
+      datasets: [{
+        data: [],
+        borderWidth: 1,
+        borderColor:'#00c0ef',
+        label: 'Битрейт(бит/сек)',
+      }]
+    },
+    options: {
+      responsive: true,
+      title: {
+        display: true,
+        text: "Битрейт",
+      },
+      legend: {
+        display: false
+      },
+      scales: {
+        yAxes: [{
+          display: true,
+          scaleLabel: {
+              display: true,
+              labelString: 'бит/сек',
+          },
+
+          ticks: {
+            beginAtZero: true,
+          }
+
+        }]
+      }
+    }
+  });
+
+
+
+  var x1 =  {{data_grafik1[0]}};//document.getElementById("epb").value;
+  var myString = x1 .toString();
+  var joined = '/data/'+myString
+var getData = function(){
+$.ajax({
+    type: "POST",
+    url: joined,
+    data: $('form').serialize(),
+    type: 'POST',
+    success: function(response) {
+
+      $(".sensor2").text("");
+      $(".sensor2").text(   "Битрейт(бит/сек): " +  (response[1]) );
+
+        myChart.data.labels.push(response[0]);
+        myChart.data.datasets[0].data.push(response[1]);
+
+        myChart.update();
+    },
+    error: function(error) {
+          location.reload();
+    }
+});
+
+
+
+}
+  // get new data every 3 seconds
+  setInterval(getData, 3000);
+
+
+
+      }
+      //if(x == "dps2")
+
+
+
+
+}
+
+
+   </script>
+
+  {% else %}
+  <script>
+
+
+
+   {
+
+    // var joined = '/data/'+myString
+
+    {
+
+
+      // create initial empty chart
+      var ctx_live = document.getElementById("canvas");
+      var myChart = new Chart(ctx_live, {
+        type: 'line',
+        data: {
+          labels: [],
+          datasets: [{
+            data: [],
+            borderWidth: 1,
+            borderColor:'#00c0ef',
+            label: 'Процент видео(%)',
+          }]
+        },
+        options: {
+          responsive: true,
+          title: {
+            display: true,
+            text: "Процент видео",
+          },
+          legend: {
+            display: false
+          },
+          scales: {
+            yAxes: [{
+              display: true,
+              scaleLabel: {
+                  display: true,
+                  labelString: '%',
+              },
+
+              ticks: {
+                beginAtZero: true,
+              }
+
+            }]
+          }
+        }
+      });
+
+      // this post id drives the example data
+      //var postId = 1;
+
+      // logic to get new data
+    /*  var getData = function() {
+        $.ajax({
+        //  url: 'https://jsonplaceholder.typicode.com/posts/' + postId + '/comments',
+          success: function(data) {
+            // process your data to pull out what you plan to use to update the chart
+            // e.g. new label and a new data point
+
+            // add new label and data point to chart's underlying data structures
+            myChart.data.labels.push("Post " + postId++);
+            myChart.data.datasets[0].data.push(getRandomIntInclusive(1, 25));
+
+            // re-render the chart
+            myChart.update();
+          }
+        });
+      }; */
+
+      var x1 =  {{data_grafik1[0]}};//document.getElementById("epb").value;
+      var myString = x1 .toString();
+      var joined = '/data/'+myString
+  var getData = function(){
+    $.ajax({
+        type: "POST",
+        url: joined,
+        data: $('form').serialize(),
+        type: 'POST',
+        success: function(response) {
+
+          $(".sensor2").text("");
+          $(".sensor2").text(   "Процент видео(%): " +  (response[2]) );
+
+            myChart.data.labels.push(response[0]);
+            myChart.data.datasets[0].data.push(response[2]);
+
+            myChart.update();
+        },
+        error: function(error) {
+              location.reload();
+        }
+    });
+
+
+
+  }
+      // get new data every 3 seconds
+      setInterval(getData, 3000);
+
+
+
+}
+
+}
+
+   </script>
+   {% endif %}
+
+    {% endif %}
+
+{% else %}
+
+{% if lang_bool %}
+
+{% if perv %}
+<script>
+var chartTemperatue;
+ var chartHumidity;
+ var chart_labels = ['znach1', 'znach2'];
+  var requests ;
+
+ {
+
+
+{
+
+  // create initial empty chart
+  var ctx_live = document.getElementById("canvas");
+  var myChart = new Chart(ctx_live, {
+    type: 'line',
+    data: {
+      labels: [],
+      datasets: [{
+        data: [],
+        borderWidth: 1,
+        borderColor:'#00c0ef',
+        label: 'Total size of saved PCAP files (MB)',
+      }]
+    },
+    options: {
+      responsive: true,
+      title: {
+        display: true,
+        text: "Total size of saved PCAP files (MB)  ",
+      },
+      legend: {
+        display: false
+      },
+      scales: {
+        yAxes: [{
+          display: true,
+          scaleLabel: {
+              display: true,
+              labelString: 'Megabytes(Mbyte)',
+          },
+
+          ticks: {
+            beginAtZero: true,
+          }
+
+        }]
+      }
+    }
+  });
+
+
+
+  var x1 =  {{data_grafik1[0]}};//document.getElementById("epb").value;
+  var myString = x1 .toString();
+  var joined = '/data/'+myString
+
+
+var getData = function(){
+
+$.ajax({
+    type: "POST",
+    url: joined,
+    data: $('form').serialize(),
+    type: 'POST',
+    success: function(response) {
+      if (response[0]=== "Not" ){
+         //clearTimeout(intervalID) ;
+         //console.log(response);
+         $("#content").html(response);
+
+
+        //location.reload();
+
+
+      };
+
+
+
+      $(".sensor2").text("");
+      $(".sensor2").text(   "Megabytes(Mbyte): " +  (response[1]) );
+
+        myChart.data.labels.push(response[0]);
+        myChart.data.datasets[0].data.push(response[1]);
+
+        myChart.update();
+    },
+    error: function(error) {
+      location.reload();
+        //console.log(error);
+    }
+});
+
+
+
+}
+  // get new data every 3 seconds
+  setInterval(getData, 3000);
+
+
+          /* function requestData()
+           {
+
+             var x1 =  {{data_grafik1[0]}}//document.getElementById("epb").value;
+             var myString = x1 .toString();
+             var joined = '/data/'+myString
+               // Ajax call to get the Data from Flask
+     var requests = $.get(joined);
+              // var requests = $.get('/data/0');
+
+               var tm = requests.done(function (result)
+               {
+                   // Temperature
+                   var seriesTemperature = chartTemperatue.series[0],
+                       shiftTemperature = seriesTemperature.data.length > 1000000000;
+
+                   // Humidity
+
+                   var data1 = [];
+                   data1.push(result[0]  );
+                   data1.push(result[1]);
+                   //data1.push(result[3]);
+
+
+                   // Add the Point
+                   // Time Humidity
+
+
+                   chartTemperatue.series[0].addPoint(data1, true, shiftTemperature);
+
+
+                   $(".sensor1").text("");
+                   $(".sensor1").text(   "Response time : " +  (result[3]) );
+
+                   $(".sensor2").text("");
+                   $(".sensor2").text(   "Megabytes(Mbyte): " +  (result[1]) );
+
+                   // call it again after one second
+                   //setInterval(requestData, 3000);
+               setTimeout(requestData, 3000);
+               });
+           }
+
+           $(document).ready(function()
+           {
+               // --------------Chart 1 ----------------------------
+
+               chartTemperatue = new Highcharts.Chart({
+                 responsive: true,
+
+                   chart:
+                       {
+                       renderTo: 'data-temperature',
+                       defaultSeriesType: 'area',
+                       events: {
+                           load: requestData
+
+                               }
+                       },
+                   title:
+                       {
+                          display: true,
+                       text: 'Total size of saved PCAP files (MB)'
+                       },
+                   xAxis: {
+                           categories:requestData
+
+                                  },
+                   yAxis: {
+                      // minPadding: 0.2,
+                       //maxPadding: 0.2,
+
+                       title: {
+                           text: 'MB'
+                           //margin: 80
+                               }
+                            },
+                   series: [{
+                       color : '#c23d23',
+                       lineColor: '#303030',
+                         name: 'MB ' ,
+                       data: [] ,
+
+                   }]
+               });
+               // --------------Chart 1 Ends - -----------------
+
+
+
+
+           }); */
+
+   }
+   //if(x == "dps2")
+
+
+
+
+}
+
+
+</script>
+
+{% else %}
+<script>
+
+
+
+{
+
+ // var joined = '/data/'+myString
+
+ {
+   // create initial empty chart
+   var ctx_live = document.getElementById("canvas");
+   var myChart = new Chart(ctx_live, {
+     type: 'line',
+     data: {
+       labels: [],
+       datasets: [{
+         data: [],
+         borderWidth: 1,
+         borderColor:'#00c0ef',
+         label: 'Video-ratio(%)',
+       }]
+     },
+     options: {
+       responsive: true,
+       title: {
+         display: true,
+         text: "Video-ratio",
+       },
+       legend: {
+         display: false
+       },
+       scales: {
+         yAxes: [{
+           display: true,
+           scaleLabel: {
+               display: true,
+               labelString: '%',
+           },
+
+           ticks: {
+             beginAtZero: true,
+           }
+
+         }]
+       }
+     }
+   });
+
+   // this post id drives the example data
+   //var postId = 1;
+
+   // logic to get new data
+ /*  var getData = function() {
+     $.ajax({
+     //  url: 'https://jsonplaceholder.typicode.com/posts/' + postId + '/comments',
+       success: function(data) {
+         // process your data to pull out what you plan to use to update the chart
+         // e.g. new label and a new data point
+
+         // add new label and data point to chart's underlying data structures
+         myChart.data.labels.push("Post " + postId++);
+         myChart.data.datasets[0].data.push(getRandomIntInclusive(1, 25));
+
+         // re-render the chart
+         myChart.update();
+       }
+     });
+   }; */
+
+   var x1 =  {{data_grafik1[0]}};//document.getElementById("epb").value;
+   var myString = x1 .toString();
+   var joined = '/data/'+myString
+var getData = function(){
+ $.ajax({
+     type: "POST",
+     url: joined,
+     data: $('form').serialize(),
+     type: 'POST',
+     success: function(response) {
+
+       $(".sensor2").text("");
+       $(".sensor2").text(   "Video-ratio(%): " +  (response[2]) );
+
+         myChart.data.labels.push(response[0]);
+         myChart.data.datasets[0].data.push(response[2]);
+
+         myChart.update();
+     },
+     error: function(error) {
+          location.reload();
+     }
+ });
+
+
+
+}
+   // get new data every 3 seconds
+   setInterval(getData, 3000);
+
+  /*  function requestData()
+    {
+
+      var x1 =  {{data_grafik1[0]}}//document.getElementById("epb").value;
+      var myString = x1 .toString();
+      var joined = '/data/'+myString
+      //var myString = x1 .toString();
+      //var joined = '/data/'+myString
+      var requests = $.get(joined);
+        // Ajax call to get the Data from Flask
+        //var requests = $.get('/data/0');
+
+        var tm = requests.done(function (result)
+        {
+            // Temperature
+            var seriesTemperature = chartTemperatue.series[0],
+                shiftTemperature = seriesTemperature.data.length > 100000000;
+
+            // Humidity
+
+
+            // Add the Point
+            // Time Temperature\
+            var data1 = [];
+            data1.push(result[0]);
+            data1.push(result[2]);
+            data1.push(result[3]);
+          //  data1.push(result[4]);
+
+
+            // Add the Point
+            // Time Humidity
+
+
+            chartTemperatue.series[0].addPoint(data1, true, shiftTemperature);
+
+            $(".sensor1").text("");
+            $(".sensor1").text("Response time : " +  Math.round(result[3]) );
+
+            $(".sensor2").text("");
+            $(".sensor2").text(   "Video-ratio(%): " +  (result[2]) );
+
+         // call it again after one second
+            setTimeout(requestData, 3000);
+            //setInterval(requestData, 3000);
+
+        });
+    }
+
+    $(document).ready(function()
+    {
+        // --------------Chart 1 ----------------------------
+
+        chartTemperatue = new Highcharts.Chart({
+            chart:
+                {
+                renderTo: 'data-temperature',
+                defaultSeriesType: 'area',
+                events: {
+                    load: requestData
+                        }
+                },
+            title:
+                {
+                text: 'Video-ratio '
+                },
+            xAxis: {
+                categories:requestData
+
+               // tickPixelInterval: 150
+                //maxZoom: 20 * 1000
+                    },
+            yAxis: {
+               // minPadding: 0.2,
+                //maxPadding: 0.2,
+                title: {
+                    text: '%'
+                   // margin: 80
+                        }
+                     },
+            series: [{
+                color : '#c23d23',
+                lineColor: '#303030',
+                name: 'Video-ratio ' ,
+                data: []
+            }]
+        });
+        // --------------Chart 1 Ends - -----------------
+
+
+
+
+    });*/
+
+}
+
+}
+
+</script>
+{% endif %}
+
+{% else %}
+{% if perv %}
+<script>
+var chartTemperatue;
+var chartHumidity;
+var chart_labels = ['znach1', 'znach2'];
+ var requests ;
+
+{
+
+
+{
+
+
+  // create initial empty chart
+  var ctx_live = document.getElementById("canvas");
+  var myChart = new Chart(ctx_live, {
+    type: 'line',
+    data: {
+      labels: [],
+      datasets: [{
+        data: [],
+        borderWidth: 1,
+        borderColor:'#00c0ef',
+        label: 'Суммарный размер сохраняемых PCAP файлов (МБ)',
+      }]
+    },
+    options: {
+      responsive: true,
+      title: {
+        display: true,
+        text: "Суммарный размер сохраняемых PCAP файлов (МБ)",
+      },
+      legend: {
+        display: false
+      },
+      scales: {
+        yAxes: [{
+          display: true,
+          scaleLabel: {
+              display: true,
+              labelString: 'Мегабайты(Мбайт)',
+          },
+
+          ticks: {
+            beginAtZero: true,
+          }
+
+        }]
+      }
+    }
+  });
+
+
+
+  var x1 =  {{data_grafik1[0]}};//document.getElementById("epb").value;
+  var myString = x1 .toString();
+  var joined = '/data/'+myString
+
+
+var getData = function(){
+
+$.ajax({
+    type: "POST",
+    url: joined,
+    data: $('form').serialize(),
+    type: 'POST',
+    success: function(response) {
+      if (response[0]=== "Not" ){
+         //clearTimeout(intervalID) ;
+         //console.log(response);
+         $("#content").html(response);
+
+
+        //location.reload();
+
+
+      };
+
+
+
+      $(".sensor2").text("");
+      $(".sensor2").text(   "Мегабайты(Мбайт): " +  (response[1]) );
+
+        myChart.data.labels.push(response[0]);
+        myChart.data.datasets[0].data.push(response[1]);
+
+        myChart.update();
+    },
+    error: function(error) {
+      location.reload();
+        //console.log(error);
+    }
+});
+
+
+
+}
+  // get new data every 3 seconds
+  setInterval(getData, 3000);
+
+
+          /*function requestData()
+          {
+
+            var x1 =  {{data_grafik1[0]}}//document.getElementById("epb").value;
+            var myString = x1 .toString();
+            var joined = '/data/'+myString
+              // Ajax call to get the Data from Flask
+    var requests = $.get(joined);
+             // var requests = $.get('/data/0');
+
+              var tm = requests.done(function (result)
+              {
+                  // Temperature
+                  var seriesTemperature = chartTemperatue.series[0],
+                      shiftTemperature = seriesTemperature.data.length > 1000000000;
+
+                  // Humidity
+
+                  var data1 = [];
+                  data1.push(result[0]  );
+                  data1.push(result[1]);
+                  //data1.push(result[3]);
+
+
+                  // Add the Point
+                  // Time Humidity
+
+
+                  chartTemperatue.series[0].addPoint(data1, true, shiftTemperature);
+
+                  $(".sensor1").text("");
+                  $(".sensor1").text(   "Время ответа : " +  (result[3]) );
+
+                  $(".sensor2").text("");
+                  $(".sensor2").text(   "Мегабайты(Мбайт): " +  (result[1]) );
+
+                  // call it again after one second
+                  //setInterval(requestData, 3000);
+              setTimeout(requestData, 3000);
+              });
+          }
+
+          $(document).ready(function()
+          {
+              // --------------Chart 1 ----------------------------
+
+              chartTemperatue = new Highcharts.Chart({
+                responsive: true,
+                  chart:
+                      {
+                      renderTo: 'data-temperature',
+                      defaultSeriesType: 'area',
+                      events: {
+                          load: requestData
+                              }
+                      },
+                  title:
+                      {
+                      text: 'Суммарный размер сохраняемых PCAP файлов (МБ)'
+                      },
+                  xAxis: {
+
+                      categories:requestData
+                     // tickPixelInterval: 150
+                      //maxZoom: 20 * 1000
+                          },
+                  yAxis: {
+                     // minPadding: 0.2,
+                      //maxPadding: 0.2,
+
+                      title: {
+                          text: 'Мегабайты'
+                          //margin: 80
+                              }
+                           },
+                  series: [{
+                      color : '#c23d23',
+                      lineColor: '#303030',
+                        name: 'Суммарный размер сохраняемых PCAP файлов (МБ) ' ,
+                      data: []
+                  }]
+              });
+              // --------------Chart 1 Ends - -----------------
+
+
+
+
+          });*/
+
+  }
+  //if(x == "dps2")
+
+
+
+
+}
+
+
+</script>
+
+{% else %}
+<script>
+
+
+
+{
+
+// var joined = '/data/'+myString
+
+{
+
+  var ctx_live = document.getElementById("canvas");
+  var myChart = new Chart(ctx_live, {
+    type: 'line',
+    data: {
+      labels: [],
+      datasets: [{
+        data: [],
+        borderWidth: 1,
+        borderColor:'#00c0ef',
+        label: 'Доля видео(%)',
+      }]
+    },
+    options: {
+      responsive: true,
+      title: {
+        display: true,
+        text: "Доля видео",
+      },
+      legend: {
+        display: false
+      },
+      scales: {
+        yAxes: [{
+          display: true,
+          scaleLabel: {
+              display: true,
+              labelString: '%',
+          },
+
+          ticks: {
+            beginAtZero: true,
+          }
+
+        }]
+      }
+    }
+  });
+
+  // this post id drives the example data
+  //var postId = 1;
+
+  // logic to get new data
+/*  var getData = function() {
+    $.ajax({
+    //  url: 'https://jsonplaceholder.typicode.com/posts/' + postId + '/comments',
+      success: function(data) {
+        // process your data to pull out what you plan to use to update the chart
+        // e.g. new label and a new data point
+
+        // add new label and data point to chart's underlying data structures
+        myChart.data.labels.push("Post " + postId++);
+        myChart.data.datasets[0].data.push(getRandomIntInclusive(1, 25));
+
+        // re-render the chart
+        myChart.update();
+      }
+    });
+  }; */
+
+  var x1 =  {{data_grafik1[0]}};//document.getElementById("epb").value;
+  var myString = x1 .toString();
+  var joined = '/data/'+myString
+var getData = function(){
+$.ajax({
+    type: "POST",
+    url: joined,
+    data: $('form').serialize(),
+    type: 'POST',
+    success: function(response) {
+
+      $(".sensor2").text("");
+      $(".sensor2").text(   "Доля видео(%): " +  (response[2]) );
+
+        myChart.data.labels.push(response[0]);
+        myChart.data.datasets[0].data.push(response[2]);
+
+        myChart.update();
+    },
+    error: function(error) {
+         location.reload();
+    }
+});
+
+
+
+}
+  // get new data every 3 seconds
+  setInterval(getData, 3000);
+
+   /*function requestData()
+   {
+
+     var x1 =  {{data_grafik1[0]}}//document.getElementById("epb").value;
+     var myString = x1 .toString();
+     var joined = '/data/'+myString
+     //var myString = x1 .toString();
+     //var joined = '/data/'+myString
+     var requests = $.get(joined);
+       // Ajax call to get the Data from Flask
+       //var requests = $.get('/data/0');
+
+       var tm = requests.done(function (result)
+       {
+           // Temperature
+           var seriesTemperature = chartTemperatue.series[0],
+               shiftTemperature = seriesTemperature.data.length > 100000000;
+
+           // Humidity
+
+
+           // Add the Point
+           // Time Temperature\
+           var data1 = [];
+           data1.push(result[0]);
+           data1.push(result[2]);
+           data1.push(result[3]);
+         //  data1.push(result[4]);
+
+
+           // Add the Point
+           // Time Humidity
+
+
+           chartTemperatue.series[0].addPoint(data1, true, shiftTemperature);
+
+           $(".sensor1").text("");
+           $(".sensor1").text("Время ответа : " +  Math.round(result[3]) );
+
+
+            $(".sensor2").text("");
+            $(".sensor2").text("Процент видео(%) : " +  Math.round(result[2]) );
+
+        // call it again after one second
+           setTimeout(requestData, 3000);
+           //setInterval(requestData, 3000);
+
+       });
+   }
+
+   $(document).ready(function()
+   {
+       // --------------Chart 1 ----------------------------
+
+       chartTemperatue = new Highcharts.Chart({
+           chart:
+               {
+               renderTo: 'data-temperature',
+               defaultSeriesType: 'area',
+               events: {
+                   load: requestData
+                       }
+               },
+           title:
+               {
+               text: 'Доля видео'
+               },
+           xAxis: {
+               categories:requestData
+              // tickPixelInterval: 150
+               //maxZoom: 20 * 1000
+                   },
+           yAxis: {
+              // minPadding: 0.2,
+               //maxPadding: 0.2,
+               title: {
+                   text: '%'
+                  // margin: 80
+                       }
+                    },
+           series: [{
+               color : '#c23d23',
+               lineColor: '#303030',
+               name: 'Доля видео' ,
+               data: []
+           }]
+       });
+       // --------------Chart 1 Ends - -----------------
+
+
+
+
+   });*/
+
+}
+
+}
+
+</script>
+{% endif %}
+
+{% endif %}
+
+{% endif %}
+{% endif%}
+
+</body>
+
+
+</html>

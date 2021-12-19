@@ -1,0 +1,9 @@
+operation mode real-time (sending into network),operation mode accumulation (file recording),Cannot be deleted because it is used, EPS-Bearer not created,cannot be deleted when the generator is running,Connect,Disconnect,loading #выбор режима  
+Start,Stop,Configuration,List of user scenarios,List of EPS-Bearers,List of network scenarios,Disconnect,Authorization,bitrate,video-ratio,ALL,Response time,apply,Megabytes #пункты первого экрана
+Back,Change,Operating mode,Maximum bitrate,GTP source address,GTP destination address,GTP TEID value range,Path of PCAP files to be saved,Max size of a PCAP file to be saved (Bytes),Disconnect,Authorization,used MAC src,MAC dst,incorrect MAC address,available,change MAC src,min,max #пункты меню 
+Scenario,Delete,Delete,Add scenario,Name,Close,Back,Disconnect,Authorization,Add #список сценариев
+Back,Change,Video,Bitrate,File,Delete,no more than 50000000,bit/sec,us,Add,Add PCAP files,Number PCAP files,list PCAP,Add,Close,Exceeding the speed limit #настройка список сценариев 
+Total bitrate (bit/sec),Bitrate (bit/sec),User scenario,Network scenario,Tune,Delete,Back,Disconnect,Authorization,Eps-Bearer,Clear,Quantity,Close,Add,Change,Exceeding the speed limit,total number of Eps-Bearer #Eps-Bearer 
+Back,Change,EPS-Bearer number,User scenario number,Network scenario number,Total bitrate,Set the value,Delete,no more than 50000000,bit/sec,jitter,timeup (us),timedown (us),value (us),Add,Add PCAP files,Number PCAP files,list PCAP,Add,Close,Burst,Jitter,Exceeding the speed limit   #/eb/nastroit/  
+Scenario,Delete,Delete,Add scenario,Name,Close,Back,Disconnect,Authorization,Add #scenario_network
+Back,Change,bis/sec,Jitter,timeup (us),timedown (us),value (us),Burst #eps/network/                                                  

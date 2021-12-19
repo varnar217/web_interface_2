@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html  lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+
+    <title>form glavn string for generate </title>
+
+    <!-- Bootstraps Java Scipts Links -->
+
+    <!-- Bootstraps Java Scipts Links -->
+		<link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+		<link href="{{ url_for('static', filename='css/opove.css') }}" rel="stylesheet">
+
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+   <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
+
+	<script type="text/javascript" src="{{ url_for('static', filename='libs/jquery.slim.min.js') }}"></script>
+
+
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/Chart.mi.js') }}"></script>
+
+<style>
+body {background-color: LightCyan;}
+.myButton {
+
+    padding: 20px;
+    display:block;
+    float:left;
+    text-align:center;
+  opacity: 1;
+  background:darkturquoise ;
+
+}
+.myButton2 {
+
+
+    display:block;
+    float:right;
+    text-align:center;
+  opacity: 1;
+  background:darkturquoise ;
+  font-size: 12px;
+  padding: 20px;
+  border: solid 1px burlywood;
+  width: 100%;
+  margin: 2px 0 20px;
+  border-radius: 5px;
+  display: block;
+}
+
+.mytext {
+    width: 50px;
+    float: rigth;
+}
+</style>
+
+{% if stopped_bufer %}
+
+
+<body onload="alert3()">
+<div id="allert2"></div>
+</body>
+<script language="JavaScript">
+function alert3()
+{
+{
+document.getElementById('allert2');
+alert(
+
+'{{stopped_msg_mac}}'
+
+);
+}
+};
+</script>
+{% else %}
+
+<body onload="requestData_alive()">
+ <div id="welcome"></div>
+</body>
+
+<script language="JavaScript">
+   let  intervalID ;
+ function requestData_alive()
+ {
+   var joined = '/stopped2'
+
+   var requests = $.get(joined);
+
+
+     // Ajax call to get the Data from Flask
+     document.getElementById('welcome')
+     var tm = requests.done(function (result)
+     {
+       var data1 = [];
+
+       data1.push(result[0]);
+       if (data1[0]== "Not" ){
+          clearTimeout(intervalID) ;
+         location.reload();
+
+        }else{
+          intervalID=setTimeout(requestData_alive, 3000);
+
+        }
+     })
+
+
+
+
+ }
+
+
+</script>
+
+
+{% endif %}
+
+
+<!--  <input class="mytext" type = "text" value ={{time_otvet}} disabled="disabled">-->
+
+<div >
+
+  {% if lang_switch %}
+     <form action="/lengrth_form" method = "POST">
+
+     <input  class= "myButton2"  style= "  float: right ;  background-color: darkblue; color:aliceblue;" type = "submit" (click)="changeButton(button)" value = "English" />
+     </form>
+  {% else %}
+  <form action="/lengrth_form" method = "POST">
+
+     <input class= "myButton2"  style=" float: right ; background-color: darkblue; color:aliceblue; " type = "submit" (click)="changeButton(button)" value = "Русский" />
+  </form>
+  {% endif %}
+
+  {% if conect %}
+  <form >
+
+     <input  class= "myButton2"  style= "float: right ; background-color: green; color:aliceblue;" type = "submit" value="{{punkt_menu[18]}}"   />
+       </form>
+  {% else %}
+  <form >
+
+     <input class= "myButton2"  style="  float: right ;  background-color: red; color:aliceblue; " type = "submit" value="{{punkt_menu[19]}}" />
+          </form>
+  {% endif %}
+
+
+
+{% if mac_flag_error %}
+<body onload="demoA()">
+ <div id="welcome"></div>
+</body>
+
+ <script language="JavaScript">
+
+
+ function demoA () { document.getElementById('welcome');
+ alert("{{punkt_menu[13]}}"); }
+
+
+ </script>
+
+{% endif%}
+
+  <form  name="form1" method="POST" action='/back'>
+
+  <p><input class= "myButton" style=" float: lefth ;" type = "submit" value = "{{punkt_menu[0]}}" /></p>
+
+  </form>
+
+  {% if conect %}
+
+    <form method="POST" action='/izmen1'>
+      {% if start_flag1 %}
+
+    <p><input    class= "myButton" style=" float: lefth;" type = "submit" value = "{{punkt_menu[1]}}" /></p>
+
+{% endif %}
+{% else %}
+    <p><input   class= "myButton" style= "  padding: 16px; background-color: Grey;" type = "submit" value = "{{punkt_menu[1]}}" /></p>
+{% endif %}
+
+
+<center>
+
+
+
+  {% if conect %}
+
+  {% else %}
+
+      <div class="buttonHolder" >
+      <h1>{{punkt_menu[9]}}</h1>
+      <form     method="POST" action='/registr'>
+
+       <input     type = "submit" value = "{{punkt_menu[10]}}" />
+    </form>
+      </div>
+      <br>
+      <br>
+      <br>
+      <br>
+
+  {% endif %}
+
+
+<!--<td style="border: 2px solid rgba(192, 192, 192, 0.5);">-->
+<table id="table-tx" style=" width: 620px;  ">
+
+
+
+<tr>
+  <td><label for="centralfreq">{{punkt_menu[2]}}</label></td>
+
+	  <td><select style="width: 320px;" name="user_regim" required="required">
+	  {%for i in rabota_status%}
+    {% if i.key   ==    regim_rabota_mode %}
+	    <option  value= "{{i.key}}" SELECTED>{{i.name}}</option>
+     {% else %}
+     <option  value= "{{i.key}}" >{{i.name}}</option>
+
+     {% endif %}
+
+      {%endfor%}
+	  <tr>
+		  <td><label for="velocity">{{punkt_menu[3]}}</label></td>
+		  <td><input name="velocity" type="number" id="velocity" name="velocity" min="{{min}}" max="10000000000" value="{{zagolovok[0]}}" required></td>
+	  </tr>
+
+
+	  <tr>
+		  <td><label for="MAC_adres_naz">{{punkt_menu[12]}}</label></td>
+		  <td><input  id="adres_naz" name="MAC_adres_naz"  value="{{MAC_DST}}" required ></td>
+	  </tr>
+
+    <tr>
+		  <td><label   for="MAC_adres">{{punkt_menu[11]}}</label></td>
+		  <td><input style="      float: left; "  id="adres_ist" name="MAC_adres_ist"  value="{{MAC_SRC}}" disabled="disabled"></td>
+      <td ><label style=" float: left;  " for="MAC_adrewds" >{{punkt_menu[14]}}</label></td>
+
+   <td><select style="   float: left; "  id = "epb" name="mac_select" >
+
+
+
+        {%for  j  in MAC_SRC_SORCE%}
+
+       <option  style="   float: left; "  value='{{ j.mac }}' SELECTED>{{j.mac}}</option>
+
+
+
+
+
+    {%endfor%}
+    </select></td>
+
+    <td><p>
+
+	  <input name="MAC_SRC_BOOl" type="checkbox"    {% if bufer_menu_change_MAC_SRC==1 %}checked{% else %}{% endif %}>{{punkt_menu[15]}}
+
+
+      </p></td>
+
+	  </tr>
+
+
+      <tr>
+	  <td><p>
+
+	  <input name="GTP2" type="checkbox"    {% if zagolovok[1]==1 %}checked{% else %}{% endif %}>GTP
+
+
+      </p></td>
+      </tr>
+
+	  <tr>
+		  <td><label for="adres">{{punkt_menu[4]}}</label></td>
+		  <td><input  id="adres_ist" name="adres_ist"  value="{{zagolovok[2]}}" pattern= "\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}" required></td>
+	  </tr>
+
+	  <tr>
+		  <td><label for="adres_naz">{{punkt_menu[5]}}</label></td>
+		  <td><input  id="adres_naz" name="adres_naz"  value="{{zagolovok[3]}}"  pattern= "\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}" required></td>
+	  </tr>
+
+
+
+
+	  <tr>
+		 <!-- <td><label  for="adres" hidden>{{punkt_menu[6]}}</label></td>-->
+
+		  <td>
+
+      <!--  <label for="name">
+            {{punkt_menu[16]}}
+        </label>-->
+
+         <input type="hidden" type="number"  id="TEID" name="TEID"  min="1" max="50000000" value="{{zagolovok[4]}}" name ="name" required>
+         <!-- <label for="name2">
+             {{punkt_menu[17]}}
+         </label>-->
+        <input type="hidden" style="   float: left; " type="number"  id="TEID2" name="TEID2"  min="1" max="50000000" value="{{zagolovok[5]}}" name ="name2" required>  </td>
+
+
+	  </tr>
+
+	  <tr>
+		  <td><label for="adres">{{punkt_menu[7]}}</label></td>
+
+       <td><input  id="pcap_adr" name="pcap_adr"  value="{{zagolovok[6]}}" required></td>
+	  </tr>
+
+	 <tr>
+		  <td><label for="adres">{{punkt_menu[8]}} </label></td>
+		  <td><input type="number" min="10000000" max="2000000000" id="razm_mb" name="razm_mb"  value="{{zagolovok[7]}}" required></td>
+	  </tr>
+
+
+
+      </select></td>
+
+
+</tr>
+  </form>
+
+   </table>
+
+
+
+
+
+
+
+
+</head>
+
+
+</center>
+
+</form>
+
+
+</html>

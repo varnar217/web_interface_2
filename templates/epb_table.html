@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html  lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+
+    <title>form glavn string for generate </title>
+
+    <!-- Bootstraps Java Scipts Links -->
+
+    <!-- Bootstraps Java Scipts Links -->
+		<link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+		<link href="{{ url_for('static', filename='css/opove.css') }}" rel="stylesheet">
+
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+   <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
+
+	<script type="text/javascript" src="{{ url_for('static', filename='libs/jquery.slim.min.js') }}"></script>
+
+
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/Chart.mi.js') }}"></script>
+
+<style>
+body {background-color: LightCyan;}
+   table {
+    width: 100%; /* Ширина таблицы */
+    border-collapse: collapse; /* Убираем двойные линии между ячейками */
+   }
+   td, th {
+    padding: 3px; /* Поля вокруг содержимого таблицы */
+    border: 1px solid #000; /* Параметры рамки */
+   }
+   th {
+    background: #afd792; /* Цвет фона */
+    color: #333;  /* Цвет текста */
+   }
+   tbody tr:hover {
+    background: #0000FF; /* Цвет фона при наведении */
+    color: #000000; /* Цвет текста при наведении */
+   }
+
+ input {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+.c-button {
+    -webkit-writing-mode: horizontal-tb !important;
+    -webkit-appearance: button;
+    border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+    border-style: solid;
+  /*  border-width: 1px;*/
+      /* padding: 1px 7px 2px;*/
+    text-rendering: auto;
+    color: initial;
+    display: inline-block;
+    text-align: start;
+    margin: 0em;
+  /*  font: 400 11px system-ui;*/
+}
+/* Кнопка, используемая для открытия контактной формы-фиксируется в нижней части страницы */
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 180px;
+  display:block;
+}
+
+/* Всплывающая форма-скрыта по умолчанию */
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+}
+
+/* Добавление стилей в контейнер форм */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Поля ввода полной ширины */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* Когда входы получают фокус, сделайте что-нибудь */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Установите стиль для кнопки отправить/кнопка */
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Добавьте красный цвет фона к кнопке отмена */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Добавьте некоторые эффекты наведения на кнопки */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+
+
+.mytext {
+    width: 50px;
+  float:left;
+}
+
+.myButton {
+
+    padding: 20px;
+    display:block;
+    float:left;
+    text-align:center;
+  opacity: 1;
+  background:darkturquoise ;
+  font-size: 12px;
+  padding: 20px;
+  border: solid 1px burlywood;
+  width: 100%;
+  margin: 2px 0 20px;
+  border-radius: 5px;
+  display: block;
+}
+.myButton2 {
+
+
+    display:block;
+float:left;
+    text-align:center;
+  opacity: 1;
+  background:darkturquoise ;
+  font-size: 12px;
+  padding: 20px;
+  border: solid 1px burlywood;
+  width: 100%;
+  margin: 2px 0 20px;
+  border-radius: 5px;
+  display: block;
+}
+
+</style>
+<body>
+<menu >  <center>  {{string}} </center>      </menu>
+<label for="adres_naz">{{punkt_menu[16]}}</label>
+-<input class="mytext" type="text" disabled="disabled" value ={{min_eps}} >
+
+     <form style =" float:left ;display:block; " method="POST" action='/back_1'>
+	 <p><button class="myButton" id="back_23" >{{punkt_menu[6]}}</button></p>
+
+	 </form>
+   <form style =" float:left;display:block; "  method="POST" action='/eb_ALL/delete'>
+   <p><button class="myButton" id="back_24" onclick="show_ert()">{{punkt_menu[10]}}</button></p>
+
+   </form>
+   <form style =" float:left ;display:block;"  >
+   <p><button id="chenge" onclick="requestData()" class="myButton">{{punkt_menu[14]}}</button></p>
+
+   </form>
+
+
+{% if lang_bool %}
+   <form style ="float:  right;" action="/lengrth_epb_table" method = "POST">
+
+   <input  class= "myButton"  style= "  padding: 16px; background-color: darkblue; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" (click)="changeButton(button)" value = "English" />
+   </form>
+{% else %}
+<form style ="float: right;" action="/lengrth_epb_table" method = "POST">
+
+   <input class= "myButton"  style=" padding: 16px; background-color: darkblue; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" (click)="changeButton(button)" value = "Русский" />
+</form>
+{% endif %}
+
+{% if conect %}
+
+   <input  class= "myButton"  style= "  float: right;  padding: 16px; background-color: green; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" value="{{punkt_menu[17]}}"   />
+{% else %}
+
+   <input class= "myButton"  style="  float: right;  padding: 16px; background-color: red; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" value="{{punkt_menu[18]}}" />
+{% endif %}
+
+
+        {% if stopped_bufer %}
+
+
+      <body onload="alert3()">
+       <div id="allert2"></div>
+      </body>
+      <script language="JavaScript">
+      function alert3()
+      {
+        //location.reload();
+      {
+        document.getElementById('allert2');
+        alert(
+
+        '{{stopped_msg_mac}}'
+
+        );
+      }
+      };
+    </script>
+    {% else %}
+
+        {% endif %}
+
+        {% if error_flag_add_eps %}
+
+
+      <body onload="alert4()">
+       <div id="allert3"></div>
+      </body>
+      <script language="JavaScript">
+      function alert4()
+      {
+      {
+        document.getElementById('allert3');
+        alert(
+
+        '{{punkt_menu[15]}} {{summer_velocity2}}'
+
+        );
+      }
+      };
+    </script>
+    {% else %}
+
+        {% endif %}
+<center>
+  <label for="velocity">{{punkt_menu[0]}}</label>
+  <input type = "text"  name="velocity" id="velocity" name="velocity"  value="{{summer_velocity}}" disabled="disabled">
+
+
+ {% if conect %}
+
+ {% else %}
+
+     <div class="buttonHolder" >
+     <h1>{{punkt_menu[9]}}</h1>
+     <form     method="POST" action='/registr'>
+
+      <input     type = "submit" value = "{{punkt_menu[10]}}" />
+   </form>
+     </div>
+     <br>
+     <br>
+     <br>
+     <br>
+
+ {% endif %}
+</center>
+
+<center>
+
+<table id="table-tx" width="250" >
+  <td bgcolor="#FFFFFF">id</th>
+  <td bgcolor="#FFFFFF">{{punkt_menu[1]}}
+  <td bgcolor="#FFFFFF">{{punkt_menu[2]}}
+    <td bgcolor="#FFFFFF">{{punkt_menu[3]}}
+    <td bgcolor="#FFFFFF">{{punkt_menu[4]}}
+
+      <td bgcolor="#FFFFFF">{{punkt_menu[5]}}
+  </th>
+  {% set count = 0 %}
+
+  {%for  i  in buferr%}
+
+  <tr>
+    <td >{{i.key}}</td>
+        <td > <p><input id="veloc234" type = "submit" value = "{{i.veloc}}" name="{{i.key}}" /></p></td>
+        <form id="form1" method="POST" action='/eb/nastroit/{{i.global_numb}}'>
+
+        <td ><select onchange="colr_change1({{i.key}})" name="scenar" id="scenar">
+              {%for  j  in scenar_lister%}
+              {% if i.status == j.indef_ir   %}
+              <option  value='{{j.indef_ir}}' selected='selected'>{{j.name}}</option>
+              {% set count = count + 1 %}
+              {% else %}
+                   <option   value="{{ j.indef_ir }}" >{{ j.name }}</option>
+                   {% set count = count + 1 %}
+
+               {% endif %}
+            {%endfor%}
+         </select></td>
+
+         <td ><select onchange="colr_change()" name="network" id="network">
+               {%for  j  in bufer_network%}
+               {% if i.status_nt  ==  j.der %}
+               <option  value='{{j.der}}' selected='selected'>{{j.name}}</option>
+                       {% set bufer_network_1 = j.der %}
+
+               {% else %}
+                    <option value="{{ j.der }}" >{{ j.name }}</option>
+                         {%set  bufer_network_1 = j.der %}
+                {% endif %}
+             {%endfor%}
+          </select></td>
+
+
+               <td > <p><input  type = "submit" value = "{{punkt_menu[4]}}" name="{{i.key}}" /></p></td>
+
+
+              <!--<td >  <div class="send-them"  style="border:1px solid #666;padding:5px 20px;margin:20px 0;display:inline-block;cursor:pointer" >{{punkt_menu[14]}}</div></td>-->
+                <!--  <td ><button  class="send-them">{{punkt_menu[14]}}</button></td>-->
+                  </form>
+              <!--    <td ><button  onclick="requestData()">{{punkt_menu[14]}}</button></td>-->
+
+           <form method="POST" action='/eb/delete/{{i.global_numb}}'>
+
+                <td > <p><input  type = "submit" value = "{{punkt_menu[5]}}" name="{{i.key}}" /></p></td>
+                    </form>
+
+          <!--  <form id= "form2" method="POST" action='/change_eps/{{i.global_numb}}'>
+
+                 <td > <p><input  type = "submit" value = "{{punkt_menu[14]}}" name="{{i.key}}" /></p></td>
+               </form>-->
+
+    <!--  <td ><button  class="send-them">{{punkt_menu[14]}}</button></td>-->
+
+  </tr>
+      {%endfor%}
+
+
+   </table>
+
+</center>
+
+<button id="myForm3"  class="open-button" onclick="openForm()">{{punkt_menu[13]}}</button>
+</center>
+
+<div class="form-popup" id="myForm">
+  <form id="myForm2"  style =" display:block; "  method="POST" action='/eb_ALL/add' class="form-container" >
+    <h1>{{punkt_menu[9]}}</h1>
+
+    <label for="email"><b>{{punkt_menu[11]}}</b></label>
+    <input color=" blue" min=1 max={{max_dop}} type="number" name="colich" value=1 required  >
+    <label for="name_sce"><b>{{punkt_menu[2]}}</b></label>
+
+        {%for  i  in iter_nacha%}
+           <select name="scenar" >
+              {%for  j  in scenar_lister%}
+              {% if j.indef_ir == i %}
+              <option name="td1"  value='{{j.indef}}' selected='selected'>{{j.name}}</option>
+              {% else %}
+                   <option name="td2"  value="{{ j.indef }}" >{{ j.name }}</option>
+               {% endif %}
+            {%endfor%}
+         </select>
+         <label for="name_sce"><b>{{punkt_menu[3]}}</b></label>
+
+         <select name="network">
+               {%for  j  in bufer_network%}
+               {% if j.der == i %}
+               <option name="td1" value='{{j.indef}}' selected='selected'>{{j.name}}</option>
+               {% else %}
+                    <option name="td2" value="{{ j.indef }}" >{{ j.name }}</option>
+                {% endif %}
+             {%endfor%}
+          </select>
+
+    {%endfor%}
+    <br>
+    <!--<button class="c-button" type="submit"  onclick="show_ert()" >{{punkt_menu[13]}}</button>-->
+    <input  class="c-button"  type = "submit" value = "{{punkt_menu[13]}}"  name="{{punkt_menu[13]}}"  />
+    <button class="c-button" type="button"  onclick="closeForm()">{{punkt_menu[12]}}</button>
+  </form>
+</div>
+
+
+<script language="JavaScript">
+function requestData(){
+  let x = document.getElementById('back_23');
+      if (x.style.display == "none"){
+    x.style.display = "block";
+    } else {
+   x.style.display = "none"} ;
+
+    let x2 = document.getElementById('back_24');
+        if (x2.style.display == "none"){
+      x2.style.display = "block";
+      } else {
+     x2.style.display = "none"} ;
+     let x3 = document.getElementById('chenge');
+         if (x3.style.display == "none"){
+       x3.style.display = "block";
+       } else {
+      x3.style.display = "none"} ;
+
+  var adres_put = '/change_eps';
+
+   var idArr = [];
+
+   var trs = document.getElementsByTagName("select");
+
+   for(var i=0;i<trs.length-2;i++)
+   {
+      idArr.push(trs[i].value);
+   }
+
+
+  let xhr = new XMLHttpRequest();
+  xhr.open('POST', adres_put, false);
+  xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+  let json = JSON.stringify({
+             ip_global: idArr.toString()
+
+            });
+  xhr.send(json);
+
+ // var requests = $.post(joined);
+
+
+}
+
+//document.getElementById("scenar").onchange = colr_change;
+// document.getElementById("network").onchange = colr_change;
+
+function colr_change(){
+
+  document.getElementById("chenge").style.background='brown';
+
+
+}
+
+function colr_change1(x){
+
+  document.getElementById("chenge").style.background='brown';
+
+//  document.getElementById("veloc234").value=  document.getElementById("scenar").value;
+
+}
+
+</script>
+
+<script language="JavaScript">
+function back_245() {
+  //location.reload();
+  let x = document.getElementById('back_23');
+      if (x.style.display == "none"){
+	  x.style.display = "block";
+	  } else {
+	 x.style.display = "none"} ;
+
+    let x2 = document.getElementById('back_24');
+        if (x2.style.display == "none"){
+  	  x2.style.display = "block";
+  	  } else {
+  	 x2.style.display = "none"} ;
+
+
+};
+</script>
+<script language="JavaScript">
+function show_ert() {
+  document.getElementById("myForm").style.display = "block";
+  let x = document.getElementById('back_23');
+      if (x.style.display == "none"){
+    x.style.display = "block";
+    } else {
+   x.style.display = "none"} ;
+
+    let x2 = document.getElementById('back_24');
+        if (x2.style.display == "none"){
+      x2.style.display = "block";
+      } else {
+     x2.style.display = "none"} ;
+     let x3 = document.getElementById('chenge');
+         if (x3.style.display == "none"){
+       x3.style.display = "block";
+       } else {
+      x3.style.display = "none"} ;
+      let x4 = document.getElementById('myForm2');
+          if (x4.style.display == "none"){
+        x4.style.display = "block";
+        } else {
+       x4.style.display = "none"} ;
+
+       let x5 = document.getElementById('myForm3');
+           if (x5.style.display == "none"){
+         x5.style.display = "block";
+         } else {
+        x5.style.display = "none"} ;
+}
+
+function show_ert2() {
+  document.getElementById("myForm2").style.display = "block";
+  let x = document.getElementById('back_23');
+      if (x.style.display == "none"){
+    x.style.display = "block";
+    } else {
+   x.style.display = "none"} ;
+
+    let x2 = document.getElementById('back_24');
+        if (x2.style.display == "none"){
+      x2.style.display = "block";
+      } else {
+     x2.style.display = "none"} ;
+     let x3 = document.getElementById('chenge');
+         if (x3.style.display == "none"){
+       x3.style.display = "block";
+       } else {
+      x3.style.display = "none"} ;
+      let x4 = document.getElementById('myForm2');
+          if (x4.style.display == "none"){
+        x4.style.display = "block";
+        } else {
+       x4.style.display = "none"} ;
+
+       let x5 = document.getElementById('myForm3');
+           if (x5.style.display == "none"){
+         x5.style.display = "block";
+         } else {
+        x5.style.display = "none"} ;
+}
+
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+  let x = document.getElementById('back_23');
+      if (x.style.display == "none"){
+    x.style.display = "block";
+    } else {
+   x.style.display = "none"} ;
+
+    let x2 = document.getElementById('back_24');
+        if (x2.style.display == "none"){
+      x2.style.display = "block";
+      } else {
+     x2.style.display = "none"} ;
+     let x3 = document.getElementById('chenge');
+         if (x3.style.display == "none"){
+       x3.style.display = "block";
+       } else {
+      x3.style.display = "none"} ;
+}
+
+
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+
+  let x = document.getElementById('back_23');
+      if (x.style.display == "none"){
+    x.style.display = "block";
+    } else {
+   x.style.display = "none"} ;
+
+    let x2 = document.getElementById('back_24');
+        if (x2.style.display == "none"){
+      x2.style.display = "block";
+      } else {
+     x2.style.display = "none"} ;
+
+     let x3 = document.getElementById('chenge');
+         if (x3.style.display == "none"){
+       x3.style.display = "block";
+       } else {
+      x3.style.display = "none"}
+}
+
+
+
+
+
+//$('.send-them').click(function(){
+//var adres_put = '/change_eps';
+//var ip_global=  document.getElementById("ip_global").value ;
+  //  var test=  document.getElementById("test").value ;
+   //var test2=  document.getElementById("test2").value ;
+//let xhr = new XMLHttpRequest();
+  //  xhr.open('POST', adres_put, false);
+  //  xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+  //  let json = JSON.stringify({
+    //  ip_global: ip_global.toString(),
+    // scenar_number: test.toString() ,
+    //  network_number: test2.toString()
+     //});
+//xhr.send(json);
+//});
+
+ //function requestData(){
+
+
+  // var adres_put = '/change_eps';
+  // var ip_global=  document.getElementById("ip_global").value ;
+   //var test=  document.getElementById("test").value ;
+   //var test2=  document.getElementById("test2").value ;
+   //var myString = x1 .toString();
+   //var joined = '/data/'+myString
+   //let xhr = new XMLHttpRequest();
+   //xhr.open('POST', adres_put, false);
+  // xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+   //let json = JSON.stringify({
+            //  ip_global: ip_global.toString(),
+            //  scenar_number: test.toString() ,
+            //  network_number: test2.toString()
+          //    });
+   //xhr.send(json);
+
+  // var requests = $.post(joined);
+
+
+ //}
+
+
+</script>
+
+
+
+
+
+</body>
+
+
+</html>

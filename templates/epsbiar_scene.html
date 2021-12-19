@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html  lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+
+    <title>form glavn string for generate </title>
+
+    <!-- Bootstraps Java Scipts Links -->
+
+    <!-- Bootstraps Java Scipts Links -->
+		<link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+		<link href="{{ url_for('static', filename='css/opove.css') }}" rel="stylesheet">
+
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+   <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
+
+	<script type="text/javascript" src="{{ url_for('static', filename='libs/jquery.slim.min.js') }}"></script>
+
+   <script type="text/javascript" src="{{ url_for('static', filename='js/Chart.mi.js') }}"></script>
+
+
+  <!--  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>-->
+
+
+
+    <!-- JQuery links  -->
+   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+
+<script type="text/javascript" src="{{ url_for('static', filename='libs/jquery-3.5.1.js') }}"></script>
+
+
+    <!--High CHART LIVE  -->
+<script type="text/javascript" src="{{ url_for('static', filename='libs/jquery-3.5.1.js') }}"></script>
+
+   <!-- <script src="http://code.highcharts.com/highcharts.js"></script>-->
+<script type="text/javascript" src="{{ url_for('static', filename='libs/highcharts-more.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='libs/highcharts-more.src.js') }}"></script>
+<style>body {background-color: LightCyan;}
+
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 180px;
+}
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 2px solid #f1f1f1;
+}
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+   tbody tr:hover {
+    background: #0000FF; /* Цвет фона при наведении */
+    color: #000000; /* Цвет текста при наведении */
+   }
+
+   .myButton {
+
+       padding: 20px;
+       display:block;
+       float:left;
+       text-align:center;
+     opacity: 1;
+     background:darkturquoise ;
+     font-size: 12px;
+     padding: 20px;
+     border: solid 1px burlywood;
+     width: 100%;
+     margin: 2px 0 20px;
+     border-radius: 5px;
+     display: block;
+   }
+
+   .myButton3 {
+
+
+       display:block;
+
+     opacity: 1;
+     background:darkturquoise ;
+
+
+     display: block;
+   }
+   .c-button {
+       -webkit-writing-mode: horizontal-tb !important;
+       -webkit-appearance: button;
+       border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+       border-style: solid;
+     /*  border-width: 1px;*/
+         /* padding: 1px 7px 2px;*/
+       text-rendering: auto;
+       color: initial;
+       display: inline-block;
+       text-align: start;
+       margin: 0em;
+     /*  font: 400 11px system-ui;*/
+   }
+   .myButton2 {
+
+
+       display:block;
+   float:left;
+       text-align:center;
+     opacity: 1;
+     background:darkturquoise ;
+     font-size: 12px;
+     padding: 20px;
+     border: solid 1px burlywood;
+     width: 100%;
+     margin: 2px 0 20px;
+     border-radius: 5px;
+     display: block;
+   }
+   .open-button {
+     background-color: #555;
+     color: white;
+     padding: 16px 20px;
+     border: none;
+     cursor: pointer;
+     opacity: 0.8;
+     position: fixed;
+     bottom: 23px;
+     right: 28px;
+     width: 180px;
+   }
+
+   .mytext {
+       width: 50px;
+       float:left;
+   }
+</style>
+<menu >  <center>  {{string}} </center>      </menu>
+
+
+
+    <!--<script src="http://code.highcharts.com/highcharts-more.js"></script>-->
+   <!-- <script src="http://code.highcharts.com/modules/exporting.js"></script>-->
+<div >
+   {% if lang_switch %}
+      <form action="/lengrth_epsbiar_scene" method = "POST">
+
+      <input  class= "myButton2"  style= " float: right; padding: 16px; background-color: darkblue; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" (click)="changeButton(button)" value = "English" />
+      </form>
+   {% else %}
+   <form action="/lengrth_epsbiar_scene" method = "POST">
+
+      <input class= "myButton2"  style="float: right; padding: 16px; background-color: darkblue; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" (click)="changeButton(button)" value = "Русский" />
+   </form>
+   {% endif %}
+
+   {% if conect %}
+
+      <input  class= "myButton2"  style= "float: right;  padding: 16px; background-color: green; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" value="{{punkt_menu[15]}}"   />
+   {% else %}
+
+      <input class= "myButton2"  style="float: right; padding: 16px; background-color: red; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" value="{{punkt_menu[16]}}" />
+   {% endif %}
+</div >
+
+	<script type="text/javascript" src="{{ url_for('static', filename='libs/exporting.js') }}"></script>
+
+  {% if error_flag_add_scenar %}
+
+
+<body onload="alert4()">
+ <div id="allert3"></div>
+</body>
+<script language="JavaScript">
+function alert4()
+{
+{
+  document.getElementById('allert3');
+  alert(
+
+  '{{punkt_menu[6]}}'
+
+  );
+}
+};
+</script>
+{% else %}
+
+  {% endif %}
+
+
+
+  {% if error_flag_add_scenar1 %}
+
+
+  <body onload="alert5()">
+  <div id="allert4"></div>
+  </body>
+  <script language="JavaScript">
+  function alert5()
+  {
+  {
+  document.getElementById('allert4');
+  alert(
+
+  '{{punkt_menu[24]}} {{global_velocity}}'
+
+  );
+  }
+  };
+  </script>
+  {% else %}
+
+  {% endif %}
+
+  <form   method="POST" action='/back_2'>
+
+	<p><input class= "myButton2" type = "submit" value = "{{punkt_menu[0]}}" /></p>
+
+  </form>
+
+
+  {% if start_flag1 %}
+
+  <form method="POST" action='/izmen_scenari/new'>
+
+
+	<p><input class= "myButton2" type = "submit" value = "{{punkt_menu[1]}}" /></p>
+
+
+      {% endif %}
+      <input class= "myButton2" type="hidden" name="scenar_number234" value="{{scen_number}}">
+
+
+<center>
+<body>
+
+    <canvas id="chart" width="600" height="400"></canvas>
+    <script type="text/javascript">
+	 function getRandomColor() {
+	var letters = '0123456789ABCDEF'.split('');
+	var color = '#';
+	for (var i = 0; i < 6; i++ ) {
+		color += letters[Math.floor(Math.random() * 16)];
+	}
+	return color;
+		}
+      var pieData = [
+        {% for item, label  in set %}
+          {
+            value: {{item}},
+            label: "{{label}}",
+			color : getRandomColor()
+
+          },
+        {% endfor %}
+      ];
+
+      // get bar chart canvas
+      var mychart = document.getElementById("chart").getContext("2d");
+      //steps = 10
+
+      // draw pie chart
+      new Chart(document.getElementById("chart").getContext("2d") ).Pie(pieData);
+/////////////////////
+
+
+
+///////////////////////////
+
+
+
+    </script>
+
+</body>
+
+
+
+
+
+</center>
+
+
+<table class="table table-striped" id="users">
+ <thead>
+ <th> <td> {{punkt_menu[2]}} , {{punkt_menu[3]}}  , {{punkt_menu[4]}} <td> </th>
+
+ </thead>
+</table>
+
+<div>
+
+ <table   style=  "float:left" name= "scenar_t" >
+
+   {%for  j  in pcap_id%}
+        <tr>
+                    <td><select name="scenar" style="width: 750px;height: 50px; " required="required" >
+                  {%for  i  in string_pcap%}
+
+                  {% if j.znach == i.key %}
+                  <option  name="td1"  value='{{i.key}}' SELECTED>{{i.string}}</option>
+
+                  {% else %}
+                       <option name="td1"  value="{{ i.key }}" >{{ i.string}}</option>
+                   {% endif %}
+
+                {%endfor%}
+             </select></td>
+
+
+      </tr>
+
+          {%endfor%}
+
+     </table>
+   </form>
+
+
+     <table   style=  "float:left">
+         {%for  j  in pcap_id%}
+
+            <tr>
+
+                 <form method="POST" action='/eps_scenar/delete/{{j.znach}}'>
+                   <input type="hidden" name="scenar_number" value="{{scen_number}}">
+
+                      <td > <p><input  style="height: 50px "  class= "myButton3" type = "submit" value = "{{punkt_menu[5]}}" name="{{j.znach}}" /></p></td>
+                          </form>
+
+            </tr>
+
+
+                {%endfor%}
+
+
+             </table>
+
+                       {%for  j  in pcap_id%}
+                         <br>
+                         <br>
+                            <br>
+
+                         {%endfor%}
+
+</div>
+
+<button class="open-button" onclick="openForm()">{{punkt_menu[9]}}</button>
+</center>
+
+<div class="form-popup" id="myForm">
+  <form   method="POST" action='/eps_scenar/add_ALL' class="form-container">
+    <h1>{{punkt_menu[10]}}</h1>
+    <input  type="hidden" name="scenar_number" value="{{scen_number}}">
+
+
+    <label for="email"><b>{{punkt_menu[11]}}</b></label>
+    <input color=" blue" min=1  max =100 type="number" name="colich" value=1 required  >
+    <label for="name_sce"><b>{{punkt_menu[12]}}</b></label>
+
+        {%for  i  in iter_nacha%}
+           <select name="scenar2" >
+              {%for  j  in string_pcap%}
+              {% if i == j.key %}
+              <option name="td1"  value='{{j.key}}' selected='selected'>{{j.string}}</option>
+              {% else %}
+                   <option name="td2"  value="{{ j.key }}" >{{ j.string }}</option>
+               {% endif %}
+            {%endfor%}
+         </select>
+
+
+    {%endfor%}
+    <br>
+    <input  class="c-button"  type = "submit" value = "{{punkt_menu[13]}}" name="{{punkt_menu[13]}}" />
+    <button class="c-button" type="button"  onclick="closeForm()">{{punkt_menu[14]}}</button>
+  </form>
+</div>
+
+
+
+
+<script language="JavaScript">
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+
+
+
+//$('.send-them').click(function(){
+//var adres_put = '/change_eps';
+//var ip_global=  document.getElementById("ip_global").value ;
+  //  var test=  document.getElementById("test").value ;
+   //var test2=  document.getElementById("test2").value ;
+//let xhr = new XMLHttpRequest();
+  //  xhr.open('POST', adres_put, false);
+  //  xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+  //  let json = JSON.stringify({
+    //  ip_global: ip_global.toString(),
+    // scenar_number: test.toString() ,
+    //  network_number: test2.toString()
+     //});
+//xhr.send(json);
+//});
+
+ //function requestData(){
+
+
+  // var adres_put = '/change_eps';
+  // var ip_global=  document.getElementById("ip_global").value ;
+   //var test=  document.getElementById("test").value ;
+   //var test2=  document.getElementById("test2").value ;
+   //var myString = x1 .toString();
+   //var joined = '/data/'+myString
+   //let xhr = new XMLHttpRequest();
+   //xhr.open('POST', adres_put, false);
+  // xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+   //let json = JSON.stringify({
+            //  ip_global: ip_global.toString(),
+            //  scenar_number: test.toString() ,
+            //  network_number: test2.toString()
+          //    });
+   //xhr.send(json);
+
+  // var requests = $.post(joined);
+
+
+ //}
+
+
+</script>
+
+
+
+
+
+<form method="POST" action='/eps_scenar/add' style= "margin: 0 auto; width:250px;">
+<!--<p><input  class= "myButton2" type = "submit" value = "+" name="zhach" /></p>-->
+<input  type="hidden" name="scenar_number" value="{{scen_number}}">
+
+</form>
+
+</head>
+</html>
