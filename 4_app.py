@@ -1309,28 +1309,30 @@ def eb_all_delete():
         j=len(eps_br)
         js=[]
         #if eb_ALL_delete==1:
+        tert=[]
 
         for ii in range(1,201) :
             #if j-1 != 0:
             if ii  in spisok_eps :
                 #j=j-1
-                try:
-                    stopped_bufer=False
-                    stopped_msg_mac=''
-                    json_out={
-                    "params":{
-                    "eb":[{
-                    "id":int(ii)
-                    }]
-                    }
-                    }
-                    json_out2=json.dumps(json_out)
+                #try:
+                stopped_bufer=False
+                stopped_msg_mac=''
+                tert.append({"id":int(ii)})
+                    #json_out={
+                    #"params":{
+                    #"eb":[{
+                    #"id":int(ii)
+                    #}]
+                    #}
+                    #}
+                    #json_out2=json.dumps(json_out)
                     #print('do do rr=',json_out2)
 
-                    rr=  req.delete(f'http://{udras}/params/eb',json=(json_out))
+                    #rr=  req.delete(f'http://{udras}/params/eb',json=(json_out))
 
-                    js = json.loads(rr.text)
-                    eb_ALL_delete=0
+                    #js = json.loads(rr.text)
+                eb_ALL_delete=0
                     #print('delete outrr=',js)
                     #print('js=',js)
                     #if js['response']['code'] == 0 :
@@ -1338,18 +1340,35 @@ def eb_all_delete():
                     #else:
                         #return redirect(url_for('LIST_EPS'))
 
-                except Exception as ex:
-                    eb_ALL_delete=0
+                #except Exception as ex:
+                    #eb_ALL_delete=0
 
                     #return  render_template('first.html')
 
-                    return redirect(url_for('LIST_EPS'))
+                    #return redirect(url_for('LIST_EPS'))
 
                     #return redirect(url_for("delete_eb",number=int(ii)))
 
             #else:
                 #break
         eb_ALL_delete=0
+
+        json_out={
+        "params":{
+        "eb":tert
+        }
+        }
+        try:
+            rr=  req.delete(f'http://{udras}/params/eb',json=(json_out))
+
+            return redirect(url_for('LIST_EPS'))
+
+        except Exception as ex:
+            eb_ALL_delete=0
+            return redirect(url_for('LIST_EPS'))
+
+
+
 
         return redirect(url_for('LIST_EPS'))
 
@@ -3722,6 +3741,19 @@ def Menu():
     global lang_switch , conect ,rabota_status ,regim_rabota_mode , MAC_SRC ,  MAC_DST ,mac_flag_error  , indef_froma , stopped_msg_mac,stopped_bufer ,MAC_SRC_SORCE ,bufer_menu_change_MAC_SRC,error_flag
     error_flag=False
     #stopped_msg_mac=''
+    tert=[]
+    if lang_switch%2== 0:
+        tert=bufer_menu_ALL_form_eng[0][3]
+
+    else:
+        tert=bufer_menu_ALL_form_rus[0][3]
+    if stopped_bufer and (tert  in stopped_msg_mac  ):
+        stopped_bufer=False
+
+
+
+
+
 
     #stopped_bufer=False
 
@@ -4298,6 +4330,14 @@ def scenar_spis():
     if request.method == 'POST' or request.method == 'GET':
         if conect ==False:
             return redirect(url_for('gra'))
+        tert=[]
+        if lang_switch%2== 0:
+            tert=bufer_menu_ALL_form_eng[0][3]
+
+        else:
+            tert=bufer_menu_ALL_form_rus[0][3]
+        if stopped_bufer and (tert  in stopped_msg_mac  ):
+            stopped_bufer=False
 
         if stopped_bufer ==True:
             return redirect(url_for('gra'))
@@ -4476,6 +4516,16 @@ def network_spis():
     if request.method == 'POST' or request.method == 'GET':
         #if conect ==False:
             #return redirect(url_for('gra'))
+
+        tert=[]
+        if lang_switch%2== 0:
+            tert=bufer_menu_ALL_form_eng[0][3]
+
+        else:
+            tert=bufer_menu_ALL_form_rus[0][3]
+        if stopped_bufer and (tert  in stopped_msg_mac  ):
+            stopped_bufer=False
+
         if stopped_bufer ==True:
             return redirect(url_for('gra'))
 
@@ -4632,7 +4682,15 @@ def gra():
     bufer = 0
     select_eps = 0
     select_value = 0
+    obozn=[]
+    if lang_switch%2== 0:
+        obozn=bufer_menu_ALL_form_eng[0][3]
 
+    else:
+        obozn=bufer_menu_ALL_form_rus[0][3]
+
+    if stopped_bufer and (tert  in stopped_msg_mac  ):
+        stopped_bufer=False
 
     punkt_menu_nach=[[bufer_menu_ALL_form_eng[1][0],bufer_menu_ALL_form_eng[1][1] ,bufer_menu_ALL_form_eng[1][2],bufer_menu_ALL_form_eng[1][3],bufer_menu_ALL_form_eng[1][4],bufer_menu_ALL_form_eng[1][5],bufer_menu_ALL_form_eng[1][6],bufer_menu_ALL_form_eng[1][7],str(bufer_menu_ALL_form_eng[1][8]),bufer_menu_ALL_form_eng[1][9],bufer_menu_ALL_form_eng[1][10],bufer_menu_ALL_form_eng[1][11],bufer_menu_ALL_form_eng[1][12]
     ,bufer_menu_ALL_form_eng[1][13],bufer_menu_ALL_form_eng[0][5],bufer_menu_ALL_form_eng[0][6],bufer_menu_ALL_form_eng[0][7]],
@@ -4782,7 +4840,7 @@ def gra():
             data_grafik1 = data_grafik1 , data_grafik2 = data_grafik2 , perv=perv,
             url_output = url_output,conect = conect , lang_bool= lang_bool , punkt_menu = punkt_menu ,
             start_flag = start_flag , data = data , epdb=epdb,time_otvet= time_otvet ,
-            lang_switch = lang_switch , allert_flag=error_flag , allert_msg=allert_msg , string=string ,stopped_msg_mac=stopped_msg_mac,stopped_bufer=stopped_bufer,i_regim=i_regim,stopped_bufer_eps=stopped_bufer_eps)
+            lang_switch = lang_switch , allert_flag=error_flag , allert_msg=allert_msg , string=string ,stopped_msg_mac=stopped_msg_mac,stopped_bufer=stopped_bufer,i_regim=i_regim,stopped_bufer_eps=stopped_bufer_eps,obozn=obozn)
 
         except Exception as ex:
             conect=False
@@ -4790,12 +4848,12 @@ def gra():
             return render_template('2_gra.html', bufer_network2 = bufer_network2 , data_grafik1 = data_grafik1 , data_grafik2 = data_grafik2 ,
             perv = perv , url_output = url_output , conect = conect ,lang_bool = lang_bool,
             punkt_menu = punkt_menu , start_flag = start_flag , data = data , epdb = epdb , time_otvet= time_otvet , lang_switch= lang_switch , allert_flag = error_flag ,
-            allert_msg = allert_msg ,  string=string ,stopped_msg_mac=stopped_msg_mac,stopped_bufer=stopped_bufer,i_regim=i_regim,stopped_bufer_eps=stopped_bufer_eps)
+            allert_msg = allert_msg ,  string=string ,stopped_msg_mac=stopped_msg_mac,stopped_bufer=stopped_bufer,i_regim=i_regim,stopped_bufer_eps=stopped_bufer_eps,obozn=obozn)
     else  :
         conect=False
         return render_template('2_gra.html',bufer_network2 = bufer_network2 , data_grafik1 = data_grafik1 , data_grafik2 = data_grafik2 ,
         perv = perv , url_output = url_output , conect = conect , lang_bool = lang_bool , punkt_menu = punkt_menu , start_flag = start_flag , data = data ,
-        epdb = epdb ,time_otvet = time_otvet , lang_switch = lang_switch , allert_flag = error_flag , allert_msg = allert_msg , string=string,stopped_msg_mac=stopped_msg_mac,stopped_bufer=stopped_bufer,i_regim=i_regim,stopped_bufer_eps=stopped_bufer_eps)
+        epdb = epdb ,time_otvet = time_otvet , lang_switch = lang_switch , allert_flag = error_flag , allert_msg = allert_msg , string=string,stopped_msg_mac=stopped_msg_mac,stopped_bufer=stopped_bufer,i_regim=i_regim,stopped_bufer_eps=stopped_bufer_eps,obozn=obozn)
 
 
 @app.route('/data/<int:number>', methods=["GET", "POST"])
