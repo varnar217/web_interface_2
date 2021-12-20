@@ -5,20 +5,27 @@
 
     <title>form glavn string for generate </title>
 
-    <!-- Bootstraps Java Scipts Links -->
+    <script type="text/javascript" src="{{ url_for('static', filename='libs/popper.min.js') }}"></script>
 
-    <!-- Bootstraps Java Scipts Links -->
-		<link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
-		<link href="{{ url_for('static', filename='css/opove.css') }}" rel="stylesheet">
-
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
-   <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
-
+		<link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    		<link href="{{ url_for('static', filename='css/Chart.min.css') }}" rel="stylesheet">
 	<script type="text/javascript" src="{{ url_for('static', filename='libs/jquery.slim.min.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='libs/bootstrap.min.js') }}"></script>
+
+    <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+		<link href="{{ url_for('static', filename='css/opove.css') }}" rel="stylesheet">
+    <!-- JQuery links  -->
+    <script type="text/javascript" src="{{ url_for('static', filename='libs/jquery.slim.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='libs/jquery.min.js') }}"></script>
 
 
 
-<script type="text/javascript" src="{{ url_for('static', filename='js/Chart.mi.js') }}"></script>
+
+    <!--High CHART LIVE  -->
+      <!--<script type="text/javascript" src="{{ url_for('static', filename='js/highcharts.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/highcharts-more.js') }}"></script>-->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/offline-exporting.js') }}"></script>
+
 
 <style>
 body {background-color: LightCyan;}
@@ -203,83 +210,80 @@ body {background-color: LightCyan;}
       <script  src="{{ url_for('static', filename='libs/chart.js') }}"></script>
         <script  src="{{ url_for('static', filename='libs/Chart.js') }}"></script>
 
-  {% if stopped_bufer_delete %}
+        {% if stopped_bufer_delete %}
 
-          <body onload="alert3()">
-           <div id="allert2"></div>
-          </body>
-          <script language="JavaScript">
-          function alert3()
-          {
-          {
-            document.getElementById('allert2');
-            //location.reload();
-            alert(
+                <body onload="alert3()">
+                 <div id="allert2"></div>
+                </body>
+                <script language="JavaScript">
+                function alert3()
+                {
+                {
+                  document.getElementById('allert2');
+                  //location.reload();
+                  alert(
 
-            '{{stopped_msg_mac}}'
+                  '{{stopped_msg_mac}}'
 
-            );
-          }
-          };
-        </script>
-  {% else %}
-  {% if stopped_bufer %}
+                  );
+                }
+                };
+              </script>
+        {% else %}
+        {% if stopped_bufer %}
+        <body onload="alert3()">
+         <div id="allert2"></div>
+        </body>
+        <script language="JavaScript">
+        function alert3()
+        {
+        {
+          document.getElementById('allert2');
+          //location.reload();
+          alert(
+
+          '{{stopped_msg_mac}}'
+
+          );
+        }
+        };
+      </script>
+
+      {% else %}
+      <script language="JavaScript">
 
 
-<body onload="alert3()">
- <div id="allert2"></div>
-</body>
-<script language="JavaScript">
-function alert3()
-{
-{
-  document.getElementById('allert2');
-  location.reload();
-  alert(
+       var joined = '/stopped2'
+       var getData = function(){
+         $.ajax({
+             type: "POST",
+             url: joined,
+             data: $('form').serialize(),
+             type: 'POST',
+             success: function(response) {
+      setInterval(getData, 3000);
+             },
+             error: function(error) {
+               clearTimeout(getData) ;
+                 location.reload();
 
-  '{{stopped_msg_mac}}'
-
-  );
-}
-};
-</script>
-{% else %}
-<script language="JavaScript">
+             }
+         });
 
 
- var joined = '/stopped2'
- var getData = function(){
-   $.ajax({
-       type: "POST",
-       url: joined,
-       data: $('form').serialize(),
-       type: 'POST',
-       success: function(response) {
-setInterval(getData, 3000);
-       },
-       error: function(error) {
-         clearTimeout(getData) ;
-             location.reload();
 
        }
-   });
-
-
-
- }
- // get new data every 3 seconds
-setInterval(getData, 3000);
+       // get new data every 3 seconds
+       setInterval(getData, 3000);
 
 
 
 
 
-</script>
-  {% endif %}
+      </script>
+        {% endif %}
 
-      {% endif %}
-
-
+            {% endif %}
 
 <center>
 

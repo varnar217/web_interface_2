@@ -468,7 +468,76 @@ function closeForm() {
 
 
 </script>
+<script type="text/javascript" src="{{ url_for('static', filename='libs/jquery.min.js') }}"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>-->
+    <!--suppress JSUnresolvedLibraryURL -->
+    <script type="text/javascript" src="{{ url_for('static', filename='libs/bootstrap.min.js') }}"></script>
 
+    <!--suppress JSUnresolvedLibraryURL -->
+    <!--<script type="text/javascript" src="{{ url_for('static', filename='js/Chart.mi.js') }}"></script>-->
+    <script  src="{{ url_for('static', filename='libs/chart.min.js') }}"></script>
+    <script  src="{{ url_for('static', filename='libs/chart.js') }}"></script>
+      <script  src="{{ url_for('static', filename='libs/Chart.js') }}"></script>
+
+      {% if stopped_bufer_delete %}
+
+
+      {% else %}
+      {% if stopped_bufer %}
+
+
+    <body onload="alert34()">
+     <div id="allert24"></div>
+    </body>
+    <script language="JavaScript">
+    function alert34()
+    {
+    {
+      document.getElementById('allert24');
+      //location.reload();
+      alert(
+
+      '{{stopped_msg_mac}}'
+
+      );
+    }
+    };
+    </script>
+    {% else %}
+    <script language="JavaScript">
+
+
+     var joined = '/stopped2'
+     var getData = function(){
+       $.ajax({
+           type: "POST",
+           url: joined,
+           data: $('form').serialize(),
+           type: 'POST',
+           success: function(response) {
+    setInterval(getData, 3000);
+           },
+           error: function(error) {
+             clearTimeout(getData) ;
+                 location.reload();
+
+           }
+       });
+
+
+
+     }
+     // get new data every 3 seconds
+     setInterval(getData, 3000);
+
+
+
+
+
+    </script>
+      {% endif %}
+
+          {% endif %}
 
   <form method="POST" action='/eps_epb/add' style= "margin: 0 auto; width:250px;">
  <!--<p><input  class= "myButton2" type = "submit" value = "+" name="zhach" /></p>-->

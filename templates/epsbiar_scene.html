@@ -298,59 +298,65 @@ function alert4()
     <script  src="{{ url_for('static', filename='libs/chart.js') }}"></script>
       <script  src="{{ url_for('static', filename='libs/Chart.js') }}"></script>
 
+      {% if stopped_bufer_delete %}
 
-        {% if stopped_bufer %}
+
+      {% else %}
+      {% if stopped_bufer %}
 
 
-      <body onload="alert3()">
-       <div id="allert2"></div>
-      </body>
-      <script language="JavaScript">
-      function alert3()
-      {
-      {
-        document.getElementById('allert2');
-        location.reload();
-        alert(
+    <body onload="alert34()">
+     <div id="allert24"></div>
+    </body>
+    <script language="JavaScript">
+    function alert34()
+    {
+    {
+      document.getElementById('allert24');
+      //location.reload();
+      alert(
 
-        '{{stopped_msg_mac}}'
+      '{{stopped_msg_mac}}'
 
-        );
-      }
-      };
+      );
+    }
+    };
     </script>
     {% else %}
-  <script language="JavaScript">
+    <script language="JavaScript">
 
 
-       var joined = '/stopped2'
-       var getData = function(){
-         $.ajax({
-             type: "POST",
-             url: joined,
-             data: $('form').serialize(),
-             type: 'POST',
-             success: function(response) {
+     var joined = '/stopped2'
+     var getData = function(){
+       $.ajax({
+           type: "POST",
+           url: joined,
+           data: $('form').serialize(),
+           type: 'POST',
+           success: function(response) {
+    setInterval(getData, 3000);
+           },
+           error: function(error) {
+             clearTimeout(getData) ;
+                 location.reload();
 
-             },
-             error: function(error) {
-                   location.reload();
-             }
-         });
-
-
-
-       }
-       // get new data every 3 seconds
-       setInterval(getData, 3000);
+           }
+       });
 
 
 
+     }
+     // get new data every 3 seconds
+     setInterval(getData, 3000);
 
 
-      </script>
-        {% endif %}
 
+
+
+    </script>
+      {% endif %}
+
+          {% endif %}
 <table class="table table-striped" id="users">
  <thead>
  <th> <td> {{punkt_menu[2]}} , {{punkt_menu[3]}}  , {{punkt_menu[4]}} <td> </th>

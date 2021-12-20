@@ -2055,7 +2055,7 @@ def eb_nastroit(number):
     """change alone EPS_BIAR """
     #print("!!!!!!!!!!!!!!!!!!! rabotaer")
     global  time_otvet , lang_switch , conect ,number_idd , eps_br
-    global  spisok_scenariev ,  network_list ,eb_pies_for_one,time_otvet ,regim_rabota_mode ,error_flag_add_scenar
+    global  spisok_scenariev ,  network_list ,eb_pies_for_one,time_otvet ,regim_rabota_mode ,error_flag_add_scenar , stopped_bufer , stopped_bufer_delete , stopped_msg_mac
     # error_flag_add_scenar
 
     number_idd=number
@@ -2291,7 +2291,7 @@ def eb_nastroit(number):
         return render_template('form_nastroika.html',eps_number=number,size_min=size_min, size_max=size_max, punkt_menu=punkt_menu,conect=conect,lang_bool=lang_bool,
 
         int_scenar=ind_sce_0,int_netw=net_sce_0,pcap_spis=out_pcap_spis,pcap_id=out_pcap_id,string_pcap=string_pcap,zagolovok=zagolovok,eb_pies_for_one=outp,number=number,time_otvet=time_otvet,string=string
-        , error_flag_add_scenar=error_flag_add_scenar,start_flag=start_flag , iter_nacha=iter_nacha,error_flag_add_scenar1=error_flag_add_scenar1,global_velocity=global_velocity)
+        , error_flag_add_scenar=error_flag_add_scenar,start_flag=start_flag , iter_nacha=iter_nacha,error_flag_add_scenar1=error_flag_add_scenar1,global_velocity=global_velocity,stopped_bufer=stopped_bufer,stopped_bufer_delete=stopped_bufer_delete,stopped_msg_mac=stopped_msg_mac)
 
 @app.route('/eps_scenar/add_ALL', methods=[ 'POST'])
 def add_al2_pcap_scen():
@@ -2860,8 +2860,8 @@ def eps_scenar(number):
     global lang_switch , conect , number_idd , regim_rabota_mode , indef_froma , stopped_msg_mac ,  stopped_bufer , stopped_bufer_delete
     number_idd=number
     indef_froma=6
-    if stopped_bufer ==True:
-        return redirect(url_for('gra'))
+    #if stopped_bufer ==True:
+        #return redirect(url_for('gra'))
     punkt_menu=[]
 
     punkt_menu_nach=[[bufer_menu_ALL_form_eng[4][0],bufer_menu_ALL_form_eng[4][1] ,bufer_menu_ALL_form_eng[4][2],bufer_menu_ALL_form_eng[4][3],bufer_menu_ALL_form_eng[4][4]
@@ -2977,12 +2977,18 @@ def eps_scenar(number):
             start_flag=False
         iter_nacha=[1]
 
+        print('\n stopped_bufer=',stopped_bufer)
+        print('\n stopped_bufer_delete=',stopped_bufer_delete)
+        print('\n stopped_msg_mac=',stopped_msg_mac)
+        print('\n error_flag_add_scenar=',error_flag_add_scenar)
+        print('\n error_flag_add_scenar=',error_flag_add_scenar)
+
 
 
         return render_template('epsbiar_scene.html',punkt_menu=punkt_menu,conect=conect,
         lang_switch=lang_bool, scen_number=number,
         set=zip(values,labels),berr=buferr ,size=size,string_pcap=string_pcap,pcap_id=out_pcap_id,
-        time_otvet=time_otvet,start_flag1=start_flag,string=string , error_flag_add_scenar=error_flag_add_scenar,iter_nacha=iter_nacha,error_flag_add_scenar1=error_flag_add_scenar1,global_velocity=global_velocity,stopped_msg_mac=stopped_msg_mac,stopped_bufer=stopped_bufer)
+        time_otvet=time_otvet,start_flag1=start_flag,string=string , error_flag_add_scenar=error_flag_add_scenar,iter_nacha=iter_nacha,error_flag_add_scenar1=error_flag_add_scenar1,global_velocity=global_velocity,stopped_msg_mac=stopped_msg_mac,stopped_bufer=stopped_bufer,stopped_bufer_delete=stopped_bufer_delete)
 
 
 @app.route('/network/add', methods=[ 'POST'])
@@ -3187,8 +3193,8 @@ def eps_network(number):
         number_idd=number
         #znach=network_list[number-1]
         bufer_network=0
-        if stopped_bufer ==True:
-            return redirect(url_for('gra'))
+        #if stopped_bufer ==True:
+            #return redirect(url_for('gra'))
         #print('network_list=',network_list)
         for it in network_list:
             if it[3] == number:
@@ -3224,7 +3230,6 @@ def eps_network(number):
         return render_template('epsbiar_network.html',
         punkt_menu=punkt_menu,lang_bool=lang_bool,conect=conect,
         network_number=network_number,zagolovok=zagolovok,time_otvet=time_otvet,start_flag1=start_flag,string=string , stopped_bufer=stopped_bufer , stopped_msg_mac=stopped_msg_mac )
-
 
 
 
@@ -3489,7 +3494,6 @@ def LIST_EPS():
             start_flag=start_flag,buferr=buferr,
             scenar_lister=scenar_lister,bufer_network=bufer_network,time_otvet=time_otvet,string=string, bufer_scenar_1=bufer_scenar_1,bufer_network_1=bufer_network_1,stopped_msg_mac=stopped_msg_mac,stopped_bufer=stopped_bufer,max_dop=max,error_flag_add_eps=error_flag_add_eps,min_eps=min,summer_velocity2=global_velocity)
 
-
 @app.route('/start', methods=[ 'POST'])
 def start():
     global conect , allert_msg  , start_flag1 , error_flag , stopped_msg_mac , stopped_bufer ,start_flagss , stopped_bufer_eps
@@ -3633,7 +3637,7 @@ def stopped2():
     #stopped_bufer
     if request.method == 'POST' or request.method == 'GET' :
         print('\n rabbb')
-        global stopped_bufer ,  stopped_msg_mac , stopped_bufer_delete
+        global stopped_bufer ,  stopped_msg_mac , stopped_bufer_delete , jj , indef_froma
         print('\n stopped_bufer',stopped_bufer)
         print('\n stopped_msg_mac',stopped_msg_mac)
 
@@ -3649,6 +3653,12 @@ def stopped2():
         #json_data=data
             json_data = json.dumps(data2)
             response = make_response(json_data)
+            #jj=jj+1
+
+            #if jj>1 :
+            stopped_bufer_delete=False
+            #stopped_bufer=True
+
         #data=["God",2]
 
         #json_data = json.dumps(global_data)
@@ -3660,6 +3670,8 @@ def stopped2():
         else:
             data2=["Not",2]
             stopped_bufer_delete=False
+
+
 
         #json_data=data
             json_data = json.dumps(data2)
@@ -4339,8 +4351,8 @@ def scenar_spis():
         if stopped_bufer and (tert  in stopped_msg_mac  ):
             stopped_bufer=False
 
-        if stopped_bufer ==True:
-            return redirect(url_for('gra'))
+        #if stopped_bufer ==True:
+            #return redirect(url_for('gra'))
 
         try:
             global spisok_scenariev , time_otvet ,custom
@@ -4526,8 +4538,8 @@ def network_spis():
         if stopped_bufer and (tert  in stopped_msg_mac  ):
             stopped_bufer=False
 
-        if stopped_bufer ==True:
-            return redirect(url_for('gra'))
+        #if stopped_bufer ==True:
+            #return redirect(url_for('gra'))
 
         global start_flag1
         spisok_outt=[]

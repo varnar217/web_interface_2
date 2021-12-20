@@ -533,31 +533,6 @@ padding: 3px;
     <input id="MENU_EPS" class= "myButton22" style= "  float:left;"  type = "submit" value = "{{punkt_menu[2]}}" />
 
      </form>
-       {% if stopped_bufer %}
-
-       {% if  obozn in  stopped_msg_mac   %}
-       <form style=  "float:left; display:block; " method="POST" action='/LIST_EPS'>
-
-        <p><input id="LIST_EPS" class= "myButton22" style=" margin: 0 auto;" type = "submit" value = "{{punkt_menu[4]}}" />  </p>
-
-       </form>
-       <form   style=" float:left; display:block;"  method="POST" action='/scenar'>
-
-        <p><input id="scenar" class= "myButton22"  type = "submit" value = "{{punkt_menu[3]}}" />  </p>
-
-       </form>
-
-       <form  style=  "float:left; display:block; " method="POST" action='/scenar_network'>
-
-        <p> <input id="scenar_network" class= "myButton22" style=" margin: 0 auto;" type = "submit" value = "{{punkt_menu[5]}}" /></p>
-
-       </form>
-
-          {% else %}
-        {% endif %}
-
-
-     {% else %}
      <form style=  "float:left; display:block; " method="POST" action='/LIST_EPS'>
 
       <p><input id="LIST_EPS" class= "myButton22" style=" margin: 0 auto;" type = "submit" value = "{{punkt_menu[4]}}" />  </p>
@@ -574,7 +549,7 @@ padding: 3px;
       <p> <input id="scenar_network" class= "myButton22" style=" margin: 0 auto;" type = "submit" value = "{{punkt_menu[5]}}" /></p>
 
      </form>
-     {% endif %}
+
      {% else %}
 
      <form    >
