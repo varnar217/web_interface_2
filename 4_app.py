@@ -27,6 +27,7 @@ cli.show_server_banner = lambda *x: None
 #import time
 #from flask import Flask, render_template, make_response
 json_data=[]
+jj=0
 global_data=[]
 spisok_scenariev=[]
 start_flagss=0
@@ -40,6 +41,7 @@ eps_network_buferss=0
 add_eps_buferss=0
 eb_ALL_delete=0
 scenar_add=0
+stopped_bufer_delete=False
 #from flask_socketio import SocketIO, send, emit
 global_number_eps=100
 global_spis=''
@@ -625,50 +627,56 @@ def back_menu() :
 def back_menu_1():
 
     if request.method == 'POST' :
-        global stopped_msg_mac , stopped_bufer ,add_eps_buferss
+        global stopped_msg_mac , stopped_bufer ,add_eps_buferss , stopped_bufer_delete
         stopped_bufer=False
         stopped_msg_mac=''
+        stopped_bufer_delete=False
         if add_eps_buferss == 0 and eb_ALL_delete == 0:
             return redirect(url_for("gra"))
 @app.route('/back_2', methods=[ 'POST'])
 def back_list_1():
     if request.method == 'POST' :
-        global stopped_msg_mac , stopped_bufer , error_flag_add_scenar1 ,error_flag_add_scenar
+        global stopped_msg_mac , stopped_bufer , error_flag_add_scenar1 ,error_flag_add_scenar , stopped_bufer_delete
         stopped_bufer=False
         stopped_msg_mac=''
         error_flag_add_scenar1=False
         error_flag_add_scenar=False
+        stopped_bufer_delete=False
 
         return redirect("/scenar")
 @app.route('/back_3', methods=[ 'POST'])
 def back_list_2() :
     if request.method == 'POST' :
-        global stopped_msg_mac , stopped_bufer
+        global stopped_msg_mac , stopped_bufer , stopped_bufer_delete
         stopped_bufer=False
         stopped_msg_mac=''
+        stopped_bufer_delete=False
         return redirect("/scenar_network")
 @app.route('/back_4', methods=[ 'POST'])
 def back_list_4() :
     if request.method == 'POST':
-        global stopped_msg_mac , stopped_bufer , error_flag_add_eps ,  error_flag_add_scenar , error_flag_add_scenar1
+        global stopped_msg_mac , stopped_bufer , error_flag_add_eps ,  error_flag_add_scenar , error_flag_add_scenar1 , stopped_bufer_delete
         stopped_bufer=False
         error_flag_add_eps=False
         error_flag_add_scenar=False
         error_flag_add_scenar1=False
+        stopped_bufer_delete=False
         stopped_msg_mac=''
         return redirect(url_for('LIST_EPS'))
 @app.route('/izmen1', methods=[ 'POST'])
 def izmen1() :
     """change menu GTO """
-    global GTP_FLAG , ipsrc , ipdst , minteid , maxteid , global_pcath_size , regim_rabota_mode , global_velocity , global_spis , MAC_SRC ,  MAC_DST ,mac_flag_error , stopped_bufer ,bufer_menu_change_MAC_SRC ,error_flag
+    global GTP_FLAG , ipsrc , ipdst , minteid , maxteid , global_pcath_size , regim_rabota_mode , global_velocity , global_spis , MAC_SRC ,  MAC_DST ,mac_flag_error , stopped_bufer ,bufer_menu_change_MAC_SRC ,error_flag , stopped_bufer_delete
     #=''
     #=''
+
 
     #zagolovok=[global_velocity,znach,ipsrc,ipdst,minteid,maxteid,global_spis,global_pcath_size,global_number_eps]
 
 
 
     if request.method == 'POST':
+        stopped_bufer_delete=False
         regim = request.form['user_regim']
         regim_rabota_mode = int(request.form['user_regim'])
         global stopped_msg_mac , izmen1_flagss
@@ -1266,12 +1274,13 @@ def izmen2():
 @app.route('/eb_ALL/delete', methods=[ 'POST'])
 def eb_all_delete():
     """ delete all EPS-BIAR """
-    global  eps_br , spisok_scenariev , network_list , stopped_msg_mac ,  stopped_bufer , eb_ALL_delete
+    global  eps_br , spisok_scenariev , network_list , stopped_msg_mac ,  stopped_bufer , eb_ALL_delete , stopped_bufer_delete
 
 
 
     if request.method == 'POST' :
         #global
+        stopped_bufer_delete=False
         eb_ALL_delete=eb_ALL_delete+1
 
         start_flag=True
@@ -1970,9 +1979,10 @@ def eps_epb_delete(num):
     if request.method == 'POST' or request.method == 'GET':
         number_eps= int(request.form['scenar_number'])
         eps_tek_uscher=[]
-        global stopped_msg_mac ,  stopped_bufer , error_flag_add_scenar , error_flag_add_scenar1
+        global stopped_msg_mac ,  stopped_bufer , error_flag_add_scenar , error_flag_add_scenar1 , stopped_bufer_delete
         error_flag_add_scenar=False
         error_flag_add_scenar1=False
+        stopped_bufer_delete=False
         stopped_bufer=False
         stopped_msg_mac=''
         g=0
@@ -2495,9 +2505,10 @@ def add_pcap_scen():
 
 @app.route('/eps_scenar/delete/<int:number>', methods=[ 'POST'])
 def delete_pcap_scen(number):
-    global  time_otvet , lang_switch , conect ,number_idd , spisok_scenariev , error_flag_add_scenar ,error_flag_add_scenar1
+    global  time_otvet , lang_switch , conect ,number_idd , spisok_scenariev , error_flag_add_scenar ,error_flag_add_scenar1 , stopped_bufer_delete
     error_flag_add_scenar= False
     error_flag_add_scenar1= False
+    stopped_bufer_delete=False
 
     #number_idd=number
 
@@ -2607,7 +2618,7 @@ def delete_pcap_scen(number):
 @app.route('/eps/scenar/delete/<int:number>', methods=[ 'POST'])
 def delete_scenar(number):
     if request.method == 'POST':
-        global stopped_bufer , stopped_msg_mac , spisok_scenariev
+        global stopped_bufer , stopped_msg_mac , spisok_scenariev , stopped_bufer_delete , stopped_bufer_delete
 
         for it in eps_br:
             if it[1]['id'] == int(number) :
@@ -2618,18 +2629,21 @@ def delete_scenar(number):
                     stopped_msg_mac=bufer_menu_ALL_form_rus[0][2]
 
 
-                stopped_bufer =True
+                stopped_bufer =False
+                stopped_bufer_delete=True
 
                 return redirect(url_for('scenar_spis'))
         if number == 0:
 
             stopped_bufer=False
+            stopped_bufer_delete=False
             stopped_msg_mac=''
 
         if number !=0  and number >0:
             try:
                 stopped_bufer=False
                 stopped_msg_mac=''
+                stopped_bufer_delete=False
 
                 json_out={
                 "params":{
@@ -2683,7 +2697,7 @@ def delete_scenar(number):
 @app.route('/eps/network/delete/<int:number>', methods=[ 'POST'])
 def delete_network(number):
     if request.method == 'POST':
-        global stopped_bufer , stopped_msg_mac ,  network_list
+        global stopped_bufer , stopped_msg_mac ,  network_list , stopped_bufer_delete
         if number == 0:
             #global stopped_bufer , stopped_msg_mac ,  network_list
             stopped_bufer=False
@@ -2701,7 +2715,8 @@ def delete_network(number):
                     else:
                         stopped_msg_mac=bufer_menu_ALL_form_rus[0][2]
 
-                    stopped_bufer =True
+                    #stopped_bufer =True # Подубать как чтобы можно зайти в форму .
+                    stopped_bufer_delete=True
 
                     return redirect(url_for('network_spis'))
 
@@ -2709,6 +2724,7 @@ def delete_network(number):
             try:
                 stopped_bufer=False
                 stopped_msg_mac=''
+                stopped_bufer_delete=False
 
                 json_out={
                 "params":{
@@ -2752,7 +2768,7 @@ def delete_network(number):
 @app.route('/eb/delete/<int:number>', methods=[ 'POST','GET'])
 def delete_eb(number):
     if request.method == 'POST' or request.method == 'GET' :
-        global stopped_bufer , stopped_msg_mac , eps_br , error_flag_add_scenar , error_flag_add_scenar1 ,error_flag_add_eps
+        global stopped_bufer , stopped_msg_mac , eps_br , error_flag_add_scenar , error_flag_add_scenar1 ,error_flag_add_eps , stopped_bufer_delete
 
 
         #if len(eps_br)>1 :
@@ -2784,6 +2800,7 @@ def delete_eb(number):
             error_flag_add_scenar=False
             error_flag_add_scenar1=False
             error_flag_add_eps=False
+            stopped_bufer_delete=False
 
             json_out={
             "params":{
@@ -2819,7 +2836,7 @@ def delete_eb(number):
 @app.route('/eps/scenar/<int:number>', methods=[ 'POST','GET'])
 def eps_scenar(number):
     """  customization of an individual scenario """
-    global lang_switch , conect , number_idd , regim_rabota_mode , indef_froma , stopped_msg_mac ,  stopped_bufer
+    global lang_switch , conect , number_idd , regim_rabota_mode , indef_froma , stopped_msg_mac ,  stopped_bufer , stopped_bufer_delete
     number_idd=number
     indef_froma=6
     if stopped_bufer ==True:
@@ -2834,6 +2851,7 @@ def eps_scenar(number):
     ,bufer_menu_ALL_form_rus[4][10],bufer_menu_ALL_form_rus[4][11],bufer_menu_ALL_form_rus[4][12],bufer_menu_ALL_form_rus[4][13],bufer_menu_ALL_form_rus[4][14],bufer_menu_ALL_form_rus[0][5],bufer_menu_ALL_form_rus[0][6],bufer_menu_ALL_form_rus[4][15]]]
 
     lang_bool=False
+    stopped_bufer_delete=False
     punkt_menu=[]
     if lang_switch%2== 0:
         punkt_menu=punkt_menu_nach[0]
@@ -2949,7 +2967,7 @@ def eps_scenar(number):
 @app.route('/network/add', methods=[ 'POST'])
 def network_add():
     if request.method == 'POST':
-        global network_list  , stopped_bufer , stopped_msg_mac
+        global network_list  , stopped_bufer , stopped_msg_mac , stopped_bufer_delete
         new_id=len(network_list)+1
         name =request.form['name']
         znach=[]
@@ -3022,6 +3040,7 @@ def network_add():
 
             network_list.append(bufer)
             stopped_bufer=False
+            stopped_bufer_delete=False
             stopped_msg_mac=''
             rr=req.post(f'http://{udras}/params/network_scenario',json=(json_out))
             js = json.loads(rr.text)
@@ -3101,8 +3120,9 @@ def network_change():
     #pass
 @app.route('/eps/network/<int:number>', methods=[ 'POST','GET'])
 def eps_network(number):
-    global lang_switch , conect , number_idd ,regim_rabota_mode  , eps_network_buferss , stopped_bufer ,stopped_bufer
+    global lang_switch , conect , number_idd ,regim_rabota_mode  , eps_network_buferss , stopped_bufer ,stopped_bufer , stopped_bufer_delete
     number_idd=number
+    stopped_bufer_delete=False
 
     punkt_menu=[]
     punkt_menu_nach=[[bufer_menu_ALL_form_eng[8][0],bufer_menu_ALL_form_eng[8][1],bufer_menu_ALL_form_eng[8][2],bufer_menu_ALL_form_eng[8][3]
@@ -3589,9 +3609,10 @@ def stopped2():
     #stopped_bufer
     if request.method == 'POST' or request.method == 'GET' :
         print('\n rabbb')
-        global stopped_bufer ,  stopped_msg_mac
+        global stopped_bufer ,  stopped_msg_mac , stopped_bufer_delete
         print('\n stopped_bufer',stopped_bufer)
         print('\n stopped_msg_mac',stopped_msg_mac)
+
         ######### Убрать
         #stopped_bufer=True
         #stopped_msg_mac='Request PUT(/state/run) Generator is already running'
@@ -3614,6 +3635,7 @@ def stopped2():
 
         else:
             data2=["Not",2]
+            stopped_bufer_delete=False
 
         #json_data=data
             json_data = json.dumps(data2)
@@ -3621,6 +3643,8 @@ def stopped2():
         #data=["God",2]
 
         #json_data = json.dumps(global_data)
+            stopped_bufer=False
+            stopped_msg_mac=''
 
             response = make_response(json_data)
             print('\n resp=',json_data)
@@ -4137,7 +4161,7 @@ def change_eps():
 def scenar_add():
     """ add new scenario  """
     if request.method == 'POST' or request.method == 'GET':
-        global spisok_scenariev , stopped_bufer , stopped_msg_mac ,scenar_add
+        global spisok_scenariev , stopped_bufer , stopped_msg_mac ,scenar_add , stopped_bufer_delete
         scenar_add=scenar_add+1
         #print('\n spisok_scenariev=',spisok_scenariev)
         max=0
@@ -4197,6 +4221,7 @@ def scenar_add():
         try :
             stopped_bufer=False
             stopped_msg_mac=''
+            stopped_bufer_delete=False
             print('do do \n json_out=',json_out)
             rr=req.post(f'http://{udras}/params/user_scenario',json=(json_out))
             js = json.loads(rr.text)
@@ -4216,10 +4241,11 @@ def scenar_add():
 @app.route('/scenar', methods=['GET', 'POST'])
 def scenar_spis():
     """ value scripting"""
-    global lang_switch , conect ,custom_bufer ,regim_rabota_mode , indef_froma ,stopped_msg_mac , stopped_bufer ,error_flag ,  error_flag_add_scenar
+    global lang_switch , conect ,custom_bufer ,regim_rabota_mode , indef_froma ,stopped_msg_mac , stopped_bufer ,error_flag ,  error_flag_add_scenar , stopped_bufer_delete
     indef_froma=4
     error_flag=False
     error_flag_add_scenar=False
+    #stopped_bufer_delete=False
 
 
     punkt_menu=[]
@@ -4366,9 +4392,11 @@ def scenar_spis():
                 iter_nacha=[1]
                 print('\n  \n stopd=',stopped_msg_mac)
                 print('\n \n stopped_bufer=',stopped_bufer)
+                print('\n \n stopped_bufer_delete=',stopped_bufer_delete)
+
 
                 return  render_template('table_scenari.html',punkt_menu=punkt_menu,conect=conect,lang_switch=lang_bool,
-                iter_nacha=iter_nacha,spisok_outt=spisok_outt,time_otvet=time_otvet,start_flag1=start_flag,string=string ,stopped_msg_mac= stopped_msg_mac, stopped_bufer=stopped_bufer) #redirect(f"/eps/{global_number_eps}")
+                iter_nacha=iter_nacha,spisok_outt=spisok_outt,time_otvet=time_otvet,start_flag1=start_flag,string=string ,stopped_msg_mac= stopped_msg_mac, stopped_bufer=stopped_bufer,stopped_bufer_delete=stopped_bufer_delete) #redirect(f"/eps/{global_number_eps}")
 
             else:
                 return redirect(url_for('gra'))
@@ -4385,14 +4413,14 @@ def scenar_spis():
             else:
                 start_flag=False
             return render_template('table_scenari.html',punkt_menu = punkt_menu , conect = conect , lang_switch = lang_bool ,
-            iter_nacha = iter_nacha , spisok_outt = spisok_outt , time_otvet = time_otvet , start_flag1 = start_flag,string=string,stopped_msg_mac= stopped_msg_mac, stopped_bufer=stopped_bufer) #redirect(f"/eps/{global_number_eps}")
+            iter_nacha = iter_nacha , spisok_outt = spisok_outt , time_otvet = time_otvet , start_flag1 = start_flag,string=string,stopped_msg_mac= stopped_msg_mac, stopped_bufer=stopped_bufer,stopped_bufer_delete=stopped_bufer_delete) #redirect(f"/eps/{global_number_eps}")
 
 
 
 @app.route('/scenar_network', methods=['GET', 'POST'])
 def network_spis():
     """ scenar network """
-    global network_list , time_otvet , lang_switch , conect ,regim_rabota_mode,indef_froma ,stopped_msg_mac , stopped_bufer ,error_flag
+    global network_list , time_otvet , lang_switch , conect ,regim_rabota_mode,indef_froma ,stopped_msg_mac , stopped_bufer ,error_flag , stopped_bufer_delete
     indef_froma=5
     error_flag=False
     #if stopped_msg_mac in 'DPDK: Received a null packet' or  stopped_msg_mac in 'DPDK: Allocation problem' :
@@ -4457,97 +4485,97 @@ def network_spis():
 
 
         #spisok_outt.append([0,'Настраиваемый'])
-        #try:
+        try:
 
-        start= time()
+            start= time()
 
-        rr=req.get(f'http://{udras}/params/network_scenario')
-        stop=int(time()*1000-start*1000)
-        time_otvet =stop
-        bufer=rr.text
-        json_poputka=json.loads(bufer)
-        print('\n network_scenario json_poputka=',json_poputka)
-        #bufer.append(it['name'])
-        #bufer.append(it['jitter'])
-        #bufer.append(it['burst'])
-        nachalo=[]
-        bufer=[]
-        bufer2=[]
-        #print('jsony=',json_poputka['params']['network_scenario'])
-
-
-        if json_poputka['response']['code'] == 0 :
-            g=0
+            rr=req.get(f'http://{udras}/params/network_scenario')
+            stop=int(time()*1000-start*1000)
+            time_otvet =stop
+            bufer=rr.text
+            json_poputka=json.loads(bufer)
+            print('\n network_scenario json_poputka=',json_poputka)
+            #bufer.append(it['name'])
+            #bufer.append(it['jitter'])
+            #bufer.append(it['burst'])
             nachalo=[]
-            bufe_pcap=[]
-            if json_poputka['params']['network_scenario'] !=  []:
-                #print('\n \n !!!!!!!!!!!')
-                if len(network_list)>1  :
-                    #print('\n \n posle')
-                    nachalo=network_list[0]
-                else:
-                    bufe_pcap.append('Custom')
-                    bufe_pcap.append(json_poputka['params']['network_scenario'][0]['jitter'])
-                    bufe_pcap.append(json_poputka['params']['network_scenario'][0]['burst'])
-                    bufe_pcap.append(json_poputka['params']['network_scenario'][0]['id'])
-                    nachalo=bufe_pcap
-                network_list=[]
-                network_list.append(nachalo)
-
-            #else:
-                #for itel in network_list:
-                    #if
-                    #if isinstance(itelбб )
-                #if len(network_list)>1:
-                    #ber=network_list[0]
-                    #network_list=[]
-                    #network_list=ber
-                #pass
-                #pass
-            #print('do network_list=',network_list)
-            #print('do json_poputka=',json_poputka['params']['network_scenario'])
-
-            #print('posle network_list=',network_list)
-            spisok_outt.append([0,'Custom'])
-            #network_list.append(bufe_pcap)
-            if json_poputka['params']['network_scenario']!=[]:
-                for it in json_poputka['params']['network_scenario']:
-                    bufer=[]
-                    bufer2=[]
-                    bufer3=[]
-                    bufer2.append(it['id'])
-                    bufer2.append(it['name'])
-                    bufer3.append(it['name'])
-                    bufer3.append(it['jitter'])
-                    bufer3.append(it['burst'])
-                    bufer3.append(it['id'])
-                    spisok_outt.append(bufer2)
-                    network_list.append(bufer3)
+            bufer=[]
+            bufer2=[]
+            #print('jsony=',json_poputka['params']['network_scenario'])
 
 
+            if json_poputka['response']['code'] == 0 :
+                g=0
+                nachalo=[]
+                bufe_pcap=[]
+                if json_poputka['params']['network_scenario'] !=  []:
+                    #print('\n \n !!!!!!!!!!!')
+                    if len(network_list)>1  :
+                        #print('\n \n posle')
+                        nachalo=network_list[0]
+                    else:
+                        bufe_pcap.append('Custom')
+                        bufe_pcap.append(json_poputka['params']['network_scenario'][0]['jitter'])
+                        bufe_pcap.append(json_poputka['params']['network_scenario'][0]['burst'])
+                        bufe_pcap.append(json_poputka['params']['network_scenario'][0]['id'])
+                        nachalo=bufe_pcap
+                    network_list=[]
+                    network_list.append(nachalo)
 
-        eps_spis=[]
+                #else:
+                    #for itel in network_list:
+                        #if
+                        #if isinstance(itelбб )
+                    #if len(network_list)>1:
+                        #ber=network_list[0]
+                        #network_list=[]
+                        #network_list=ber
+                    #pass
+                    #pass
+                #print('do network_list=',network_list)
+                #print('do json_poputka=',json_poputka['params']['network_scenario'])
 
-        #global start_flag1
-        start_flag=False
-        if start_flag1%2 == 0:
-            start_flag = True
-        else:
-            start_flag = False
-        iter_nacha = [1]
+                #print('posle network_list=',network_list)
+                spisok_outt.append([0,'Custom'])
+                #network_list.append(bufe_pcap)
+                if json_poputka['params']['network_scenario']!=[]:
+                    for it in json_poputka['params']['network_scenario']:
+                        bufer=[]
+                        bufer2=[]
+                        bufer3=[]
+                        bufer2.append(it['id'])
+                        bufer2.append(it['name'])
+                        bufer3.append(it['name'])
+                        bufer3.append(it['jitter'])
+                        bufer3.append(it['burst'])
+                        bufer3.append(it['id'])
+                        spisok_outt.append(bufer2)
+                        network_list.append(bufer3)
 
-        return  render_template('table_network.html',punkt_menu = punkt_menu , conect = conect , lang_bool = lang_bool ,
-        iter_nacha = iter_nacha , spisok_outt = spisok_outt , eps_spis = eps_spis ,
-        time_otvet = time_otvet , start_flag1 = start_flag,string=string,stopped_msg_mac= stopped_msg_mac, stopped_bufer=stopped_bufer) #redirect(f"/eps/{global_number_eps}")
 
-        #except Exception as ex:
-            #conect=False
-            #iter_nacha=[1]
-            #start_flag=False
 
-            #return  render_template('table_network.html',punkt_menu = punkt_menu , conect = conect , lang_bool = lang_bool ,
-            #iter_nacha = iter_nacha , spisok_outt = spisok_outt , eps_spis = eps_spis ,
-            #time_otvet = time_otvet , start_flag1 = start_flag ,string=string,stopped_msg_mac= stopped_msg_mac, stopped_bufer=stopped_bufer) #redirect(f"/eps/{global_number_eps}")
+            eps_spis=[]
+
+            #global start_flag1
+            start_flag=False
+            if start_flag1%2 == 0:
+                start_flag = True
+            else:
+                start_flag = False
+            iter_nacha = [1]
+
+            return  render_template('table_network.html',punkt_menu = punkt_menu , conect = conect , lang_bool = lang_bool ,
+            iter_nacha = iter_nacha , spisok_outt = spisok_outt , eps_spis = eps_spis ,
+            time_otvet = time_otvet , start_flag1 = start_flag,string=string,stopped_msg_mac= stopped_msg_mac, stopped_bufer=stopped_bufer,stopped_bufer_delete=stopped_bufer_delete) #redirect(f"/eps/{global_number_eps}")
+
+        except Exception as ex:
+            conect=False
+            iter_nacha=[1]
+            start_flag=False
+
+            return  render_template('table_network.html',punkt_menu = punkt_menu , conect = conect , lang_bool = lang_bool ,
+            iter_nacha = iter_nacha , spisok_outt = spisok_outt , eps_spis = eps_spis ,
+            time_otvet = time_otvet , start_flag1 = start_flag ,string=string,stopped_msg_mac= stopped_msg_mac, stopped_bufer=stopped_bufer,stopped_bufer_delete=stopped_bufer_delete) #redirect(f"/eps/{global_number_eps}")
 
 @app.route('/grafik', methods=[ 'POST'])
 def grafik():
@@ -4580,10 +4608,11 @@ def registr():
 def gra():
     """Main form  """
 
-    global  global_number_eps , lang_switch ,conect , port_adres , data2_global , allert_flag , allert_msg , error_flag , bufer_network2 ,regim_rabota_mode ,indef_froma , stopped_msg_mac,stopped_bufer, start_flag1 , error_flag_add_eps ,error_flag_add_scenar,mac_flag_error,LIST_EPS_flagss , scenar_add#=True
+    global  global_number_eps , lang_switch ,conect , port_adres , data2_global , allert_flag , allert_msg , error_flag , bufer_network2 ,regim_rabota_mode ,indef_froma , stopped_msg_mac,stopped_bufer, start_flag1 , error_flag_add_eps ,error_flag_add_scenar,mac_flag_error,LIST_EPS_flagss , scenar_add , stopped_bufer_delete#=True
     #print('\n 23stopped_msg_mac=',stopped_msg_mac)
     error_flag_add_eps=False
     error_flag_add_scenar=False
+    stopped_bufer_delete=False
     mac_flag_error=False
     LIST_EPS_flagss=0
     scenar_add=0

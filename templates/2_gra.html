@@ -441,7 +441,7 @@ padding: 3px;
        function trigger() {
           var a = 0;
          a++;
-         //if (a==1) 
+         //if (a==1)
          {
 
         // {
@@ -533,6 +533,9 @@ padding: 3px;
     <input id="MENU_EPS" class= "myButton22" style= "  float:left;"  type = "submit" value = "{{punkt_menu[2]}}" />
 
      </form>
+       {% if stopped_bufer %}
+
+     {% else %}
      <form style=  "float:left; display:block; " method="POST" action='/LIST_EPS'>
 
       <p><input id="LIST_EPS" class= "myButton22" style=" margin: 0 auto;" type = "submit" value = "{{punkt_menu[4]}}" />  </p>
@@ -549,6 +552,7 @@ padding: 3px;
       <p> <input id="scenar_network" class= "myButton22" style=" margin: 0 auto;" type = "submit" value = "{{punkt_menu[5]}}" /></p>
 
      </form>
+     {% endif %}
      {% else %}
 
      <form    >

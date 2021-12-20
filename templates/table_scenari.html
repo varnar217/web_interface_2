@@ -203,58 +203,83 @@ body {background-color: LightCyan;}
       <script  src="{{ url_for('static', filename='libs/chart.js') }}"></script>
         <script  src="{{ url_for('static', filename='libs/Chart.js') }}"></script>
 
+  {% if stopped_bufer_delete %}
 
-          {% if stopped_bufer %}
+          <body onload="alert3()">
+           <div id="allert2"></div>
+          </body>
+          <script language="JavaScript">
+          function alert3()
+          {
+          {
+            document.getElementById('allert2');
+            //location.reload();
+            alert(
 
+            '{{stopped_msg_mac}}'
 
-        <body onload="alert3()">
-         <div id="allert2"></div>
-        </body>
-        <script language="JavaScript">
-        function alert3()
-        {
-        {
-          document.getElementById('allert2');
-          location.reload();
-          alert(
-
-          '{{stopped_msg_mac}}'
-
-          );
-        }
-        };
-      </script>
-      {% else %}
-    <script language="JavaScript">
-
-
-         var joined = '/stopped2'
-         var getData = function(){
-           $.ajax({
-               type: "POST",
-               url: joined,
-               data: $('form').serialize(),
-               type: 'POST',
-               success: function(response) {
-
-               },
-               error: function(error) {
-                     location.reload();
-               }
-           });
-
-
-
-         }
-         // get new data every 3 seconds
-         setInterval(getData, 3000);
-
-
-
-
-
+            );
+          }
+          };
         </script>
-          {% endif %}
+  {% else %}
+  {% if stopped_bufer %}
+
+
+<body onload="alert3()">
+ <div id="allert2"></div>
+</body>
+<script language="JavaScript">
+function alert3()
+{
+{
+  document.getElementById('allert2');
+  location.reload();
+  alert(
+
+  '{{stopped_msg_mac}}'
+
+  );
+}
+};
+</script>
+{% else %}
+<script language="JavaScript">
+
+
+ var joined = '/stopped2'
+ var getData = function(){
+   $.ajax({
+       type: "POST",
+       url: joined,
+       data: $('form').serialize(),
+       type: 'POST',
+       success: function(response) {
+setInterval(getData, 3000);
+       },
+       error: function(error) {
+         clearTimeout(getData) ;
+             location.reload();
+
+       }
+   });
+
+
+
+ }
+ // get new data every 3 seconds
+setInterval(getData, 3000);
+
+
+
+
+
+</script>
+  {% endif %}
+
+      {% endif %}
+
+
 
 <center>
 
