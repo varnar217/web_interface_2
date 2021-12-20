@@ -35,6 +35,7 @@ data_flagss=0
 izmen1_flagss=0
 LIST_EPS_flagss=0
 epdb=0
+stopped_bufer_eps=False
 regim_rabota_mode=0
 alive_flagss=0
 eps_network_buferss=0
@@ -627,10 +628,11 @@ def back_menu() :
 def back_menu_1():
 
     if request.method == 'POST' :
-        global stopped_msg_mac , stopped_bufer ,add_eps_buferss , stopped_bufer_delete
+        global stopped_msg_mac , stopped_bufer ,add_eps_buferss , stopped_bufer_delete , stopped_bufer_eps
         stopped_bufer=False
         stopped_msg_mac=''
         stopped_bufer_delete=False
+        stopped_bufer_eps=False
         if add_eps_buferss == 0 and eb_ALL_delete == 0:
             return redirect(url_for("gra"))
 @app.route('/back_2', methods=[ 'POST'])
@@ -3211,13 +3213,14 @@ def eps_network(number):
 def LIST_EPS():
     """ display all EPS_BIAR"""
     global  time_otvet , lang_switch , conect , global_number_eps , ind_sce_0_iter ,regim_rabota_mode ,indef_froma ,  stopped_msg_mac,stopped_bufer
-    global eps_br , bufer_scenar_1  , bufer_network_1 ,error_flag , error_flag_add_eps ,error_flag_add_scenar ,error_flag_add_scenar1 ,LIST_EPS_flagss ,add_eps_buferss , eb_ALL_delete
+    global eps_br , bufer_scenar_1  , bufer_network_1 ,error_flag , error_flag_add_eps ,error_flag_add_scenar ,error_flag_add_scenar1 ,LIST_EPS_flagss ,add_eps_buferss , eb_ALL_delete ,stopped_bufer_eps
     indef_froma=3
     error_flag=False
     eb_ALL_delete=0
     #error_flag_add_eps= False
     error_flag_add_scenar=False
     error_flag_add_scenar1=False
+    stopped_bufer_eps=False
 
 
     #if stopped_msg_mac in 'DPDK: Received a null packet' or  stopped_msg_mac in 'DPDK: Allocation problem' :
@@ -3470,7 +3473,7 @@ def LIST_EPS():
 
 @app.route('/start', methods=[ 'POST'])
 def start():
-    global conect , allert_msg  , start_flag1 , error_flag , stopped_msg_mac , stopped_bufer ,start_flagss
+    global conect , allert_msg  , start_flag1 , error_flag , stopped_msg_mac , stopped_bufer ,start_flagss , stopped_bufer_eps
     if request.method == 'POST':
         print('\n start!!!!!!')
         start_flagss=start_flagss+1
@@ -3486,6 +3489,7 @@ def start():
 
 
             stopped_bufer =True
+            #stopped_bufer_eps=True
 
             return redirect(url_for('gra'))
 
@@ -3521,6 +3525,7 @@ def start():
             sesion_1=req.put(f'http://{udras}/state/run',json=json_out)
             #time.sleep(10)
             stopped_bufer=False
+            stopped_bufer_eps=False
 
             stop=int(time()*1000-start)
             time_otvet =stop*1
@@ -4608,7 +4613,7 @@ def registr():
 def gra():
     """Main form  """
 
-    global  global_number_eps , lang_switch ,conect , port_adres , data2_global , allert_flag , allert_msg , error_flag , bufer_network2 ,regim_rabota_mode ,indef_froma , stopped_msg_mac,stopped_bufer, start_flag1 , error_flag_add_eps ,error_flag_add_scenar,mac_flag_error,LIST_EPS_flagss , scenar_add , stopped_bufer_delete#=True
+    global  global_number_eps , lang_switch ,conect , port_adres , data2_global , allert_flag , allert_msg , error_flag , bufer_network2 ,regim_rabota_mode ,indef_froma , stopped_msg_mac,stopped_bufer, start_flag1 , error_flag_add_eps ,error_flag_add_scenar,mac_flag_error,LIST_EPS_flagss , scenar_add , stopped_bufer_delete , stopped_bufer_eps#=True
     #print('\n 23stopped_msg_mac=',stopped_msg_mac)
     error_flag_add_eps=False
     error_flag_add_scenar=False
@@ -4766,13 +4771,18 @@ def gra():
                 start_flag=False
             print('\n \n start_flag=', start_flag)
             print('\n \n start_flag1=', start_flag1)
+            print('\n \n stopped_bufer_eps=', stopped_bufer_eps)
+            print('\n \n stopped_msg_mac=', stopped_msg_mac)
+            print('\n \n error_flag=', error_flag)
+
+
         #stopped_msg_mac= stopped_msg_mac
         #stopped_bufer=True
             return render_template('2_gra.html',bufer_network2=bufer_network2,
             data_grafik1 = data_grafik1 , data_grafik2 = data_grafik2 , perv=perv,
             url_output = url_output,conect = conect , lang_bool= lang_bool , punkt_menu = punkt_menu ,
             start_flag = start_flag , data = data , epdb=epdb,time_otvet= time_otvet ,
-            lang_switch = lang_switch , allert_flag=error_flag , allert_msg=allert_msg , string=string ,stopped_msg_mac=stopped_msg_mac,stopped_bufer=stopped_bufer,i_regim=i_regim)
+            lang_switch = lang_switch , allert_flag=error_flag , allert_msg=allert_msg , string=string ,stopped_msg_mac=stopped_msg_mac,stopped_bufer=stopped_bufer,i_regim=i_regim,stopped_bufer_eps=stopped_bufer_eps)
 
         except Exception as ex:
             conect=False
@@ -4780,12 +4790,12 @@ def gra():
             return render_template('2_gra.html', bufer_network2 = bufer_network2 , data_grafik1 = data_grafik1 , data_grafik2 = data_grafik2 ,
             perv = perv , url_output = url_output , conect = conect ,lang_bool = lang_bool,
             punkt_menu = punkt_menu , start_flag = start_flag , data = data , epdb = epdb , time_otvet= time_otvet , lang_switch= lang_switch , allert_flag = error_flag ,
-            allert_msg = allert_msg ,  string=string ,stopped_msg_mac=stopped_msg_mac,stopped_bufer=stopped_bufer,i_regim=i_regim)
+            allert_msg = allert_msg ,  string=string ,stopped_msg_mac=stopped_msg_mac,stopped_bufer=stopped_bufer,i_regim=i_regim,stopped_bufer_eps=stopped_bufer_eps)
     else  :
         conect=False
         return render_template('2_gra.html',bufer_network2 = bufer_network2 , data_grafik1 = data_grafik1 , data_grafik2 = data_grafik2 ,
         perv = perv , url_output = url_output , conect = conect , lang_bool = lang_bool , punkt_menu = punkt_menu , start_flag = start_flag , data = data ,
-        epdb = epdb ,time_otvet = time_otvet , lang_switch = lang_switch , allert_flag = error_flag , allert_msg = allert_msg , string=string,stopped_msg_mac=stopped_msg_mac,stopped_bufer=stopped_bufer,i_regim=i_regim)
+        epdb = epdb ,time_otvet = time_otvet , lang_switch = lang_switch , allert_flag = error_flag , allert_msg = allert_msg , string=string,stopped_msg_mac=stopped_msg_mac,stopped_bufer=stopped_bufer,i_regim=i_regim,stopped_bufer_eps=stopped_bufer_eps)
 
 
 @app.route('/data/<int:number>', methods=["GET", "POST"])
