@@ -210,7 +210,23 @@ float:left;
         <script  src="{{ url_for('static', filename='libs/Chart.js') }}"></script>
 
         {% if stopped_bufer_delete %}
+        <body onload="alert3()">
+         <div id="allert2"></div>
+        </body>
+        <script language="JavaScript">
+        function alert3()
+        {
+        {
+          document.getElementById('allert2');
+          //location.reload();
+          alert(
 
+          '{{stopped_msg_mac}}'
+
+          );
+        }
+        };
+      </script>
 
         {% else %}
         {% if stopped_bufer %}
