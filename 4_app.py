@@ -3497,7 +3497,7 @@ def LIST_EPS():
 @app.route('/start', methods=[ 'POST'])
 def start():
     global conect , allert_msg  , start_flag1 , error_flag , stopped_msg_mac , stopped_bufer ,start_flagss , stopped_bufer_eps
-    if request.method == 'POST':
+    if request.method == 'POST' or request.method == 'GET':
         print('\n start!!!!!!')
         start_flagss=start_flagss+1
         print('\n start_flagss=',start_flagss)
@@ -4896,66 +4896,130 @@ def data(number):
             start_flag=True    #False  #bool(5)#"true" #True возможно наборот
         else:
             start_flag= False# False #bool(0)#"false" #False
+
         #if data_flagss==1:
         #print('data_flagss=',data_flagss)
+        if conect and start_flag == False :
 
-        try:
-
-
-            rr=  req.get(f'http://{udras}/alive')
-            conect=True
-            if conect or start_flag :
-                #if data_flagss==1:
-
-                if number == 0 :
-                        print('\n rabb')
-                        print('\n \n  /data/0')
+            try:
 
 
+                rr=  req.get(f'http://{udras}/alive')
+                conect=True
+                if conect and start_flag == False :
+                    #if data_flagss==1:
+
+                    if number == 0 :
+                            print('\n rabb')
+                            print('\n \n  /data/0')
+
+
+
+                            try:
+                                #rr=req.put(f'http://{udras}/params/eb',json=(json_out))
+
+                                start = time()*1000
+
+                                rr =  req.get(f'http://{udras}/stats/eb')
+                                js = json.loads(rr.text)
+                                data_flagss=0
+                                #print('\n \n!!!234 js=',js)
+                                stop = int(time()*1000-start)
+                                time_otvet = stop
+
+                                eps_biar_graph = rr.text #.decode('utf-8')
+                                data_flagss=0
+
+
+
+                                json_poputka = json.loads(eps_biar_graph)
+
+                                if js['response']['code'] == 0 :
+                                    print('\n 4js=',js)
+
+
+
+                                    timer = str(datetime.fromisoformat(json_poputka['stats']['time'])) #random.randint(100,200000)
+                                    data=[timer,int(json_poputka['stats']['size']),int(json_poputka['stats']['vpercent']),(time_otvet)]
+                                    global_data=data
+                                    #data={'time':timer,'value':int(json_poputka['stats']['size'])}
+                                    json_data = json.dumps(data)
+
+                                    response = make_response(json_data)
+
+                                    response.content_type = 'application/json'
+
+
+                                    return response
+                                else:
+                                    pass
+                            except Exception as ex:
+                                print('\n /data/0=',repr(ex))
+                                fe=repr(ex)
+                                data_flagss=0
+
+
+
+                                if 'Internal Server Error' in fe:
+                                    #json_data="God"
+                                    response = make_response(json_data)
+                                    #data=["God",2]
+
+                                    json_data = json.dumps(global_data)
+
+                                    response = make_response(json_data)
+
+                                    response.content_type = 'application/json'
+                                    return response
+
+
+
+
+                                #conect = False
+                                return  render_template('first.html')
+                                    #else:
+
+
+                    else:
 
                         try:
-                            #rr=req.put(f'http://{udras}/params/eb',json=(json_out))
+                            print('\n \n  /data/23')
 
                             start = time()*1000
+                            rr = req.get(f'http://{udras}/stats/eb/{number}')
 
-                            rr =  req.get(f'http://{udras}/stats/eb')
                             js = json.loads(rr.text)
                             data_flagss=0
-                            #print('\n \n!!!234 js=',js)
                             stop = int(time()*1000-start)
-                            time_otvet = stop
+                            time_otvet = stop*1
 
                             eps_biar_graph = rr.text #.decode('utf-8')
                             data_flagss=0
 
 
 
-                            json_poputka = json.loads(eps_biar_graph)
+                            json_poputka=json.loads(eps_biar_graph)
 
                             if js['response']['code'] == 0 :
-                                print('\n 4js=',js)
+                                #data_flagss=0
 
 
-
-                                timer = str(datetime.fromisoformat(json_poputka['stats']['time'])) #random.randint(100,200000)
+                                timer= str(datetime.fromisoformat(json_poputka['stats']['time'])) #random.randint(100,200000)
                                 data=[timer,int(json_poputka['stats']['size']),int(json_poputka['stats']['vpercent']),(time_otvet)]
                                 global_data=data
-                                #data={'time':timer,'value':int(json_poputka['stats']['size'])}
                                 json_data = json.dumps(data)
 
                                 response = make_response(json_data)
 
                                 response.content_type = 'application/json'
 
-
                                 return response
-                            else:
-                                pass
                         except Exception as ex:
-                            print('\n /data/0=',repr(ex))
-                            fe=repr(ex)
-                            data_flagss=0
+                            #conect = False
 
+                            print('\n /data/number=',str(ex))
+                            fe=str(ex)
+                            data_flagss=0
 
 
                             if 'Internal Server Error' in fe:
@@ -4970,85 +5034,23 @@ def data(number):
                                 response.content_type = 'application/json'
                                 return response
 
-
-
-
-                            #conect = False
                             return  render_template('first.html')
-                                #else:
+            except Exception as ex:
+                    print('\n dert ConnectionError')
 
+                    conect=False
+                    start_flag1=0
+                    data2=[("Not"),0]
+                    #json_data=data
+                    json_data = json.dumps(data2)
+                    response = make_response(json_data)
+                    #data=["God",2]
 
-                else:
+                    #json_data = json.dumps(global_data)
 
-                    try:
-                        print('\n \n  /data/23')
-
-                        start = time()*1000
-                        rr = req.get(f'http://{udras}/stats/eb/{number}')
-
-                        js = json.loads(rr.text)
-                        data_flagss=0
-                        stop = int(time()*1000-start)
-                        time_otvet = stop*1
-
-                        eps_biar_graph = rr.text #.decode('utf-8')
-                        data_flagss=0
-
-
-
-                        json_poputka=json.loads(eps_biar_graph)
-
-                        if js['response']['code'] == 0 :
-                            #data_flagss=0
-
-
-                            timer= str(datetime.fromisoformat(json_poputka['stats']['time'])) #random.randint(100,200000)
-                            data=[timer,int(json_poputka['stats']['size']),int(json_poputka['stats']['vpercent']),(time_otvet)]
-                            global_data=data
-                            json_data = json.dumps(data)
-
-                            response = make_response(json_data)
-
-                            response.content_type = 'application/json'
-
-                            return response
-                    except Exception as ex:
-                        #conect = False
-
-                        print('\n /data/number=',str(ex))
-                        fe=str(ex)
-                        data_flagss=0
-
-
-                        if 'Internal Server Error' in fe:
-                            #json_data="God"
-                            response = make_response(json_data)
-                            #data=["God",2]
-
-                            json_data = json.dumps(global_data)
-
-                            response = make_response(json_data)
-
-                            response.content_type = 'application/json'
-                            return response
-
-                        return  render_template('first.html')
-        except Exception as ex:
-                print('\n dert ConnectionError')
-
-                conect=False
-                start_flag1=0
-                data2=[("Not"),0]
-                #json_data=data
-                json_data = json.dumps(data2)
-                response = make_response(json_data)
-                #data=["God",2]
-
-                #json_data = json.dumps(global_data)
-
-                response = make_response(json_data)
-                print('\n resp=',json_data)
-                return response , 400
+                    response = make_response(json_data)
+                    print('\n resp=',json_data)
+                    return response , 400
 
 
         #print('\n rr=',rr.text)
