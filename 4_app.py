@@ -4675,7 +4675,7 @@ def registr():
 def gra():
     """Main form  """
 
-    global  global_number_eps , lang_switch ,conect , port_adres , data2_global , allert_flag , allert_msg , error_flag , bufer_network2 ,regim_rabota_mode ,indef_froma , stopped_msg_mac,stopped_bufer, start_flag1 , error_flag_add_eps ,error_flag_add_scenar,mac_flag_error,LIST_EPS_flagss , scenar_add , stopped_bufer_delete , stopped_bufer_eps#=True
+    global  global_number_eps , lang_switch ,conect , port_adres , data2_global , allert_flag , allert_msg , error_flag , bufer_network2 ,regim_rabota_mode ,indef_froma , stopped_msg_mac,stopped_bufer, start_flag1 , error_flag_add_eps ,error_flag_add_scenar,mac_flag_error,LIST_EPS_flagss , scenar_add , stopped_bufer_delete , stopped_bufer_eps,data_grafik1#=True
     #print('\n 23stopped_msg_mac=',stopped_msg_mac)
     error_flag_add_eps=False
     error_flag_add_scenar=False
@@ -4683,6 +4683,21 @@ def gra():
     mac_flag_error=False
     LIST_EPS_flagss=0
     scenar_add=0
+    print('\n data=',data_grafik1)
+    print('\n eps_br=',eps_br)
+    flag_cenvect=True
+
+    for iler in data_grafik1:
+
+        for it in eps_br:
+            if int(iler) == int(it[3]) :
+                flag_cenvect=False
+                break
+    if flag_cenvect :
+        data_grafik1=[]
+        data_grafik1.append(0)
+
+                #pass
 
 
     #if len(stopped_msg_mac)>1 and stopped_bufer== True:
@@ -4872,8 +4887,9 @@ def gra():
 
 def data(number):
     if request.method == 'POST' or request.method == 'GET':
-        global time_otvet , conect,start_flag1 , global_data ,data_flagss ,conect
+        global time_otvet , conect,start_flag1 , global_data ,data_flagss ,conect , eps_br
         start_flag=False
+        #print('eps_br=',eps_br)
         #json_out={}
         data_flagss=data_flagss+1
         if start_flag1%2 == 0:
@@ -4931,7 +4947,10 @@ def data(number):
 
                                 response.content_type = 'application/json'
 
+
                                 return response
+                            else:
+                                pass
                         except Exception as ex:
                             print('\n /data/0=',repr(ex))
                             fe=repr(ex)
