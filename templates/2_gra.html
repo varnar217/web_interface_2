@@ -64,12 +64,18 @@
 
 
 }
+.container2 {
+
+
+
+}
 
 .chart-container23 {
-  position: relative;
+/*  position: relative;*/
   margin: auto;
-  height: 80vh;
-  width: 80vw;
+  height: 70vh;
+  width: 70vw;
+  left: -25px;
 }
 .test{
 
@@ -177,22 +183,22 @@ padding: 3px;
     {% if lang_bool %}
        <form  style=" float:left;"  action="/lengrth_2_gra" method = "POST">
 
-       <input  class= "myButton"  style= " float: lefth; padding: 16px; background-color: darkblue; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" (click)="changeButton(button)" value = "English" />
+       <input  class= "myButton"  style= " float: left; padding: 16px; background-color: darkblue; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" (click)="changeButton(button)" value = "English" />
        </form>
     {% else %}
     <form  style=" float:left;" action="/lengrth_2_gra" method = "POST">
 
-       <input class= "myButton"  style="float: lefth; padding: 16px; background-color: darkblue; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" (click)="changeButton(button)" value = "Русский" />
+       <input class= "myButton"  style="float: left; padding: 16px; background-color: darkblue; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" (click)="changeButton(button)" value = "Русский" />
     </form>
     {% endif %}
 
     {% if conect %}
 
-       <input  class= "myButton"  style= "  padding: 16px; background-color: green; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" value="{{punkt_menu[14]}}"   />
+       <input  class= "myButton"  style= "  float: left;padding: 16px; background-color: green; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" value="{{punkt_menu[14]}}"   />
     {% else %}
 
 
-       <input class= "myButton"  style=" padding: 16px; background-color: red; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" value="{{punkt_menu[15]}}" />
+       <input class= "myButton"  style="float: left; padding: 16px; background-color: red; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" value="{{punkt_menu[15]}}" />
     {% endif %}
 
 
@@ -272,6 +278,14 @@ padding: 3px;
 
         </div>
     </div>-->
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <center>
+    <!--<center>-->
     <div class="container-fluid">
 
         <div class="row">
@@ -290,7 +304,7 @@ padding: 3px;
             </div>
         </div>
     </div>-->
-<center>
+
 <!--  <div class="card">
       <div style="width:70px ; height:70 "class="card-body" >
           <canvas id="canvas"></canvas>
@@ -303,11 +317,12 @@ padding: 3px;
         <canvas id="canvas"></canvas>
       </div>
   </div>-->
- <div class="container" style="  position: relative; margin: auto; height: 90vh; width: 90vw;">
-      <div class="row" style="  position: relative; margin: auto; height: 90vh; width: 90vw;" >
-          <div class="col-12" style="  position: relative; margin: auto; height: 90vh; width: 90vw;">
-              <div class="card" style="  position: relative; margin: auto; height: 90vh; width: 90vw;">
-                  <div class="chart-container23" >
+  <!--<div class="container" style="  position: relative; margin: auto; height: 90vh; width: 90vw;">-->
+ <div class="container" style=" position: relative; left: -15px;    height: 90vh; width: 90vw;" >
+      <div class="row"   style="position: relative; left: -15px;   height: 90vh; width: 90vw;">
+          <div class="col-12"  style="position: relative; left: -15px;   height: 90vh; width: 90vw;">
+              <div class="card"  style="position: relative; left: -15px;   height: 90vh; width: 90vw;">
+                  <div class="chart-container23"  style="position: relative; left: -30px;   height: 90vh; width: 90vw;" >
                     <!--<canvas id="canvas" width="200" height="200"></canvas>-->
                       <canvas id="canvas"   ></canvas>
                   </div>
@@ -315,7 +330,9 @@ padding: 3px;
           </div>
       </div>
   </div>
+<!--</center>-->
 </center>
+<br>
 <br>
 <br>
 <br>
