@@ -73,9 +73,9 @@
 .chart-container23 {
 /*  position: relative;*/
   margin: auto;
-  height: 70vh;
-  width: 70vw;
-  left: -25px;
+  height: 80vh;
+  width: 80vw;
+  left: -30px;
 }
 .test{
 
@@ -146,7 +146,7 @@ changeButton(button) {
        }
 
 
-body {background-color: LightCyan;}
+body {background-color: #BBD4D4;}
 
 ul.spisok_ver1{
 margin: 3px;
@@ -183,22 +183,22 @@ padding: 3px;
     {% if lang_bool %}
        <form  style=" float:left;"  action="/lengrth_2_gra" method = "POST">
 
-       <input  class= "myButton"  style= " float: left; padding: 16px; background-color: darkblue; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" (click)="changeButton(button)" value = "English" />
+       <input  class= "myButton"  style= " position: fixed;top: 1px; left: 1px; float: left; padding: 16px; background-color: darkblue; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" (click)="changeButton(button)" value = "English" />
        </form>
     {% else %}
     <form  style=" float:left;" action="/lengrth_2_gra" method = "POST">
 
-       <input class= "myButton"  style="float: left; padding: 16px; background-color: darkblue; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" (click)="changeButton(button)" value = "Русский" />
+       <input class= "myButton"  style="position: fixed;top: 1px; left: 1px;  float: left; padding: 16px; background-color: darkblue; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" (click)="changeButton(button)" value = "Русский" />
     </form>
     {% endif %}
 
     {% if conect %}
 
-       <input  class= "myButton"  style= "  float: left;padding: 16px; background-color: green; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" value="{{punkt_menu[14]}}"   />
+       <input  class= "myButton"  style= " position: fixed;top: 1px; left: 78px;   float: left;padding: 16px; background-color: green; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" value="{{punkt_menu[14]}}"   />
     {% else %}
 
 
-       <input class= "myButton"  style="float: left; padding: 16px; background-color: red; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" value="{{punkt_menu[15]}}" />
+       <input class= "myButton"  style="position: fixed;top: 1px; left: 78px;  float: left; padding: 16px; background-color: red; color:aliceblue; border-radius: 4px;font-size: 12px" type = "submit" value="{{punkt_menu[15]}}" />
     {% endif %}
 
 
@@ -318,13 +318,13 @@ padding: 3px;
       </div>
   </div>-->
   <!--<div class="container" style="  position: relative; margin: auto; height: 90vh; width: 90vw;">-->
- <div class="container" style=" position: relative; left: -15px;    height: 90vh; width: 90vw;" >
-      <div class="row"   style="position: relative; left: -15px;   height: 90vh; width: 90vw;">
-          <div class="col-12"  style="position: relative; left: -15px;   height: 90vh; width: 90vw;">
-              <div class="card"  style="position: relative; left: -15px;   height: 90vh; width: 90vw;">
-                  <div class="chart-container23"  style="position: relative; left: -30px;   height: 90vh; width: 90vw;" >
+ <div class="container" style=" position: relative; left: -20px;    height: 90vh; width: 90vw;" >
+      <div class="row"   style="position: relative; left: -20px;   height: 90vh; width: 90vw;">
+          <div class="col-12"  style="position: relative; left: -20px;   height: 90vh; width: 90vw;">
+              <div class="card"  style="position: relative; left: -20px;   height: 90vh; width: 90vw;">
+                  <div class="chart-container23"   >
                     <!--<canvas id="canvas" width="200" height="200"></canvas>-->
-                      <canvas id="canvas"   ></canvas>
+                      <canvas id="canvas" style="  position: relative; left: -35px;   height: 90vh; width: 90vw;" ></canvas>
                   </div>
               </div>
           </div>

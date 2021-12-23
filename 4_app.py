@@ -3512,6 +3512,7 @@ def start():
 
 
             stopped_bufer =True
+            start_flagss=0
             #stopped_bufer_eps=True
 
             return redirect(url_for('gra'))
@@ -3539,6 +3540,7 @@ def start():
 
             start=time()*1000
             json_out={"state":{"run":start_flag}}
+            start_flagss=0
 
 
 
