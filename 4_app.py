@@ -4942,7 +4942,9 @@ def data(number):
 
 
                                     timer = str(datetime.fromisoformat(json_poputka['stats']['time'])) #random.randint(100,200000)
-                                    data=[timer,int(json_poputka['stats']['size']),int(json_poputka['stats']['vpercent']),(time_otvet)]
+                                    stringer=int(json_poputka['stats']['size'])
+                                    x1='{0:,}'.format(stringer).replace(',', ' ')
+                                    data=[timer[:-5],int(json_poputka['stats']['size']),int(json_poputka['stats']['vpercent']),(time_otvet)]
                                     global_data=data
                                     #data={'time':timer,'value':int(json_poputka['stats']['size'])}
                                     json_data = json.dumps(data)
@@ -5007,7 +5009,7 @@ def data(number):
 
 
                                 timer= str(datetime.fromisoformat(json_poputka['stats']['time'])) #random.randint(100,200000)
-                                data=[timer,int(json_poputka['stats']['size']),int(json_poputka['stats']['vpercent']),(time_otvet)]
+                                data=[timer[:-5],int(json_poputka['stats']['size']),int(json_poputka['stats']['vpercent']),(time_otvet)]
                                 global_data=data
                                 json_data = json.dumps(data)
 
