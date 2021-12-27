@@ -814,7 +814,7 @@ def izmen1() :
 @app.route('/izmen_scenari/new', methods=[ 'POST','GET'])
 def izmen_scenari():
     if request.method == 'POST' or request.method == 'GET':
-        global custom_bufer , error_flag_add_scenar ,error_flag_add_eps , stopped_msg_mac , stopped_bufer ,error_flag_add_scenar1
+        global custom_bufer , error_flag_add_scenar ,error_flag_add_eps , stopped_msg_mac , stopped_bufer ,error_flag_add_scenar1 , conect
         #global stopped_msg_mac
         stopped_bufer=False
         stopped_msg_mac=''
@@ -944,6 +944,9 @@ def izmen_scenari():
 
 
             except Exception as ex:
+                conect = False
+                return redirect(url_for('scenar_spis'))
+
                 return  render_template('first.html')
         else:
 
@@ -959,7 +962,7 @@ def izmen_scenari():
 @app.route('/izmen2', methods=[ 'POST','GET']) # добавить условие при  нуле custom
 def izmen2():
     if request.method == 'POST':
-        global stopped_msg_mac ,  stopped_bufer , error_flag_add_scenar ,error_flag_add_scenar1
+        global stopped_msg_mac ,  stopped_bufer , error_flag_add_scenar ,error_flag_add_scenar1 , conect
         stopped_bufer=False
         stopped_msg_mac=''
 
@@ -1154,6 +1157,8 @@ def izmen2():
                 else:
                     return redirect(url_for('LIST_EPS'))
             except Exception as ex:
+                conect=False
+                return redirect(url_for('LIST_EPS'))
                 return  render_template('first.html')
 
         if  flag_scenar == True and  flag_netw == True  :
@@ -1187,6 +1192,8 @@ def izmen2():
                 else:
                     return redirect(url_for('LIST_EPS'))
             except Exception as ex:
+                conect=False
+                return redirect(url_for('LIST_EPS'))
                 return  render_template('first.html')
         if  flag_scenar == True and  flag_netw == False  :
             json_out={
@@ -1228,6 +1235,8 @@ def izmen2():
                 else:
                     return redirect(url_for('LIST_EPS'))
             except Exception as ex:
+                conect=False
+                return redirect(url_for('LIST_EPS'))
                 return  render_template('first.html')
         if  flag_scenar == False and  flag_netw == True  :
             json_out={
@@ -1262,6 +1271,8 @@ def izmen2():
                 else:
                     return redirect(url_for('LIST_EPS'))
             except Exception as ex:
+                conect=False
+                return redirect(url_for('LIST_EPS'))
                 return  render_template('first.html')
 
         #network=request.form['network']
@@ -1377,7 +1388,7 @@ def eb_all_delete():
 
 @app.route('/eb_ALL/add', methods=[ 'POST'])
 def eb_all_add():
-    global  eps_br , spisok_scenariev , network_list , error_flag_add_eps , add_eps_buferss # вставить
+    global  eps_br , spisok_scenariev , network_list , error_flag_add_eps , add_eps_buferss , conect # вставить
 
     if request.method == 'POST' :
         global stopped_msg_mac ,  stopped_bufer
@@ -1758,6 +1769,8 @@ def eb_all_add():
                 return redirect(url_for('LIST_EPS'))
 
         except Exception as ex:
+            conect=False
+            return redirect(url_for('LIST_EPS'))
             return  render_template('first.html')
 
         #if js['response']['code'] == 0 :
@@ -1774,7 +1787,7 @@ def eb_add():
     if request.method == 'POST' :
 
         global  eps_br
-        global stopped_msg_mac ,  stopped_bufer
+        global stopped_msg_mac ,  stopped_bufer , conect
 
         new_id=len(eps_br)+1
         #if new_id == 0:
@@ -1827,6 +1840,8 @@ def eb_add():
                 else:
                     return redirect(url_for('LIST_EPS'))
             except Exception as ex:
+                conect=False
+                return redirect(url_for('LIST_EPS'))
                 return  render_template('first.html')
 
         #pass
@@ -2639,7 +2654,7 @@ def delete_pcap_scen(number):
 @app.route('/eps/scenar/delete/<int:number>', methods=[ 'POST'])
 def delete_scenar(number):
     if request.method == 'POST':
-        global stopped_bufer , stopped_msg_mac , spisok_scenariev , stopped_bufer_delete , stopped_bufer_delete
+        global stopped_bufer , stopped_msg_mac , spisok_scenariev , stopped_bufer_delete , stopped_bufer_delete , conect
 
         for it in eps_br:
             if it[1]['id'] == int(number) :
@@ -2709,6 +2724,8 @@ def delete_scenar(number):
                     return redirect(url_for('scenar_spis'))
 
             except Exception as ex:
+                conect=False
+                return redirect(url_for('scenar_spis'))
                 return  render_template('first.html')
         else:
             return redirect(url_for('scenar_spis'))
@@ -2718,7 +2735,7 @@ def delete_scenar(number):
 @app.route('/eps/network/delete/<int:number>', methods=[ 'POST'])
 def delete_network(number):
     if request.method == 'POST':
-        global stopped_bufer , stopped_msg_mac ,  network_list , stopped_bufer_delete
+        global stopped_bufer , stopped_msg_mac ,  network_list , stopped_bufer_delete , conect
         if number == 0:
             #global stopped_bufer , stopped_msg_mac ,  network_list
             stopped_bufer=False
@@ -2780,6 +2797,8 @@ def delete_network(number):
 
 
             except Exception as ex:
+                conect =False
+                return redirect(url_for('network_spis'))
                 return  render_template('first.html')
         else:
             return redirect(url_for('network_spis'))
@@ -2994,7 +3013,7 @@ def eps_scenar(number):
 @app.route('/network/add', methods=[ 'POST'])
 def network_add():
     if request.method == 'POST':
-        global network_list  , stopped_bufer , stopped_msg_mac , stopped_bufer_delete
+        global network_list  , stopped_bufer , stopped_msg_mac , stopped_bufer_delete , conect
         new_id=len(network_list)+1
         name =request.form['name']
         znach=[]
@@ -3077,6 +3096,8 @@ def network_add():
             else:
                 return redirect(url_for('network_spis'))
         except Exception as ex:
+            conect=False
+            return redirect(url_for('network_spis'))
             return  render_template('first.html')
 
         #print('scenar',spisok_scenariev[int_sceanar[0]-1])
@@ -3085,7 +3106,7 @@ def network_add():
         #pass
 @app.route('/izmen_network/new', methods=[ 'POST'])
 def network_change():
-    global  network_list , eps_network_buferss
+    global  network_list , eps_network_buferss ,conect
     if request.method == 'POST':
         eps_network_buferss=eps_network_buferss+1
 
@@ -3112,37 +3133,44 @@ def network_change():
 
         name=network_list[bufer_network][0]
         #if eps_network_buferss==1:
-        if id_change != 0 :
-            json_out={
-            "params":{
-            "network_scenario":[{
-            "id": id_change,
-            "name": name,
-            "jitter" :{
-            "timeup":timeup_jitter,
-            "timedown":timedown_jitter,
-            "value":value_jitter
-            },
-            "burst": {
-            "timeup":timeup_burst,
-            "timedown":timedown_burst
-            }
-            }]
-            }
-            }
-            rr=req.put(f'http://{udras}/params/network_scenario',json=(json_out))
+        try:
+            if id_change != 0 :
+                json_out={
+                "params":{
+                "network_scenario":[{
+                "id": id_change,
+                "name": name,
+                "jitter" :{
+                "timeup":timeup_jitter,
+                "timedown":timedown_jitter,
+                "value":value_jitter
+                },
+                "burst": {
+                "timeup":timeup_burst,
+                "timedown":timedown_burst
+                }
+                }]
+                }
+                }
+
+                rr=req.put(f'http://{udras}/params/network_scenario',json=(json_out))
 
 
-            js = json.loads(rr.text)
-            eps_network_buferss=0
+                js = json.loads(rr.text)
+                eps_network_buferss=0
 
-            if js['response']['code'] == 0 :
-                return redirect(url_for('network_spis'))
+                if js['response']['code'] == 0 :
+                    return redirect(url_for('network_spis'))
+                else:
+                    return redirect(url_for('network_spis'))
             else:
+                network_list[id_change]=['Custom',{'timedown': timedown_jitter, 'timeup': timeup_jitter, 'value': value_jitter},{'timedown': timedown_burst, 'timeup': timeup_burst},network_list[bufer_network][3]]
                 return redirect(url_for('network_spis'))
-        else:
-            network_list[id_change]=['Custom',{'timedown': timedown_jitter, 'timeup': timeup_jitter, 'value': value_jitter},{'timedown': timedown_burst, 'timeup': timeup_burst},network_list[bufer_network][3]]
+        except Exception as ex:
+            conect=False
             return redirect(url_for('network_spis'))
+
+            #pass
 
     #pass
 @app.route('/eps/network/<int:number>', methods=[ 'POST','GET'])
@@ -4212,7 +4240,7 @@ def change_eps():
 def scenar_add():
     """ add new scenario  """
     if request.method == 'POST' or request.method == 'GET':
-        global spisok_scenariev , stopped_bufer , stopped_msg_mac ,scenar_add , stopped_bufer_delete
+        global spisok_scenariev , stopped_bufer , stopped_msg_mac ,scenar_add , stopped_bufer_delete , conect
         scenar_add=scenar_add+1
         #print('\n spisok_scenariev=',spisok_scenariev)
         max=0
@@ -4284,6 +4312,8 @@ def scenar_add():
                 return redirect(url_for('scenar_spis'))
         except Exception as ex:
             scenar_add=0
+            conect=False
+            return redirect(url_for('scenar_spis'))
             return  render_template('first.html')
 
         #print('scenar',spisok_scenariev[int_sceanar[0]-1])
@@ -4981,8 +5011,9 @@ def data(number):
 
 
 
-                                #conect = False
-                                return  render_template('first.html')
+                                conect = False
+                                #return  render_template('first.html')
+                                #return  render_template('first.html')
                                     #else:
 
 
@@ -5023,11 +5054,12 @@ def data(number):
 
                                 return response
                         except Exception as ex:
-                            #conect = False
+                            conect = False
 
                             print('\n /data/number=',str(ex))
                             fe=str(ex)
                             data_flagss=0
+
 
 
                             if 'Internal Server Error' in fe:
