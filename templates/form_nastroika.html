@@ -523,7 +523,7 @@ function closeForm() {
            data: $('form').serialize(),
            type: 'POST',
            success: function(response) {
-    setInterval(getData, 3000);
+    //setInterval(getData, 3000);
            },
            error: function(error) {
              clearTimeout(getData) ;

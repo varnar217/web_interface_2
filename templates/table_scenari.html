@@ -269,7 +269,7 @@ width: 1000px;
              data: $('form').serialize(),
              type: 'POST',
              success: function(response) {
-      setInterval(getData, 3000);
+      //setInterval(getData, 3000);
              },
              error: function(error) {
                clearTimeout(getData) ;
@@ -340,7 +340,11 @@ width: 1000px;
 
 
    </table>
-<button class="open-button" onclick="openForm()">{{punkt_menu[9]}}</button>
+   {% if conect %}
+   <button class="open-button" onclick="openForm()">{{punkt_menu[9]}}</button>
+
+   {% else %}
+{% endif %}
 </center>
 
 <div class="form-popup" id="myForm">
@@ -373,7 +377,7 @@ width: 1000px;
 <script>
 function openForm() {
   document.getElementById("myForm").style.display = "block";
-
+   clearTimeout(getData) ;
   let x = document.getElementById('back_23');
       if (x.style.display == "none"){
     x.style.display = "block";

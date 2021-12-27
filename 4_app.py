@@ -30,6 +30,8 @@ json_data=[]
 jj=0
 global_data=[]
 spisok_scenariev=[]
+spisok_scenariev_bufer=[]
+index_iteratorr345=0
 start_flagss=0
 data_flagss=0
 izmen1_flagss=0
@@ -80,6 +82,7 @@ id_form23=-1
 eeror_flag=False
 data2_global=0
 custom_bufer=[]
+custom_bufer_old=[]
 MAC_SRC=''
 MAC_SRC_SORCE=[]
 MAC_SRC_INDEX=-1
@@ -157,16 +160,18 @@ def nachal():
         #app.config['SERVER_NAME'] = udras
 
         try:
-            global port_adres , error_flag , stopped_bufer ,start_flag1 , error_flag_add_eps , alive_flagss
-            global  eps_network_buferss , add_eps_buferss , eb_ALL_delete , scenar_add , data_flagss , start_flagss , error_flag_add_eps ,  error_flag_add_scenar , mac_flag_error , LIST_EPS_flagss , scenar_add
+            global port_adres , error_flag , stopped_bufer ,start_flag1 , error_flag_add_eps , alive_flagss , index_iteratorr345
+            global  eps_network_buferss , add_eps_buferss , eb_ALL_delete , scenar_add , data_flagss , start_flagss , error_flag_add_eps ,  error_flag_add_scenar , mac_flag_error , LIST_EPS_flagss , scenar_add , spisok_scenariev_bufer
 
             alive_flagss=0
+            index_iteratorr345=0
             eps_network_buferss=0
             add_eps_buferss=0
             eb_ALL_delete=0
             scenar_add=0
             data_flagss=0
             start_flagss=0
+            spisok_scenariev_bufer=[]
 
             error_flag_add_eps=False
             error_flag_add_scenar=False
@@ -638,12 +643,17 @@ def back_menu_1():
 @app.route('/back_2', methods=[ 'POST'])
 def back_list_1():
     if request.method == 'POST' :
-        global stopped_msg_mac , stopped_bufer , error_flag_add_scenar1 ,error_flag_add_scenar , stopped_bufer_delete
+        global stopped_msg_mac , stopped_bufer , error_flag_add_scenar1 ,error_flag_add_scenar , stopped_bufer_delete , custom_bufer , custom_bufer_old , spisok_scenariev , spisok_scenariev_bufer
         stopped_bufer=False
         stopped_msg_mac=''
         error_flag_add_scenar1=False
         error_flag_add_scenar=False
         stopped_bufer_delete=False
+        #custom_bufer=custom_bufer_old
+        if len(spisok_scenariev_bufer) !=0:
+            spisok_scenariev= copy.deepcopy(spisok_scenariev_bufer)
+        print('\n back_2= ',custom_bufer)
+        print('\n spisok_scenariev_bufer= ',spisok_scenariev_bufer)
 
         return redirect("/scenar")
 @app.route('/back_3', methods=[ 'POST'])
@@ -814,7 +824,7 @@ def izmen1() :
 @app.route('/izmen_scenari/new', methods=[ 'POST','GET'])
 def izmen_scenari():
     if request.method == 'POST' or request.method == 'GET':
-        global custom_bufer , error_flag_add_scenar ,error_flag_add_eps , stopped_msg_mac , stopped_bufer ,error_flag_add_scenar1 , conect
+        global custom_bufer , error_flag_add_scenar ,error_flag_add_eps , stopped_msg_mac , stopped_bufer ,error_flag_add_scenar1 , conect,spisok_scenariev_bufer
         #global stopped_msg_mac
         stopped_bufer=False
         stopped_msg_mac=''
@@ -910,9 +920,13 @@ def izmen_scenari():
 
         #print('\nspisok_sceanarieb=',spisok_scenariev[bufer][1])
         name=spisok_scenariev[bufer][1]
+
+
         if scen == 0:
             spisok_scenariev[bufer][2]=scenar_izmen   # delete
             custom_bufer=scenar_izmen
+            spisok_scenariev_bufer=copy.deepcopy(spisok_scenariev)
+            print('\n spisok_scenariev_bufer=',spisok_scenariev_bufer)
 
 
         if scen != 0:
@@ -949,6 +963,8 @@ def izmen_scenari():
 
                 return  render_template('first.html')
         else:
+            #if conect == False:
+                #return redirect(url_for('gra'))
 
             return redirect(url_for('scenar_spis'))
 
@@ -2311,8 +2327,9 @@ def eb_nastroit(number):
 @app.route('/eps_scenar/add_ALL', methods=[ 'POST'])
 def add_al2_pcap_scen():
     global  time_otvet , lang_switch , conect , start_flag
-    global stopped_msg_mac ,  stopped_bufer , error_flag_add_scenar
+    global stopped_msg_mac ,  stopped_bufer , error_flag_add_scenar , index_iteratorr345
     stopped_bufer=False
+    index_iteratorr345=index_iteratorr345+1
     #error_flag_add_scenar= False
             #if vr_summ >50000000 :
                 #number_idd
@@ -2345,7 +2362,9 @@ def add_al2_pcap_scen():
             scenar=request.form.getlist('scenar2') # pcap number
             scen=int(request.form['scenar_number'])
 
-            global spisok_scenariev
+            global spisok_scenariev , spisok_scenariev_bufer
+
+
 
             bufer=0
             g=0
@@ -2876,11 +2895,22 @@ def delete_eb(number):
 @app.route('/eps/scenar/<int:number>', methods=[ 'POST','GET'])
 def eps_scenar(number):
     """  customization of an individual scenario """
-    global lang_switch , conect , number_idd , regim_rabota_mode , indef_froma , stopped_msg_mac ,  stopped_bufer , stopped_bufer_delete
+    global lang_switch , conect , number_idd , regim_rabota_mode , indef_froma , stopped_msg_mac ,  stopped_bufer , stopped_bufer_delete , spisok_scenariev_bufer ,  spisok_scenariev , index_iteratorr345
     number_idd=number
+    if number == 0:
+        if index_iteratorr345 ==0 :
+            #print('\n rab index_iteratorr345')
+            #bufer=spisok_scenariev
+            spisok_scenariev_bufer=copy.deepcopy(spisok_scenariev)
+        index_iteratorr345=index_iteratorr345+1
+        print('\n \n eps spisok_scenariev_bufer=',spisok_scenariev_bufer)
+        print('\n \n eps index_iteratorr345=',index_iteratorr345)
+
     indef_froma=6
     #if stopped_bufer ==True:
         #return redirect(url_for('gra'))
+    if conect == False:
+        return redirect(url_for('gra'))
     punkt_menu=[]
 
     punkt_menu_nach=[[bufer_menu_ALL_form_eng[4][0],bufer_menu_ALL_form_eng[4][1] ,bufer_menu_ALL_form_eng[4][2],bufer_menu_ALL_form_eng[4][3],bufer_menu_ALL_form_eng[4][4]
@@ -4322,10 +4352,12 @@ def scenar_add():
 @app.route('/scenar', methods=['GET', 'POST'])
 def scenar_spis():
     """ value scripting"""
-    global lang_switch , conect ,custom_bufer ,regim_rabota_mode , indef_froma ,stopped_msg_mac , stopped_bufer ,error_flag ,  error_flag_add_scenar , stopped_bufer_delete
+    global lang_switch , conect ,custom_bufer ,regim_rabota_mode , indef_froma ,stopped_msg_mac , stopped_bufer ,error_flag ,  error_flag_add_scenar , stopped_bufer_delete ,index_iteratorr345
     indef_froma=4
     error_flag=False
     error_flag_add_scenar=False
+    index_iteratorr345=0
+
     #stopped_bufer_delete=False
 
 
@@ -4386,8 +4418,10 @@ def scenar_spis():
         #if stopped_bufer ==True:
             #return redirect(url_for('gra'))
 
+
         try:
-            global spisok_scenariev , time_otvet ,custom
+            global spisok_scenariev , time_otvet ,custom , custom_bufer_old  , spisok_scenariev_bufer
+            #spisok_scenariev_bufer=spisok_scenariev
 
             spisok_outt=[]
             #spisok_scenariev=[]
@@ -4406,33 +4440,58 @@ def scenar_spis():
             bufer=[]
             bufer2=[]
             print('json=',json_poputka)
-            #print('spisok_scenariev=',spisok_scenariev)
+            print('do spisok_scenariev=',spisok_scenariev)
+            tert_nachalo=copy.deepcopy(spisok_scenariev[0])
 
 
             if json_poputka['response']['code'] == 0 :
                 g=0
                 if json_poputka['params']['user_scenario'] !=[]:
+                    print('\n 1 ')
                     spisok_scenariev=[]
                     if  len(spisok_scenariev)>1:
+                        print('\n 1 1 ')
                         nachalo=spisok_scenariev[0]
                         bufer2.append(nachalo[0])
                         bufer2.append(nachalo[1])
 
 
                     else:
+                        print('\n 1 2 ') # суда
                         #bufer=[]
                         bufer.append(0)
                         bufer.append('Custom')
                         bufer2.append(0)
                         bufer2.append('Custom')
+                        print('\n custom_bufer=',custom_bufer)
                         if len(custom_bufer) == 0:
 
+                            print('\n 1 3 ') # суда
+                            print('spisok_scenariev=',spisok_scenariev)
+                            print('spisok_scenariev_bufer=',spisok_scenariev_bufer)
+
                             bufe_pcap=[]
-                            for i in json_poputka['params']['user_scenario'][0]['pcap_id']:
+                            #tert=spisok_scenariev[0]
+                            #for i in tert[2]:
+                                #print('\n i=',i)
+                                #bufe_pcap.append(i)
+                            #bufer.append(bufe_pcap)
+
+                            #for i in json_poputka['params']['user_scenario'][0]['pcap_id']:
+                                #bufe_pcap.append(i)
+                            #bufer.append(bufe_pcap)
+                            for i in tert_nachalo[2]:
                                 bufe_pcap.append(i)
                             bufer.append(bufe_pcap)
+                            #bufe_pcap=[]
+
+                            #for i in spisok_scenariev_bufer[0][2]:
+                                #bufe_pcap.append(i)
+                            #bufer.append(bufe_pcap)
                         else:
+                            print('\n 1 4 ')
                             bufe_pcap=[]
+                            #custom_bufer_old=custom_bufer
 
                             bufer.append(custom_bufer)
 
@@ -4441,14 +4500,17 @@ def scenar_spis():
                         #print('\n \n 2nachalo=',nachalo)
                         spisok_scenariev.append(nachalo)
                 else:
+                    print('\n 1 5 ')
+
                     nachalo=spisok_scenariev[0]
 
                     #print('rabotaet=',nachalo)
                     bufer2.append(nachalo[0])
                     bufer2.append(nachalo[1])
 
-                #print('\n \n spisok_outt=',spisok_outt)
-                #print('\n \n spisok_scenariev=',spisok_scenariev)
+                print('\n \n spisok_outt=',spisok_outt)
+                print('\n \n spisok_scenariev=',spisok_scenariev)
+                print('\n \n custom_bufer_old=',custom_bufer_old)
 
                 spisok_outt.append(bufer2)
                 if json_poputka['params']['user_scenario'] !=[]:
