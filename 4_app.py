@@ -625,30 +625,36 @@ def lengrth_form() :
 def back_menu() :
 
     if request.method == 'POST' :
-        global stopped_msg_mac , stopped_bufer
+        global stopped_msg_mac , stopped_bufer , conect
         stopped_bufer=False
         stopped_msg_mac=''
+        if conect ==False:
+            return redirect(url_for('gra'))
         return redirect(url_for("gra"))
 @app.route('/back_1', methods=[ 'POST'])
 def back_menu_1():
 
     if request.method == 'POST' :
-        global stopped_msg_mac , stopped_bufer ,add_eps_buferss , stopped_bufer_delete , stopped_bufer_eps
+        global stopped_msg_mac , stopped_bufer ,add_eps_buferss , stopped_bufer_delete , stopped_bufer_eps , conect
         stopped_bufer=False
         stopped_msg_mac=''
         stopped_bufer_delete=False
         stopped_bufer_eps=False
+        if conect ==False:
+            return redirect(url_for('gra'))
         if add_eps_buferss == 0 and eb_ALL_delete == 0:
             return redirect(url_for("gra"))
 @app.route('/back_2', methods=[ 'POST'])
 def back_list_1():
     if request.method == 'POST' :
-        global stopped_msg_mac , stopped_bufer , error_flag_add_scenar1 ,error_flag_add_scenar , stopped_bufer_delete , custom_bufer , custom_bufer_old , spisok_scenariev , spisok_scenariev_bufer
+        global stopped_msg_mac , stopped_bufer , error_flag_add_scenar1 ,error_flag_add_scenar , stopped_bufer_delete , custom_bufer , custom_bufer_old , spisok_scenariev , spisok_scenariev_bufer , conect
         stopped_bufer=False
         stopped_msg_mac=''
         error_flag_add_scenar1=False
         error_flag_add_scenar=False
         stopped_bufer_delete=False
+        if conect ==False:
+            return redirect(url_for('gra'))
         #custom_bufer=custom_bufer_old
         if len(spisok_scenariev_bufer) !=0:
             spisok_scenariev= copy.deepcopy(spisok_scenariev_bufer)
@@ -659,21 +665,25 @@ def back_list_1():
 @app.route('/back_3', methods=[ 'POST'])
 def back_list_2() :
     if request.method == 'POST' :
-        global stopped_msg_mac , stopped_bufer , stopped_bufer_delete
+        global stopped_msg_mac , stopped_bufer , stopped_bufer_delete , conect
         stopped_bufer=False
         stopped_msg_mac=''
         stopped_bufer_delete=False
+        if conect ==False:
+            return redirect(url_for('gra'))
         return redirect("/scenar_network")
 @app.route('/back_4', methods=[ 'POST'])
 def back_list_4() :
     if request.method == 'POST':
-        global stopped_msg_mac , stopped_bufer , error_flag_add_eps ,  error_flag_add_scenar , error_flag_add_scenar1 , stopped_bufer_delete
+        global stopped_msg_mac , stopped_bufer , error_flag_add_eps ,  error_flag_add_scenar , error_flag_add_scenar1 , stopped_bufer_delete , conect
         stopped_bufer=False
         error_flag_add_eps=False
         error_flag_add_scenar=False
         error_flag_add_scenar1=False
         stopped_bufer_delete=False
         stopped_msg_mac=''
+        if conect ==False:
+            return redirect(url_for('gra'))
         return redirect(url_for('LIST_EPS'))
 @app.route('/izmen1', methods=[ 'POST'])
 def izmen1() :
@@ -1174,6 +1184,7 @@ def izmen2():
                     return redirect(url_for('LIST_EPS'))
             except Exception as ex:
                 conect=False
+                return redirect(url_for('gra'))
                 return redirect(url_for('LIST_EPS'))
                 return  render_template('first.html')
 
@@ -1209,6 +1220,8 @@ def izmen2():
                     return redirect(url_for('LIST_EPS'))
             except Exception as ex:
                 conect=False
+                return redirect(url_for('gra'))
+
                 return redirect(url_for('LIST_EPS'))
                 return  render_template('first.html')
         if  flag_scenar == True and  flag_netw == False  :
@@ -1252,6 +1265,7 @@ def izmen2():
                     return redirect(url_for('LIST_EPS'))
             except Exception as ex:
                 conect=False
+                return redirect(url_for('gra'))
                 return redirect(url_for('LIST_EPS'))
                 return  render_template('first.html')
         if  flag_scenar == False and  flag_netw == True  :
@@ -1288,6 +1302,8 @@ def izmen2():
                     return redirect(url_for('LIST_EPS'))
             except Exception as ex:
                 conect=False
+                return redirect(url_for('gra'))
+
                 return redirect(url_for('LIST_EPS'))
                 return  render_template('first.html')
 
@@ -1303,7 +1319,7 @@ def izmen2():
 @app.route('/eb_ALL/delete', methods=[ 'POST'])
 def eb_all_delete():
     """ delete all EPS-BIAR """
-    global  eps_br , spisok_scenariev , network_list , stopped_msg_mac ,  stopped_bufer , eb_ALL_delete , stopped_bufer_delete
+    global  eps_br , spisok_scenariev , network_list , stopped_msg_mac ,  stopped_bufer , eb_ALL_delete , stopped_bufer_delete ,  conect
 
 
 
@@ -1392,6 +1408,9 @@ def eb_all_delete():
 
         except Exception as ex:
             eb_ALL_delete=0
+            conect=False
+            return redirect(url_for('gra'))
+
             return redirect(url_for('LIST_EPS'))
 
 
@@ -1786,6 +1805,7 @@ def eb_all_add():
 
         except Exception as ex:
             conect=False
+            return redirect(url_for('gra'))
             return redirect(url_for('LIST_EPS'))
             return  render_template('first.html')
 
@@ -1857,6 +1877,7 @@ def eb_add():
                     return redirect(url_for('LIST_EPS'))
             except Exception as ex:
                 conect=False
+                return redirect(url_for('gra'))
                 return redirect(url_for('LIST_EPS'))
                 return  render_template('first.html')
 
@@ -2744,6 +2765,7 @@ def delete_scenar(number):
 
             except Exception as ex:
                 conect=False
+                return redirect(url_for('gra'))
                 return redirect(url_for('scenar_spis'))
                 return  render_template('first.html')
         else:
@@ -2817,6 +2839,7 @@ def delete_network(number):
 
             except Exception as ex:
                 conect =False
+                return redirect(url_for('gra'))
                 return redirect(url_for('network_spis'))
                 return  render_template('first.html')
         else:
@@ -2827,7 +2850,7 @@ def delete_network(number):
 @app.route('/eb/delete/<int:number>', methods=[ 'POST','GET'])
 def delete_eb(number):
     if request.method == 'POST' or request.method == 'GET' :
-        global stopped_bufer , stopped_msg_mac , eps_br , error_flag_add_scenar , error_flag_add_scenar1 ,error_flag_add_eps , stopped_bufer_delete
+        global stopped_bufer , stopped_msg_mac , eps_br , error_flag_add_scenar , error_flag_add_scenar1 ,error_flag_add_eps , stopped_bufer_delete , conect
 
 
         #if len(eps_br)>1 :
@@ -2882,6 +2905,8 @@ def delete_eb(number):
                 return redirect(url_for('LIST_EPS'))
 
         except Exception as ex:
+            conect =False
+            return redirect(url_for('gra'))
             return  redirect(url_for('LIST_EPS'))
         #else:
             #return redirect(url_for('LIST_EPS'))
@@ -3127,6 +3152,7 @@ def network_add():
                 return redirect(url_for('network_spis'))
         except Exception as ex:
             conect=False
+            return redirect(url_for('gra'))
             return redirect(url_for('network_spis'))
             return  render_template('first.html')
 
@@ -3198,6 +3224,7 @@ def network_change():
                 return redirect(url_for('network_spis'))
         except Exception as ex:
             conect=False
+            return redirect(url_for('gra'))
             return redirect(url_for('network_spis'))
 
             #pass
@@ -3208,6 +3235,8 @@ def eps_network(number):
     global lang_switch , conect , number_idd ,regim_rabota_mode  , eps_network_buferss , stopped_bufer ,stopped_bufer , stopped_bufer_delete
     number_idd=number
     stopped_bufer_delete=False
+    if conect ==False:
+        return redirect(url_for('gra'))
 
     punkt_menu=[]
     punkt_menu_nach=[[bufer_menu_ALL_form_eng[8][0],bufer_menu_ALL_form_eng[8][1],bufer_menu_ALL_form_eng[8][2],bufer_menu_ALL_form_eng[8][3]
@@ -3538,6 +3567,7 @@ def LIST_EPS():
             buferr=[]
             scenar_lister=[]
             conect = False
+            return redirect(url_for('gra'))
             start_flag=False
             max=200
             min=0
@@ -3954,7 +3984,7 @@ def Menu():
 
 @app.route('/change_eps', methods=['GET', 'POST'])
 def change_eps():
-    global eps_br  ,    spisok_scenariev ,  network_list , stopped_msg_mac ,  stopped_bufer , conect , error_flag_add_eps
+    global eps_br  ,    spisok_scenariev ,  network_list , stopped_msg_mac ,  stopped_bufer , conect , error_flag_add_eps , conect
     if request.method == 'POST' or request.method == 'GET':
         eps_biar_graph = (request.get_data()).decode('utf-8')
         #network = request.form['network']
@@ -4254,6 +4284,7 @@ def change_eps():
         except Exception as ex:
             conect=False
 
+            return redirect(url_for('gra'))
             return redirect(url_for('LIST_EPS'))
 
 
@@ -4343,6 +4374,7 @@ def scenar_add():
         except Exception as ex:
             scenar_add=0
             conect=False
+            return redirect(url_for('gra'))
             return redirect(url_for('scenar_spis'))
             return  render_template('first.html')
 
@@ -4559,6 +4591,9 @@ def scenar_spis():
             time_otvet=0
             start_flag=False
             conect=False
+            return redirect(url_for('gra'))
+
+
             if start_flag1%2 == 0:
                 start_flag=True
             else:
@@ -4731,8 +4766,10 @@ def network_spis():
 
         except Exception as ex:
             conect=False
+
             iter_nacha=[1]
             start_flag=False
+            return redirect(url_for('gra'))
 
             return  render_template('table_network.html',punkt_menu = punkt_menu , conect = conect , lang_bool = lang_bool ,
             iter_nacha = iter_nacha , spisok_outt = spisok_outt , eps_spis = eps_spis ,
@@ -5140,7 +5177,7 @@ def data(number):
             except Exception as ex:
                     print('\n dert ConnectionError')
 
-                    conect=False
+
                     start_flag1=0
                     data2=[("Not"),0]
                     #json_data=data
