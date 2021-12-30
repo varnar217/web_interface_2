@@ -688,23 +688,20 @@ def back_list_4() :
 @app.route('/izmen1', methods=[ 'POST'])
 def izmen1() :
     """change menu GTO """
-    global GTP_FLAG , ipsrc , ipdst , minteid , maxteid , global_pcath_size , regim_rabota_mode , global_velocity , global_spis , MAC_SRC ,  MAC_DST ,mac_flag_error , stopped_bufer ,bufer_menu_change_MAC_SRC ,error_flag , stopped_bufer_delete
+    global GTP_FLAG , ipsrc , ipdst , minteid , maxteid , global_pcath_size , regim_rabota_mode , global_velocity , global_spis , MAC_SRC ,  MAC_DST ,mac_flag_error , stopped_bufer ,bufer_menu_change_MAC_SRC ,error_flag
     #=''
     #=''
-
 
     #zagolovok=[global_velocity,znach,ipsrc,ipdst,minteid,maxteid,global_spis,global_pcath_size,global_number_eps]
 
 
 
     if request.method == 'POST':
-        stopped_bufer_delete=False
         regim = request.form['user_regim']
         regim_rabota_mode = int(request.form['user_regim'])
-        global stopped_msg_mac , izmen1_flagss
+        global stopped_msg_mac
         stopped_bufer=False
         stopped_msg_mac=''
-        izmen1_flagss=izmen1_flagss+1
 
         if  regim_rabota_mode ==1:
             stopped_bufer= False
@@ -741,6 +738,7 @@ def izmen1() :
         if  len(MAC_DST_bufer.split(':')) != 6 :
             mac_flag_error= True
             stopped_bufer= False
+            print()
             #print('\n lenter=',len(MAC_DST_bufer.split(':')))
             #print('\n MAC_DST_bufer=',MAC_DST_bufer)
             #stopped_bufer= False
@@ -803,31 +801,31 @@ def izmen1() :
             #print('json_2=',json_out)
             #req.put
             #print('json_out=',json_out)
-            if izmen1_flagss==1:
+            rr=req.put(f'http://{udras}/params/common',json=(json_out))
 
-                rr=req.put(f'http://{udras}/params/common',json=(json_out))
+            bufer_menu_change_MAC_SRC=0
+            #print('rr=',rr.text)
+            buferr=rr.text
 
+            js = json.loads(buferr)
+            #print('\n js=',js)
+            global pcap_cortg
+            mac_flag_error= False
+            if js['response']['code'] == 0 :
+                global_velocity = int(js['params']['br'])
 
-                bufer_menu_change_MAC_SRC=0
-                #print('rr=',rr.text)
-                buferr=rr.text
+                return redirect(url_for('gra'))
+            else:
+                global_velocity = int(js['params']['br'])
 
-                js = json.loads(buferr)
-                izmen1_flagss=0
-                #print('\n js=',js)
-                global pcap_cortg
-                mac_flag_error= False
-                if js['response']['code'] == 0 :
-                    global_velocity = int(js['params']['br'])
+                return redirect(url_for("gra"))
+        except req.ConnectionError as ex:
+            conect=False
+            return  redirect(url_for("gra"))
 
-                    return redirect(url_for('gra'))
-                else:
-                    global_velocity = int(js['params']['br'])
-
-                    return redirect(url_for("gra"))
 
         except Exception as ex:
-            return  redirect(url_for("Menu"))
+            return  redirect(url_for("gra"))
 
 
 
@@ -3968,7 +3966,7 @@ def Menu():
     else:
         start_flag=False
     print('spisk=',spisk)
-    print('MAC_SRC_SORCE=',MAC_SRC_SORCE)
+    print('MAC_SRC_SORCE=',mac_flag_error)
     print('\n stopped_bufer=',stopped_bufer)
 
     print('\n stopped_bufer=',stopped_bufer)

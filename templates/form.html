@@ -81,6 +81,22 @@ width: 1200px;
     <script  src="{{ url_for('static', filename='libs/chart.js') }}"></script>
       <script  src="{{ url_for('static', filename='libs/Chart.js') }}"></script>
 
+      {% if mac_flag_error %}
+      <body onload="demoA()">
+       <div id="welcome"></div>
+      </body>
+
+       <script language="JavaScript">
+
+
+       function demoA () { document.getElementById('welcome');
+       alert("{{punkt_menu[13]}}"); }
+
+
+       </script>
+
+      {% endif%}
+
 {% if stopped_bufer== (True) %}
 
 
@@ -228,21 +244,7 @@ var requests = $.get(joined);
 
 
 
-{% if mac_flag_error %}
-<body onload="demoA()">
- <div id="welcome"></div>
-</body>
 
- <script language="JavaScript">
-
-
- function demoA () { document.getElementById('welcome');
- alert("{{punkt_menu[13]}}"); }
-
-
- </script>
-
-{% endif%}
 
   <form  name="form1" method="POST" action='/back'>
 
@@ -312,7 +314,7 @@ var requests = $.get(joined);
 
 	  <tr>
 		  <td><label for="MAC_adres_naz">{{punkt_menu[12]}}</label></td>
-		  <td><input  id="adres_naz" name="MAC_adres_naz"  value="{{MAC_DST}}" required ></td>
+		  <td><input  id="MAC_adres_naz" name="MAC_adres_naz"  value="{{MAC_DST}}" required ></td>
 	  </tr>
 
     <tr>
